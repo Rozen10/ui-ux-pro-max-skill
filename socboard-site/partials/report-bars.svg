@@ -14,4 +14,4 @@
                 <rect class="bar bar--now" style="--i:5" x="278.8" y="48.6" width="20" height="73.4"/>
                 <text class="axis" x="288.8" y="138" text-anchor="middle">OCT.</text>
                 <circle class="marker" cx="288.8" cy="48.6" r="4"/>
-                <g class="tip"><rect x="170.8" y="42.6" width="96" height="36"/><text class="tip-sub" x="180.8" y="56.6">OCTOBRE</text><text x="180.8" y="71.6">Indice <tspan class="tip-val">68</tspan></text></g>
+                <g class="tip"><rect x="170.8" y="8.6" width="96" height="36"/><text class="tip-sub" x="180.8" y="22.6">OCTOBRE</text><text x="180.8" y="37.6">Indice <tspan class="tip-val">68</tspan></text></g>

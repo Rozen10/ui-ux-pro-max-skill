@@ -115,7 +115,7 @@
     var ctx = canvas.getContext("2d");
     var W = 0, H = 0, dpr = 1, running = false, visible = true, t0 = performance.now();
     var styles = getComputedStyle(doc);
-    var signal = (styles.getPropertyValue("--signal") || "#7cc8ff").trim();
+    var signal = "#2997ff";
 
     var resize = function () {
       var r = canvas.getBoundingClientRect();
@@ -141,7 +141,7 @@
       ctx.clearRect(0, 0, W, H);
 
       // Ligne de base, très discrète
-      ctx.strokeStyle = "rgba(156,182,220,0.10)";
+      ctx.strokeStyle = "rgba(245,245,247,0.08)";
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(0, mid + 0.5);
@@ -160,10 +160,10 @@
           if (first) { ctx.moveTo(x, y); first = false; } else ctx.lineTo(x, y);
         }
         var grad = ctx.createLinearGradient(0, 0, xEnd, 0);
-        grad.addColorStop(0, "rgba(124,200,255,0)");
-        grad.addColorStop(0.08, "rgba(124,200,255," + alpha + ")");
-        grad.addColorStop(start / (end + 0.02), "rgba(124,200,255," + alpha + ")");
-        grad.addColorStop(1, "rgba(124,200,255,0)");
+        grad.addColorStop(0, "rgba(245,245,247,0)");
+        grad.addColorStop(0.08, "rgba(245,245,247," + alpha + ")");
+        grad.addColorStop(start / (end + 0.02), "rgba(245,245,247," + alpha + ")");
+        grad.addColorStop(1, "rgba(41,151,255,0)");
         ctx.strokeStyle = grad;
         ctx.lineWidth = width;
         ctx.lineJoin = "round";
@@ -189,7 +189,7 @@
         var h = Math.max(2, amp * (0.06 + 0.8 * q) * kk);
         var fadeR = 1 - smoothstep(W * 0.9, W, bx);
         var a = (0.18 + 0.72 * q) * kk * fadeR;
-        ctx.fillStyle = "rgba(124,200,255," + a.toFixed(3) + ")";
+        ctx.fillStyle = "rgba(41,151,255," + a.toFixed(3) + ")";
         ctx.fillRect(bx - 1, mid - h, 2, h * 1.35);
         // point « paquet » au-dessus des barres significatives
         if (q >= 0.5 && kk > 0.6) {
@@ -348,6 +348,25 @@
       });
     });
   });
+
+  /* ---------- Rapport qui grandit au scroll ---------- */
+  var scaled = document.querySelectorAll("[data-scale]");
+  if (scaled.length && !reduceMotion.matches) {
+    var sTick = false;
+    var sUpdate = function () {
+      sTick = false;
+      var vh = window.innerHeight;
+      scaled.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        var p = clamp((vh - r.top) / (vh * 0.75), 0, 1);
+        el.style.setProperty("--s", (0.88 + 0.12 * (1 - Math.pow(1 - p, 3))).toFixed(4));
+      });
+    };
+    var sReq = function () { if (!sTick) { sTick = true; requestAnimationFrame(sUpdate); } };
+    window.addEventListener("scroll", sReq, { passive: true });
+    window.addEventListener("resize", sReq);
+    sUpdate();
+  }
 
   /* ---------- Scan de l'empreinte numérique ---------- */
   var scan = document.querySelector("[data-scan]");

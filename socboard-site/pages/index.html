@@ -2,20 +2,20 @@
 title: SOCBoard · Analyse de cybersécurité mensuelle pour cabinets comptables et d’avocats
 description: Chaque mois, un expert analyse la sécurité de votre cabinet et vous remet un rapport clair : niveau de risque, priorités, actions. Commencez par un Diagnostic à 690 €.
 -->
-<section class="hero grid-lines" aria-labelledby="hero-title">
-  <canvas class="hero__fluid" data-fluid aria-hidden="true"></canvas>
+<section class="hero" aria-labelledby="hero-title">
   <div class="wrap hero__grid">
+    <p class="eyebrow" data-intro style="--d:.05s">Cybersécurité mensuelle pour cabinets comptables et d’avocats</p>
     <h1 class="display" id="hero-title">
-      <span class="line"><span style="--d:.15s">On ne soigne pas</span></span>
-      <em class="line"><span style="--d:.3s">sans ausculter<span class="dot">.</span></span></em>
+      <span class="line"><span style="--d:.15s">Auscultez.</span></span>
+      <em class="line"><span style="--d:.3s">Avant de soigner<span class="dot">.</span></span></em>
     </h1>
-    <p class="mono-lead" data-intro style="--d:.55s">Analyse de cybersécurité mensuelle, <b>validée par un expert</b>, pour les cabinets d’expertise comptable et d’avocats.</p>
+    <p class="mono-lead" data-intro style="--d:.55s">Chaque mois, un expert analyse la sécurité de votre cabinet. <b>Vous recevez un rapport clair et trois priorités.</b></p>
     <div class="hero__ctas" data-intro style="--d:.7s">
       <a class="btn btn--primary" href="contact.html">Demander un Diagnostic <span class="btn__meta">690 €</span></a>
-      <a class="btn" href="#rapport">Voir un rapport {{arrow}}</a>
+      <a class="link-arrow" href="#rapport">Voir un rapport</a>
     </div>
   </div>
-  <div class="wrap hero__foot" data-intro style="--d:.9s">
+  <div class="wrap wrap--wide hero__foot" data-intro style="--d:.85s">
     <div class="signal-band">
       <canvas data-signal aria-hidden="true"></canvas>
       <div class="signal-band__labels" aria-hidden="true"><span>Auscultation</span><span>Mesure</span><span>Diagnostic</span></div>
@@ -29,58 +29,20 @@ description: Chaque mois, un expert analyse la sécurité de votre cabinet et vo
   <div data-cta-sentinel></div>
 </section>
 
-<section class="section manifesto grid-lines" aria-labelledby="manifeste-title" data-manifesto>
-  <div class="wrap">
-    <div class="manifesto__top">
-      <p class="eyebrow" id="manifeste-title">Manifeste</p>
-      <ol class="manifesto__keys" aria-hidden="true">
-        <li data-key="0">Ausculter</li><li data-key="1">Mesurer</li><li data-key="2">Prioriser</li><li data-key="3">Suivre</li>
-      </ol>
-    </div>
-    <p class="manifesto__text" data-words>La sécurité d’un cabinet ne se devine pas. Elle s’[[ausculte|0]], se [[mesure|1]], se [[priorise|2]] et se [[suit|3]]. Chaque mois, un expert transforme des signaux dispersés en trois décisions claires pour les associés.</p>
-  </div>
-</section>
-
-<section class="section scan" data-scan aria-labelledby="scan-title">
-  <div class="wrap">
-    <div class="scan__track">
-      <div class="scan__sticky">
-        <div class="scan__copy">
-          <p class="eyebrow">L’auscultation</p>
-          <h2 class="h2" id="scan-title">Votre cabinet laisse une empreinte numérique. <em>Nous la lisons.</em></h2>
-          <p class="lead">Messagerie, accès à distance, identifiants des collaborateurs, Microsoft&nbsp;365&nbsp;: nous examinons ce qu’un attaquant verrait de l’extérieur, puis nous vous disons simplement ce qui mérite votre attention.</p>
-          <p class="scan__status" aria-live="polite"><span>Points examinés <b class="num" data-scan-count>0/8</b></span><span class="found">Points faibles <b class="num" data-scan-found>0</b></span></p>
-          <p class="scan__note">Exemple illustratif, sur un cabinet fictif.</p>
-        </div>
-        <div class="scan__field" role="list" aria-label="Empreinte numérique d’un cabinet (exemple)">
-          <div class="scan__line" aria-hidden="true"></div>
-          <div class="node" role="listitem"><p class="node__name">Messagerie du cabinet <span class="node__state">Examiné</span></p></div>
-          <div class="node is-weak" role="listitem"><p class="node__name">Usurpation d’adresse <span class="node__state">À corriger</span></p><p class="node__finding">Aucune politique DMARC&nbsp;: un tiers peut envoyer un e-mail «&nbsp;de la part&nbsp;» du cabinet à vos clients.</p></div>
-          <div class="node" role="listitem"><p class="node__name">Microsoft 365 <span class="node__state">Examiné</span></p></div>
-          <div class="node is-weak" role="listitem"><p class="node__name">Identifiants exposés <span class="node__state">À corriger</span></p><p class="node__finding">2 mots de passe professionnels retrouvés dans une fuite de données publique.</p></div>
-          <div class="node" role="listitem"><p class="node__name">Site web et domaine <span class="node__state">Examiné</span></p></div>
-          <div class="node" role="listitem"><p class="node__name">Postes de travail <span class="node__state">Examiné</span></p></div>
-          <div class="node is-weak" role="listitem"><p class="node__name">Accès à distance <span class="node__state">À corriger</span></p><p class="node__finding">Un bureau à distance ouvert sur Internet, sans double authentification.</p></div>
-          <div class="node" role="listitem"><p class="node__name">Partage des dossiers clients <span class="node__state">Examiné</span></p></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--light" id="rapport" aria-labelledby="rapport-title">
+<section class="section section--gray" id="rapport" aria-labelledby="rapport-title">
   <div class="wrap">
     <div class="section-head section-head--center" data-reveal>
-      <p class="eyebrow">Ce que vous recevez</p>
-      <h2 class="h2" id="rapport-title">Un rapport par mois, <em>lisible en cinq minutes.</em></h2>
-      <p class="lead">Conçu pour un associé, pas pour un informaticien&nbsp;: un indice, un niveau de risque, l’évolution depuis le mois dernier, et ce qu’il faut faire ensuite.</p>
+      <p class="eyebrow">Le rapport SOCBoard</p>
+      <h2 class="h2" id="rapport-title">Tout votre cabinet. <em>Un seul chiffre.</em></h2>
+      <p class="lead">Un indice sur 100, un niveau de risque, l’évolution depuis le mois dernier et les trois actions qui comptent. Lisible en cinq minutes, par un associé.</p>
     </div>
-
-    <div class="report-stage" data-reveal>
+  </div>
+  <div class="wrap wrap--wide">
+    <div class="report-stage" data-scale>
       <article class="report" aria-label="Exemple de rapport mensuel SOCBoard">
         <header class="report__bar">
           <div class="report__title">
-            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 17h6l2.2-5 3.4 11 2.6-8 1.6 2H27" fill="none" stroke="#7cc8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 17h6l2.2-5 3.4 11 2.6-8 1.6 2H27" fill="none" stroke="#2997ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Rapport mensuel · Cabinet Martin &amp; Associés
           </div>
           <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
@@ -120,174 +82,201 @@ description: Chaque mois, un expert analyse la sécurité de votre cabinet et vo
         <footer class="report__foot">
           <div class="validated">
             <svg class="sig" viewBox="0 0 96 30" aria-hidden="true"><path d="M4 22c6-10 10-16 13-15s-3 16 1 15 7-14 11-13-2 12 2 12 6-9 10-9 1 8 5 8 8-10 12-10 3 6 7 6 9-4 14-6"/></svg>
-            <span>Analyse validée par <b>Youssou</b>, ISO&nbsp;27001 Lead Auditor</span>
+            <span>Analyse <b>validée et signée</b> par un expert ISO&nbsp;27001 Lead Auditor</span>
           </div>
           <span class="report__meta">Prochain rapport : début novembre</span>
         </footer>
       </article>
     </div>
-
+  </div>
+  <div class="wrap">
     <div class="report-legend">
-      <div data-reveal><p class="h3">Un indice d’un coup d’œil</p><p>Une note sur 100 et un niveau de risque, pour savoir en une seconde si la situation s’améliore.</p></div>
-      <div data-reveal style="--d:.1s"><p class="h3">Des priorités, pas un inventaire</p><p>Classées par risque réel pour le cabinet et par effort, pour que votre prestataire sache par où commencer.</p></div>
-      <div data-reveal style="--d:.2s"><p class="h3">Une signature, pas un robot</p><p>Les outils mesurent, l’expert juge. Aucune conclusion ne part sans avoir été vérifiée et expliquée.</p></div>
+      <div data-reveal><p class="h3">Un indice d’un coup d’œil</p><p>Une note sur 100 pour savoir en une seconde si la situation s’améliore.</p></div>
+      <div data-reveal style="--d:.1s"><p class="h3">Des priorités, pas un inventaire</p><p>Classées par risque réel et par effort, pour savoir par où commencer.</p></div>
+      <div data-reveal style="--d:.2s"><p class="h3">Une signature, pas un robot</p><p>Les outils mesurent, l’expert juge. Rien ne part sans être vérifié.</p></div>
     </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="parcours-title">
+<section class="section section--dark manifesto" aria-label="Notre conviction" data-manifesto>
   <div class="wrap">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Le parcours</p>
-      <h2 class="h2" id="parcours-title">D’abord le Diagnostic. <em>Ensuite, le suivi.</em></h2>
-    </div>
-    <ol class="path">
-      <li class="path__step path__step--entry" data-reveal>
-        <div class="path__marker"><b>01</b></div>
-        <p class="path__when">Semaines 1 à 3</p>
-        <h3 class="h3">Diagnostic initial</h3>
-        <p>Un entretien avec les associés, l’examen complet de votre environnement, puis un rapport de référence présenté de vive voix, avec une feuille de route.</p>
-      </li>
-      <li class="path__step" data-reveal style="--d:.1s">
-        <div class="path__marker"><b>02</b></div>
-        <p class="path__when">Chaque mois</p>
-        <h3 class="h3">Analyse et rapport</h3>
-        <p>L’examen est refait, comparé au mois précédent, puis validé par l’expert&nbsp;: indice, risque, trois priorités.</p>
-      </li>
-      <li class="path__step" data-reveal style="--d:.2s">
-        <div class="path__marker"><b>03</b></div>
-        <p class="path__when">Dans la durée</p>
-        <h3 class="h3">Suivi des progrès</h3>
-        <p>Les corrections sont vérifiées d’un mois sur l’autre. Vous disposez d’un historique utile face à un client, un assureur ou un auditeur.</p>
-      </li>
-    </ol>
-    <p style="margin-top:44px" data-reveal><a class="link-arrow" href="comment-ca-marche.html">Le déroulé détaillé {{arrow}}</a></p>
+    <p class="manifesto__text" data-words>La sécurité d’un cabinet ne se devine pas. Elle s’[[ausculte|0]], se [[mesure|1]] et se [[suit|2]]. Chaque mois.</p>
   </div>
 </section>
 
-<section class="section section--light" aria-labelledby="offres-title">
-  <div class="wrap">
-    <div class="section-head section-head--center" data-reveal>
-      <p class="eyebrow">Nos offres</p>
-      <h2 class="h2" id="offres-title">Un point d’entrée, <em>deux rythmes de suivi.</em></h2>
-    </div>
-    <div class="acc-card" data-reveal>
-      <div class="acc" data-acc>
-        <button class="acc-btn" type="button" id="acc-diag" aria-expanded="true" aria-controls="panel-diag">Diagnostic <span class="acc-btn__meta">690 €</span><span class="acc-btn__icon" aria-hidden="true"></span></button>
-        <div class="acc-panel" id="panel-diag" role="region" aria-labelledby="acc-diag">
-          <div class="price"><span class="price__amount num">690 €</span><span class="price__unit">HT, une fois · prix de lancement</span></div>
-          <ul class="diamonds">
-            <li><div><b>L’état des lieux complet</b><span>Messagerie, accès, comptes, exposition sur Internet et identifiants dans les fuites publiques.</span></div></li>
-            <li><div><b>Restitution par l’expert</b><span>Une présentation en visio et une feuille de route classée par priorité.</span></div></li>
-            <li><div><b>Déductible</b><span>Son montant est déduit du premier mois d’abonnement. Requis avant Shield.</span></div></li>
-          </ul>
-          <a class="btn btn--primary" href="contact.html">Demander un Diagnostic {{arrow}}</a>
+<section class="section section--dark scan" data-scan aria-labelledby="scan-title" style="padding-top:0">
+  <div class="wrap wrap--wide">
+    <div class="scan__track">
+      <div class="scan__sticky">
+        <div class="scan__copy">
+          <p class="eyebrow">L’auscultation</p>
+          <h2 class="h2" id="scan-title">Ce qu’un attaquant voit de votre cabinet. <em>Nous le voyons d’abord.</em></h2>
+          <p class="scan__status" aria-live="polite"><span><b class="num" data-scan-count>0/8</b>points examinés</span><span class="found"><b class="num" data-scan-found>0</b>points faibles</span></p>
+          <p class="scan__note">Exemple illustratif, sur un cabinet fictif.</p>
         </div>
-        <button class="acc-btn" type="button" id="acc-radar" aria-expanded="false" aria-controls="panel-radar">Radar <span class="acc-btn__meta">dès 239 €/mois</span><span class="acc-btn__icon" aria-hidden="true"></span></button>
-        <div class="acc-panel" id="panel-radar" role="region" aria-labelledby="acc-radar" hidden>
-          <div class="price"><span class="price__amount num">299 €</span><span class="price__unit">HT / mois · 239 € en engagement annuel</span></div>
-          <ul class="diamonds">
-            <li><div><b>Analyse mensuelle de l’exposition</b><span>Ce que votre cabinet montre à l’extérieur, examiné chaque mois.</span></div></li>
-            <li><div><b>Fuites d’identifiants</b><span>Recherche des comptes du cabinet dans les fuites de données publiques.</span></div></li>
-            <li><div><b>Rapport validé</b><span>Indice, niveau de risque et trois priorités, avec l’expert joignable par écrit.</span></div></li>
-          </ul>
-          <a class="btn btn--primary" href="tarifs.html">Voir le détail {{arrow}}</a>
-        </div>
-        <button class="acc-btn" type="button" id="acc-shield" aria-expanded="false" aria-controls="panel-shield">Shield <span class="acc-btn__meta">dès 449 €/mois</span><span class="acc-btn__icon" aria-hidden="true"></span></button>
-        <div class="acc-panel" id="panel-shield" role="region" aria-labelledby="acc-shield" hidden>
-          <div class="price"><span class="price__amount num">549 €</span><span class="price__unit">HT / mois · 449 € en engagement annuel</span></div>
-          <ul class="diamonds">
-            <li><div><b>Tout Radar, et l’intérieur aussi</b><span>Revue mensuelle de Microsoft 365 ou Google Workspace : comptes, double authentification, partages.</span></div></li>
-            <li><div><b>Un rendez-vous mensuel</b><span>30 minutes en visio avec l’expert pour décider ensemble.</span></div></li>
-            <li><div><b>Questionnaires clients et assureurs</b><span>Un appui pour répondre aux exigences de sécurité de vos clients.</span></div></li>
-          </ul>
-          <a class="btn btn--primary" href="tarifs.html">Voir le détail {{arrow}}</a>
+        <div class="scan__field" role="list" aria-label="Empreinte numérique d’un cabinet (exemple)">
+          <div class="scan__line" aria-hidden="true"></div>
+          <div class="node" role="listitem"><p class="node__name">Messagerie du cabinet <span class="node__state">Examiné</span></p></div>
+          <div class="node is-weak" role="listitem"><p class="node__name">Usurpation d’adresse <span class="node__state">À corriger</span></p><p class="node__finding">Aucune politique DMARC&nbsp;: un tiers peut écrire à vos clients «&nbsp;de la part&nbsp;» du cabinet.</p></div>
+          <div class="node" role="listitem"><p class="node__name">Microsoft 365 <span class="node__state">Examiné</span></p></div>
+          <div class="node is-weak" role="listitem"><p class="node__name">Identifiants exposés <span class="node__state">À corriger</span></p><p class="node__finding">2 mots de passe professionnels retrouvés dans une fuite publique.</p></div>
+          <div class="node" role="listitem"><p class="node__name">Site web et domaine <span class="node__state">Examiné</span></p></div>
+          <div class="node" role="listitem"><p class="node__name">Postes de travail <span class="node__state">Examiné</span></p></div>
+          <div class="node is-weak" role="listitem"><p class="node__name">Accès à distance <span class="node__state">À corriger</span></p><p class="node__finding">Un bureau à distance ouvert sur Internet, sans double authentification.</p></div>
+          <div class="node" role="listitem"><p class="node__name">Partage des dossiers clients <span class="node__state">Examiné</span></p></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="pourquoi-title">
+  <div class="wrap">
+    <div class="section-head section-head--center" data-reveal>
+      <p class="eyebrow">Pourquoi SOCBoard</p>
+      <h2 class="h2" id="pourquoi-title">La sécurité, <em>enfin lisible.</em></h2>
+    </div>
+  </div>
+  <div class="wrap wrap--wide">
+    <div class="tiles">
+      <article class="tile tile--dark tile--wide" data-reveal>
+        <p class="tile__kicker">Rythme</p>
+        <h3 class="tile__title">Un examen complet. <em>Chaque mois.</em></h3>
+        <p>Pas une alarme qui sonne la nuit&nbsp;: un bilan régulier, comparé au mois précédent.</p>
+        <p class="tile__big">1<small>rapport / mois</small></p>
+      </article>
+      <article class="tile tile--wide" data-reveal style="--d:.08s">
+        <p class="tile__kicker">Clarté</p>
+        <h3 class="tile__title">Trois priorités. <em>Pas quarante.</em></h3>
+        <p>Les actions qui réduisent le plus votre risque, avec l’effort estimé pour chacune.</p>
+        <p class="tile__big">3<small>priorités</small></p>
+      </article>
+      <article class="tile" data-reveal>
+        <p class="tile__kicker">Messagerie</p>
+        <h3 class="tile__title">Personne n’écrit <em>en votre nom.</em></h3>
+        <p>Nous vérifions que votre adresse ne peut pas être usurpée auprès de vos clients.</p>
+      </article>
+      <article class="tile" data-reveal style="--d:.08s">
+        <p class="tile__kicker">Identifiants</p>
+        <h3 class="tile__title">Vos mots de passe, <em>hors des fuites.</em></h3>
+        <p>Nous recherchons les comptes du cabinet dans les fuites de données publiques.</p>
+      </article>
+      <article class="tile" data-reveal style="--d:.16s">
+        <p class="tile__kicker">Discrétion</p>
+        <h3 class="tile__title">Vos dossiers <em>restent chez vous.</em></h3>
+        <p>Nous analysons la configuration, jamais le contenu. Confidentialité signée par écrit.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--gray" aria-labelledby="offres-title">
+  <div class="wrap wrap--wide">
+    <div class="section-head section-head--center" data-reveal>
+      <p class="eyebrow">Offres</p>
+      <h2 class="h2" id="offres-title">Quelle formule pour <em>votre cabinet&nbsp;?</em></h2>
+    </div>
+    <div class="compare-grid">
+      <article class="plan plan--entry" data-reveal>
+        <p class="plan__badge">Point de départ</p>
+        <h3 class="plan__name">Diagnostic</h3>
+        <p class="plan__tag">L’état des lieux complet, restitué de vive voix.</p>
+        <p class="plan__price">690 € HT<small>une fois · prix de lancement</small></p>
+        <div class="plan__ctas"><a class="btn btn--primary" href="contact.html">Demander</a><a class="link-arrow" href="tarifs.html">En savoir plus</a></div>
+        <ul>
+          <li><b>Examen complet</b><span>Messagerie, accès, comptes, exposition</span></li>
+          <li><b>Restitution en visio</b><span>Et feuille de route priorisée</span></li>
+          <li><b>Déductible</b><span>Du premier mois d’abonnement</span></li>
+        </ul>
+      </article>
+      <article class="plan" data-reveal style="--d:.08s">
+        <p class="plan__badge"></p>
+        <h3 class="plan__name">Radar</h3>
+        <p class="plan__tag">L’analyse mensuelle de votre exposition.</p>
+        <p class="plan__price">299 € HT / mois<small>ou 239 € / mois en engagement annuel</small></p>
+        <div class="plan__ctas"><a class="btn" href="contact.html?offre=radar">Choisir</a><a class="link-arrow" href="tarifs.html">En savoir plus</a></div>
+        <ul>
+          <li><b>Rapport mensuel validé</b><span>Indice, risque, 3 priorités</span></li>
+          <li><b>Fuites d’identifiants</b><span>Relevées chaque mois</span></li>
+          <li class="off"><b>Revue Microsoft 365</b><span>Non incluse</span></li>
+        </ul>
+      </article>
+      <article class="plan" data-reveal style="--d:.16s">
+        <p class="plan__badge">Le plus complet</p>
+        <h3 class="plan__name">Shield</h3>
+        <p class="plan__tag">Le suivi complet, avec un rendez-vous mensuel.</p>
+        <p class="plan__price">549 € HT / mois<small>ou 449 € / mois en engagement annuel</small></p>
+        <div class="plan__ctas"><a class="btn" href="contact.html?offre=shield">Choisir</a><a class="link-arrow" href="tarifs.html">En savoir plus</a></div>
+        <ul>
+          <li><b>Tout Radar</b><span>Rapport, indice, priorités</span></li>
+          <li><b>Revue Microsoft 365</b><span>Ou Google Workspace, chaque mois</span></li>
+          <li><b>Visio mensuelle</b><span>30 minutes avec l’expert</span></li>
+        </ul>
+      </article>
     </div>
   </div>
 </section>
 
 <section class="section" aria-labelledby="cible-title">
   <div class="wrap">
-    <div class="section-head" data-reveal>
+    <div class="section-head section-head--center" data-reveal>
       <p class="eyebrow">Pour qui</p>
-      <h2 class="h2" id="cible-title">Pour les cabinets qui gardent <em>les secrets des autres.</em></h2>
-      <p class="lead">De 10 à 200 collaborateurs, sans responsable sécurité en interne, avec des données clients qui ne doivent jamais sortir.</p>
+      <h2 class="h2" id="cible-title">Pour ceux qui gardent <em>les secrets des autres.</em></h2>
     </div>
-    <div class="audiences">
-      <article class="audience" data-reveal>
-        <p class="eyebrow eyebrow--plain">Expertise comptable</p>
-        <h3>Liasses, paies, relevés bancaires.</h3>
+  </div>
+  <div class="wrap wrap--wide">
+    <div class="duo">
+      <article class="duo__item section--dark" style="background:var(--black);color:var(--fg)" data-reveal>
+        <h3 class="punch">Cabinets<br><em>comptables.</em></h3>
         <ul>
           <li><b>Fraude au virement.</b> Un faux e-mail du cabinet suffit à détourner un paiement client.</li>
           <li><b>Période fiscale.</b> Une indisponibilité en pleine campagne coûte cher.</li>
-          <li><b>Conformité.</b> RGPD, exigences de la profession et questions des assureurs.</li>
+          <li><b>Conformité.</b> RGPD, exigences de la profession, questions des assureurs.</li>
         </ul>
-        <a class="link-arrow" href="pour-qui.html#comptables">Cabinets comptables {{arrow}}</a>
+        <a class="link-arrow" href="pour-qui.html#comptables">En savoir plus</a>
       </article>
-      <article class="audience" data-reveal style="--d:.1s">
-        <p class="eyebrow eyebrow--plain">Cabinets d’avocats</p>
-        <h3>Dossiers, stratégies, pièces confidentielles.</h3>
+      <article class="duo__item" data-reveal style="--d:.08s">
+        <h3 class="punch">Cabinets<br><em>d’avocats.</em></h3>
         <ul>
           <li><b>Secret professionnel.</b> Une fuite engage la responsabilité du cabinet.</li>
           <li><b>Réputation.</b> La confiance d’un client ne se reconstruit pas après un incident.</li>
           <li><b>Exigences clients.</b> Les directions juridiques envoient des questionnaires de sécurité.</li>
         </ul>
-        <a class="link-arrow" href="pour-qui.html#avocats">Cabinets d’avocats {{arrow}}</a>
+        <a class="link-arrow" href="pour-qui.html#avocats">En savoir plus</a>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="fondateur-title" style="padding-top:0">
-  <div class="wrap founder">
-    <div class="founder__card" data-reveal>
-      <span class="founder__monogram" aria-hidden="true">Y.</span>
-      <div class="founder__creds"><span class="cred">ISO 27001 Lead Auditor</span><span class="cred">Détection &amp; réponse XDR</span></div>
-    </div>
-    <div class="founder__body" data-reveal style="--d:.1s">
-      <p class="eyebrow">L’expert derrière le rapport</p>
-      <h2 class="h2" id="fondateur-title">Une personne, <em>pas un algorithme.</em></h2>
-      <blockquote>« Les outils mesurent. Mon travail, c’est de juger ce qui compte vraiment pour votre cabinet, et de vous l’expliquer clairement. »</blockquote>
-      <p class="founder__who"><b>Youssou, fondateur de SOCBoard.</b> Professionnel de la cybersécurité dans un grand groupe industriel, plusieurs années sur des plateformes de détection et de réponse aux incidents (XDR/XSIAM), certifié ISO&nbsp;27001 Lead Auditor.</p>
-      <p><a class="link-arrow" href="a-propos.html">Parcours et méthode {{arrow}}</a></p>
-    </div>
-  </div>
-</section>
-
-<section class="section section--light" aria-labelledby="honnete-title">
+<section class="section section--gray" aria-labelledby="honnete-title">
   <div class="wrap honest">
     <div class="section-head" style="margin:0" data-reveal>
       <p class="eyebrow">En toute clarté</p>
-      <h2 class="h2" id="honnete-title">Ce que SOCBoard est, <em>et ce qu’il n’est pas.</em></h2>
-      <p class="lead">Un service de conseil et d’analyse experte, à rythme mensuel. Autant vous le dire tout de suite.</p>
+      <h2 class="h2" id="honnete-title">Ce que SOCBoard est. <em>Et ce qu’il n’est pas.</em></h2>
     </div>
     <dl class="honest__list" data-reveal style="--d:.1s">
-      <div class="honest__row"><dt>C’est</dt><dd><b>Une analyse mensuelle validée par un expert.</b><span>Un examen régulier, comparé mois après mois, avec des recommandations priorisées.</span></dd></div>
-      <div class="honest__row"><dt>C’est</dt><dd><b>Un interlocuteur qui parle votre langue.</b><span>Risques métier, secret professionnel, responsabilité&nbsp;: pas de jargon.</span></dd></div>
-      <div class="honest__row"><dt>Ce n’est pas</dt><dd><b>Une surveillance 24 h/24.</b><span>SOCBoard ne surveille pas votre réseau en temps réel et ne déclenche pas d’alerte immédiate.</span></dd></div>
-      <div class="honest__row"><dt>Ce n’est pas</dt><dd><b>Une intervention d’urgence.</b><span>En cas d’incident en cours, contactez votre prestataire informatique et les dispositifs officiels d’assistance.</span></dd></div>
+      <div class="honest__row"><dt>C’est</dt><dd><b>Une analyse mensuelle validée par un expert.</b><span>Un examen régulier, comparé mois après mois.</span></dd></div>
+      <div class="honest__row"><dt>C’est</dt><dd><b>Un interlocuteur qui parle votre langue.</b><span>Risques métier, secret professionnel, responsabilité.</span></dd></div>
+      <div class="honest__row"><dt>Ce n’est pas</dt><dd><b>Une surveillance 24 h/24.</b><span>Pas de surveillance en temps réel, pas d’alerte immédiate.</span></dd></div>
+      <div class="honest__row"><dt>Ce n’est pas</dt><dd><b>Une intervention d’urgence.</b><span>En cas d’incident en cours, appelez votre prestataire informatique.</span></dd></div>
     </dl>
   </div>
 </section>
 
-<section class="section final grid-lines" aria-labelledby="final-title" data-cta-hide>
+<section class="section final" aria-labelledby="final-title" data-cta-hide>
   <div class="wrap">
     <div class="final__inner" data-reveal>
-      <div style="display:grid;gap:24px">
-        <p class="eyebrow">Commencer</p>
-        <h2 class="display" id="final-title">Savoir où vous en êtes <em>en trois semaines.</em></h2>
-      </div>
+      <h2 class="display" id="final-title">Commencez <em>par le Diagnostic.</em></h2>
+      <p class="lead">Une photographie complète de votre cabinet et une feuille de route, en trois semaines.</p>
       <div class="final__side">
         <a class="btn btn--primary" href="contact.html">Demander un Diagnostic <span class="btn__meta">690 €</span></a>
-        <a class="btn" href="contact.html?objet=rdv">Prendre rendez-vous {{arrow}}</a>
-        <ul class="final__facts">
-          <li>{{check}} Premier échange de 20 minutes, sans engagement</li>
-          <li>{{check}} Déductible du premier mois d’abonnement</li>
-          <li>{{check}} Confidentialité formalisée par écrit</li>
-        </ul>
+        <a class="link-arrow" href="contact.html?objet=rdv">Prendre rendez-vous d’abord</a>
       </div>
+      <ul class="final__facts">
+        <li>{{check}} Premier échange de 20 min, sans engagement</li>
+        <li>{{check}} Déductible du premier mois</li>
+        <li>{{check}} Confidentialité signée</li>
+      </ul>
     </div>
   </div>
 </section>
