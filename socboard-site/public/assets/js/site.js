@@ -227,6 +227,128 @@
     start();
   }
 
+  /* ---------- Fond liquide (WebGL) ---------- */
+  var fluid = document.querySelector("[data-fluid]");
+  if (fluid) {
+    var gl = null;
+    try { gl = fluid.getContext("webgl", { antialias: false, alpha: false, powerPreference: "low-power" }); } catch (e) {}
+    if (gl) {
+      var VS = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+      var FS = [
+        "precision mediump float;",
+        "uniform vec2 r;uniform float t;",
+        "float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}",
+        "float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);",
+        "return mix(mix(h(i),h(i+vec2(1,0)),u.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),u.x),u.y);}",
+        "float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}",
+        "void main(){",
+        " vec2 uv=gl_FragCoord.xy/r.y*1.35; float s=t*.035;",
+        " vec2 q=vec2(fbm(uv+s),fbm(uv+vec2(5.2,1.3)-s));",
+        " vec2 w=vec2(fbm(uv+3.6*q+vec2(1.7,9.2)+s*1.4),fbm(uv+3.6*q+vec2(8.3,2.8)-s));",
+        " float f=fbm(uv+3.2*w);",
+        " float rid=1.-abs(sin(f*16.+s*2.));",
+        " float spec=pow(rid,7.)*smoothstep(.3,.85,f);",
+        " float soft=pow(rid,2.)*.35;",
+        " vec3 base=vec3(.016,.024,.037);",
+        " vec3 col=base+vec3(.22,.32,.43)*spec+vec3(.05,.075,.11)*soft*f;",
+        " float y=gl_FragCoord.y/r.y;",
+        " col*=mix(.25,1.,smoothstep(0.,.55,y));",
+        " gl_FragColor=vec4(col,1.);}"
+      ].join("\n");
+      var mk = function (type, src) {
+        var sh = gl.createShader(type); gl.shaderSource(sh, src); gl.compileShader(sh);
+        return gl.getShaderParameter(sh, gl.COMPILE_STATUS) ? sh : null;
+      };
+      var vs = mk(gl.VERTEX_SHADER, VS), fs = mk(gl.FRAGMENT_SHADER, FS);
+      var prog = vs && fs ? gl.createProgram() : null;
+      if (prog) {
+        gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+        gl.useProgram(prog);
+        var buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+        var loc = gl.getAttribLocation(prog, "p");
+        gl.enableVertexAttribArray(loc);
+        gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+        var uR = gl.getUniformLocation(prog, "r"), uT = gl.getUniformLocation(prog, "t");
+        var fRun = false, fVis = true, fT0 = performance.now() - 20000;
+        var fSize = function () {
+          // demi-résolution : le flou naturel du shader le permet, et le GPU mobile respire
+          var scale = Math.min(window.devicePixelRatio || 1, 1.5) * 0.5;
+          var w = Math.max(1, Math.round(fluid.clientWidth * scale));
+          var hgt = Math.max(1, Math.round(fluid.clientHeight * scale));
+          if (fluid.width !== w || fluid.height !== hgt) { fluid.width = w; fluid.height = hgt; gl.viewport(0, 0, w, hgt); }
+          gl.uniform2f(uR, w, hgt);
+        };
+        var fDraw = function (now) {
+          gl.uniform1f(uT, (now - fT0) / 1000);
+          gl.drawArrays(gl.TRIANGLES, 0, 3);
+        };
+        var fLoop = function (now) { if (!fRun) return; fDraw(now); requestAnimationFrame(fLoop); };
+        var fStart = function () {
+          if (fRun || reduceMotion.matches || !fVis || document.hidden) return;
+          fRun = true; requestAnimationFrame(fLoop);
+        };
+        fSize(); fDraw(performance.now());
+        window.addEventListener("resize", function () { fSize(); if (!fRun) fDraw(performance.now()); });
+        document.addEventListener("visibilitychange", function () { if (document.hidden) fRun = false; else fStart(); });
+        if (hasIO) new IntersectionObserver(function (en) { fVis = en[0].isIntersecting; if (fVis) fStart(); else fRun = false; }).observe(fluid);
+        fStart();
+      }
+    }
+  }
+
+  /* ---------- Manifeste : les mots s'allument au scroll ---------- */
+  var manifesto = document.querySelector("[data-manifesto]");
+  if (manifesto) {
+    var mText = manifesto.querySelector("[data-words]");
+    var words = Array.prototype.slice.call(mText.querySelectorAll(".w"));
+    var keys = manifesto.querySelectorAll("[data-key]");
+    var mTick = false;
+    var mUpdate = function () {
+      mTick = false;
+      var vh = window.innerHeight;
+      var r = mText.getBoundingClientRect();
+      var p = clamp((vh * 0.82 - r.top) / (r.height + vh * 0.25), 0, 1);
+      var lit = Math.round(p * words.length);
+      var active = -1;
+      words.forEach(function (w, i) {
+        var on = i < lit;
+        w.classList.toggle("is-lit", on);
+        if (on && w.dataset.k) active = +w.dataset.k;
+      });
+      keys.forEach(function (k) { k.classList.toggle("is-on", +k.dataset.key === active); });
+    };
+    if (reduceMotion.matches) {
+      words.forEach(function (w) { w.classList.add("is-lit"); });
+    } else {
+      var mReq = function () { if (!mTick) { mTick = true; requestAnimationFrame(mUpdate); } };
+      window.addEventListener("scroll", mReq, { passive: true });
+      window.addEventListener("resize", mReq);
+      mUpdate();
+    }
+  }
+
+  /* ---------- Accordéon des offres ---------- */
+  document.querySelectorAll("[data-acc]").forEach(function (acc) {
+    var btns = acc.querySelectorAll(".acc-btn");
+    var mqWide = window.matchMedia("(min-width: 861px)");
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var open = btn.getAttribute("aria-expanded") === "true";
+        // en large, un panneau reste toujours ouvert (colonne de droite)
+        if (open && mqWide.matches) return;
+        btns.forEach(function (b) {
+          var on = b === btn && !open;
+          b.setAttribute("aria-expanded", String(on));
+          var panel = document.getElementById(b.getAttribute("aria-controls"));
+          panel.hidden = !on;
+          if (on) { panel.classList.remove("is-anim"); void panel.offsetWidth; panel.classList.add("is-anim"); }
+        });
+      });
+    });
+  });
+
   /* ---------- Scan de l'empreinte numérique ---------- */
   var scan = document.querySelector("[data-scan]");
   if (scan) {

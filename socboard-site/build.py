@@ -26,7 +26,7 @@ CHECK = (
     'fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" '
     'stroke-linejoin="round"/></svg>'
 )
-ARROW = '<span class="arrow" aria-hidden="true">→</span>'
+ARROW = '<span class="arrow" aria-hidden="true">↗</span>'
 
 
 def split_words(body: str) -> str:
