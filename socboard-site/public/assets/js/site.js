@@ -547,7 +547,7 @@
           .then(function (r) {
             if (!r.ok) throw new Error(String(r.status));
             form.reset();
-            say("<b>Demande reçue.</b> Youssou vous répond personnellement sous un jour ouvré pour fixer un créneau.");
+            say("<b>Demande reçue.</b> Notre équipe vous répond sous un jour ouvré pour fixer un créneau.");
           })
           .catch(function () {
             say("L’envoi n’a pas abouti. Écrivez-nous directement à <b>contact@socboard.fr</b>, ou réessayez dans un instant.");
