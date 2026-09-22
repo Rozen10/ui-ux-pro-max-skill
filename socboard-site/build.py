@@ -26,7 +26,23 @@ CHECK = (
     'fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" '
     'stroke-linejoin="round"/></svg>'
 )
-ARROW = '<span class="arrow" aria-hidden="true">→</span>'
+ARROW = '<span class="arrow" aria-hidden="true">↗</span>'
+
+
+def split_words(body: str) -> str:
+    """Découpe le texte des éléments data-words en mots (<span class="w">).
+    [[mot|n]] devient un mot-clé (classe k, data-k=n)."""
+    def repl(m):
+        out = []
+        for tok in m.group(2).split():
+            k = re.search(r"\[\[(.+?)\|(\d+)\]\]", tok)
+            if k:
+                text = tok.replace(k.group(0), k.group(1))
+                out.append(f'<span class="w k" data-k="{k.group(2)}">{text}</span>')
+            else:
+                out.append(f'<span class="w">{tok}</span>')
+        return m.group(1) + " ".join(out) + m.group(3)
+    return re.sub(r"(<p[^>]*data-words[^>]*>)(.*?)(</p>)", repl, body, flags=re.S)
 
 
 def parse(src: str):
@@ -60,6 +76,9 @@ def build():
             foot = re.sub(r'<div class="cta-bar".*?</div>\n', "", foot, count=1, flags=re.S)
 
         body = body.replace("{{check}}", CHECK).replace("{{arrow}}", ARROW)
+        if "{{bars}}" in body:
+            body = body.replace("{{bars}}", (PARTIALS / "report-bars.svg").read_text(encoding="utf-8"))
+        body = split_words(body)
         html = f'{h}{nav}<main id="contenu">\n{body.rstrip()}\n</main>\n{foot}'
         (OUT / name).write_text(html, encoding="utf-8")
         print("  ", name)

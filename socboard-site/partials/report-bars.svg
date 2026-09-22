@@ -1,0 +1,17 @@
+<line class="gridline" x1="34" y1="122.0" x2="312" y2="122.0"/><text class="axis" x="26" y="125.0" text-anchor="end">0</text>
+                <line class="gridline" x1="34" y1="68.0" x2="312" y2="68.0"/><text class="axis" x="26" y="71.0" text-anchor="end">50</text>
+                <line class="gridline" x1="34" y1="14.0" x2="312" y2="14.0"/><text class="axis" x="26" y="17.0" text-anchor="end">100</text>
+                <rect class="bar" style="--i:0" x="47.2" y="65.8" width="20" height="56.2"/>
+                <text class="axis" x="57.2" y="138" text-anchor="middle">MAI</text>
+                <rect class="bar" style="--i:1" x="93.5" y="62.6" width="20" height="59.4"/>
+                <text class="axis" x="103.5" y="138" text-anchor="middle">JUIN</text>
+                <rect class="bar" style="--i:2" x="139.8" y="60.4" width="20" height="61.6"/>
+                <text class="axis" x="149.8" y="138" text-anchor="middle">JUIL.</text>
+                <rect class="bar" style="--i:3" x="186.2" y="61.5" width="20" height="60.5"/>
+                <text class="axis" x="196.2" y="138" text-anchor="middle">AOÛT</text>
+                <rect class="bar" style="--i:4" x="232.5" y="58.3" width="20" height="63.7"/>
+                <text class="axis" x="242.5" y="138" text-anchor="middle">SEPT.</text>
+                <rect class="bar bar--now" style="--i:5" x="278.8" y="48.6" width="20" height="73.4"/>
+                <text class="axis" x="288.8" y="138" text-anchor="middle">OCT.</text>
+                <circle class="marker" cx="288.8" cy="48.6" r="4"/>
+                <g class="tip"><rect x="170.8" y="42.6" width="96" height="36"/><text class="tip-sub" x="180.8" y="56.6">OCTOBRE</text><text x="180.8" y="71.6">Indice <tspan class="tip-val">68</tspan></text></g>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SOCBoard · Analyse de cybersécurité mensuelle pour cabinets comptables et d’avocats</title>
 <meta name="description" content="Chaque mois, un expert analyse la sécurité de votre cabinet et vous remet un rapport clair : niveau de risque, priorités, actions. Commencez par un Diagnostic à 690 €.">
-<meta name="theme-color" content="#060a13">
+<meta name="theme-color" content="#05070b">
 <meta property="og:title" content="SOCBoard · Analyse de cybersécurité mensuelle pour cabinets comptables et d’avocats">
 <meta property="og:description" content="Chaque mois, un expert analyse la sécurité de votre cabinet et vous remet un rapport clair : niveau de risque, priorités, actions. Commencez par un Diagnostic à 690 €.">
 <meta property="og:type" content="website">
@@ -15,7 +15,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@200;300;400;500;600;800&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
 <script>document.documentElement.classList.add("js")</script>
 </head>
@@ -24,7 +24,7 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="SOCBoard, accueil">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M5 17h6l2.2-5 3.4 11 2.6-8 1.6 2H27" fill="none" stroke="#7cc8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M5 17h6l2.2-5 3.4 11 2.6-8 1.6 2H27" fill="none" stroke="#7cc8ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       SOCBoard
     </a>
     <nav class="nav" aria-label="Navigation principale">
@@ -52,54 +52,42 @@
   <a class="btn btn--primary" href="contact.html">Demander un Diagnostic <span class="btn__meta">690 €</span></a>
 </nav>
 <main id="contenu">
-<section class="hero" aria-labelledby="hero-title">
-  <div class="wrap">
-    <div class="hero__grid">
-      <p class="eyebrow" data-intro style="--d:.05s">Analyse de cybersécurité mensuelle · Cabinets comptables &amp; d’avocats</p>
-      <h1 class="display" id="hero-title" data-intro style="--d:.15s">On ne soigne pas ce qu’on n’a pas <em>ausculté.</em></h1>
-      <p class="lead" data-intro style="--d:.3s">Chaque mois, SOCBoard examine la sécurité de votre cabinet et <strong>un expert valide chaque conclusion</strong>. Vous recevez un rapport clair&nbsp;: votre niveau de risque, ce qui a changé, et les trois actions qui comptent.</p>
-      <div class="hero__ctas" data-intro style="--d:.45s">
-        <a class="btn btn--primary" href="contact.html">Demander un Diagnostic <span class="btn__meta">690 €</span></a>
-        <a class="btn" href="#rapport">Voir un exemple de rapport <span class="arrow" aria-hidden="true">→</span></a>
-      </div>
+<section class="hero grid-lines" aria-labelledby="hero-title">
+  <canvas class="hero__fluid" data-fluid aria-hidden="true"></canvas>
+  <div class="wrap hero__grid">
+    <h1 class="display" id="hero-title">
+      <span class="line"><span style="--d:.15s">On ne soigne pas</span></span>
+      <em class="line"><span style="--d:.3s">sans ausculter<span class="dot">.</span></span></em>
+    </h1>
+    <p class="mono-lead" data-intro style="--d:.55s">Analyse de cybersécurité mensuelle, <b>validée par un expert</b>, pour les cabinets d’expertise comptable et d’avocats.</p>
+    <div class="hero__ctas" data-intro style="--d:.7s">
+      <a class="btn btn--primary" href="contact.html">Demander un Diagnostic <span class="btn__meta">690 €</span></a>
+      <a class="btn" href="#rapport">Voir un rapport <span class="arrow" aria-hidden="true">↗</span></a>
     </div>
   </div>
-  <div class="wrap signal-band" data-intro style="--d:.5s">
-    <canvas data-signal aria-hidden="true"></canvas>
-    <div class="signal-band__labels" aria-hidden="true">
-      <span>Auscultation</span><span>Mesure</span><span>Diagnostic</span>
+  <div class="wrap hero__foot" data-intro style="--d:.9s">
+    <div class="signal-band">
+      <canvas data-signal aria-hidden="true"></canvas>
+      <div class="signal-band__labels" aria-hidden="true"><span>Auscultation</span><span>Mesure</span><span>Diagnostic</span></div>
     </div>
-  </div>
-  <div class="wrap hero__after">
-      <ul class="hero__proof" data-intro style="--d:.8s">
-        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Analyse validée par un expert certifié ISO&nbsp;27001 Lead Auditor</li>
-        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Rapport mensuel sans jargon</li>
-        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> France et Suisse romande</li>
-      </ul>
+    <ul class="hero__proof">
+      <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Expert certifié ISO&nbsp;27001 Lead Auditor</li>
+      <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Un rapport clair chaque mois</li>
+      <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> France et Suisse romande</li>
+    </ul>
   </div>
   <div data-cta-sentinel></div>
 </section>
 
-<section class="section section--tight" aria-labelledby="principe-title">
+<section class="section manifesto grid-lines" aria-labelledby="manifeste-title" data-manifesto>
   <div class="wrap">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Le principe</p>
-      <h2 class="h2" id="principe-title">Un bilan de santé, puis un suivi. <em>Comme en médecine.</em></h2>
+    <div class="manifesto__top">
+      <p class="eyebrow" id="manifeste-title">Manifeste</p>
+      <ol class="manifesto__keys" aria-hidden="true">
+        <li data-key="0">Ausculter</li><li data-key="1">Mesurer</li><li data-key="2">Prioriser</li><li data-key="3">Suivre</li>
+      </ol>
     </div>
-    <div class="principle">
-      <div data-reveal>
-        <p class="big">1<small>fois par mois</small></p>
-        <p class="muted">Un examen complet à rythme régulier, pas une alarme qui sonne la nuit. Vous savez où vous en êtes, mois après mois.</p>
-      </div>
-      <div data-reveal style="--d:.1s">
-        <p class="big">3<small>priorités</small></p>
-        <p class="muted">Pas une liste de quarante failles techniques&nbsp;: les trois actions qui réduisent le plus votre risque ce mois-ci, avec l’effort estimé.</p>
-      </div>
-      <div data-reveal style="--d:.2s">
-        <p class="big">1<small>expert</small></p>
-        <p class="muted">Chaque rapport est relu et signé par la même personne, qui connaît votre cabinet et répond à vos questions.</p>
-      </div>
-    </div>
+    <p class="manifesto__text" data-words><span class="w">La</span> <span class="w">sécurité</span> <span class="w">d’un</span> <span class="w">cabinet</span> <span class="w">ne</span> <span class="w">se</span> <span class="w">devine</span> <span class="w">pas.</span> <span class="w">Elle</span> <span class="w k" data-k="0">s’ausculte,</span> <span class="w">se</span> <span class="w k" data-k="1">mesure,</span> <span class="w">se</span> <span class="w k" data-k="2">priorise</span> <span class="w">et</span> <span class="w">se</span> <span class="w k" data-k="3">suit.</span> <span class="w">Chaque</span> <span class="w">mois,</span> <span class="w">un</span> <span class="w">expert</span> <span class="w">transforme</span> <span class="w">des</span> <span class="w">signaux</span> <span class="w">dispersés</span> <span class="w">en</span> <span class="w">trois</span> <span class="w">décisions</span> <span class="w">claires</span> <span class="w">pour</span> <span class="w">les</span> <span class="w">associés.</span></p>
   </div>
 </section>
 
@@ -110,7 +98,7 @@
         <div class="scan__copy">
           <p class="eyebrow">L’auscultation</p>
           <h2 class="h2" id="scan-title">Votre cabinet laisse une empreinte numérique. <em>Nous la lisons.</em></h2>
-          <p class="lead">Messagerie, accès à distance, identifiants des collaborateurs, comptes Microsoft&nbsp;365&nbsp;: nous examinons ce qu’un attaquant verrait de l’extérieur, puis nous vous disons, simplement, ce qui mérite votre attention.</p>
+          <p class="lead">Messagerie, accès à distance, identifiants des collaborateurs, Microsoft&nbsp;365&nbsp;: nous examinons ce qu’un attaquant verrait de l’extérieur, puis nous vous disons simplement ce qui mérite votre attention.</p>
           <p class="scan__status" aria-live="polite"><span>Points examinés <b class="num" data-scan-count>0/8</b></span><span class="found">Points faibles <b class="num" data-scan-found>0</b></span></p>
           <p class="scan__note">Exemple illustratif, sur un cabinet fictif.</p>
         </div>
@@ -130,15 +118,15 @@
   </div>
 </section>
 
-<section class="section" id="rapport" aria-labelledby="rapport-title">
+<section class="section section--light" id="rapport" aria-labelledby="rapport-title">
   <div class="wrap">
-    <div class="section-head" data-reveal>
+    <div class="section-head section-head--center" data-reveal>
       <p class="eyebrow">Ce que vous recevez</p>
-      <h2 class="h2" id="rapport-title">Un rapport par mois. <em>Lisible en cinq minutes.</em></h2>
-      <p class="lead">Le rapport SOCBoard est conçu pour un associé, pas pour un informaticien. Un indice, un niveau de risque, l’évolution depuis le mois dernier, et ce qu’il faut faire ensuite.</p>
+      <h2 class="h2" id="rapport-title">Un rapport par mois, <em>lisible en cinq minutes.</em></h2>
+      <p class="lead">Conçu pour un associé, pas pour un informaticien&nbsp;: un indice, un niveau de risque, l’évolution depuis le mois dernier, et ce qu’il faut faire ensuite.</p>
     </div>
 
-    <div class="report-stage">
+    <div class="report-stage" data-reveal>
       <article class="report" aria-label="Exemple de rapport mensuel SOCBoard">
         <header class="report__bar">
           <div class="report__title">
@@ -146,37 +134,38 @@
             Rapport mensuel · Cabinet Martin &amp; Associés
           </div>
           <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-            <span class="report__meta">Période : octobre</span>
+            <span class="report__meta">Octobre</span>
             <span class="tag-sample">Exemple · données fictives</span>
           </div>
         </header>
         <div class="report__body">
           <div class="report__score">
-            <div class="gauge" data-rise>
-              <svg viewBox="0 0 240 132" aria-hidden="true">
-                <path class="gauge__track" d="M20 120 A100 100 0 0 1 220 120"/>
-                <path class="gauge__value" d="M20 120 A100 100 0 0 1 220 120" stroke-dasharray="314.16" style="stroke-dashoffset:100.53" data-length="314.16" data-offset="100.53"/>
-              </svg>
-              <div class="gauge__center">
-                <span class="gauge__num"><span class="num" data-count="68">68</span><small>/100</small></span>
-                <span class="gauge__label">Indice de santé cyber</span>
-              </div>
+            <p class="score__label" data-rise>Indice de santé cyber · 6 derniers mois</p>
+            <div class="score__row" data-rise style="--d:.1s">
+              <span class="score__num"><span class="num" data-count="68">68</span><small>/100</small></span>
+              <span class="delta"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 11l4-4 3 3 5-5M10 5h4v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+9 pts ce mois</span>
             </div>
-            <span class="risk-pill" data-rise style="--d:.15s"><i aria-hidden="true"></i>Risque modéré</span>
-            <div data-rise style="--d:.2s;display:grid;gap:6px">
-              <div class="risk-scale" aria-hidden="true"><span class="on"></span><span class="on"></span><span></span><span></span></div>
-              <div class="risk-scale-labels" aria-hidden="true"><span>Faible</span><span>Critique</span></div>
-            </div>
-            <div class="trend" data-rise style="--d:.3s">
-              <div class="trend__head"><span>Évolution sur 6 mois</span><b>+9 pts ce mois</b></div>
-              <svg viewBox="0 0 300 64" preserveAspectRatio="none" aria-hidden="true">
-                <defs><linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc8ff" stop-opacity=".28"/><stop offset="1" stop-color="#7cc8ff" stop-opacity="0"/></linearGradient></defs>
-                <line class="grid" x1="0" y1="16" x2="300" y2="16"/><line class="grid" x1="0" y1="40" x2="300" y2="40"/>
-                <path class="area" d="M4 50 L62 46 L120 44 L178 34 L236 30 L296 18 L296 64 L4 64 Z"/>
-                <path class="line" d="M4 50 L62 46 L120 44 L178 34 L236 30 L296 18"/>
-                <circle class="dot-halo" cx="296" cy="18" r="7"/><circle class="dot" cx="296" cy="18" r="3.5"/>
+            <span class="risk-pill" data-rise style="--d:.2s"><i aria-hidden="true"></i>Risque modéré</span>
+            <div class="bars" role="img" aria-label="Indice de mai à octobre : 52, 55, 57, 56, 59, puis 68 en octobre.">
+              <svg viewBox="0 0 320 146" aria-hidden="true">
+                <line class="gridline" x1="34" y1="122.0" x2="312" y2="122.0"/><text class="axis" x="26" y="125.0" text-anchor="end">0</text>
+                <line class="gridline" x1="34" y1="68.0" x2="312" y2="68.0"/><text class="axis" x="26" y="71.0" text-anchor="end">50</text>
+                <line class="gridline" x1="34" y1="14.0" x2="312" y2="14.0"/><text class="axis" x="26" y="17.0" text-anchor="end">100</text>
+                <rect class="bar" style="--i:0" x="47.2" y="65.8" width="20" height="56.2"/>
+                <text class="axis" x="57.2" y="138" text-anchor="middle">MAI</text>
+                <rect class="bar" style="--i:1" x="93.5" y="62.6" width="20" height="59.4"/>
+                <text class="axis" x="103.5" y="138" text-anchor="middle">JUIN</text>
+                <rect class="bar" style="--i:2" x="139.8" y="60.4" width="20" height="61.6"/>
+                <text class="axis" x="149.8" y="138" text-anchor="middle">JUIL.</text>
+                <rect class="bar" style="--i:3" x="186.2" y="61.5" width="20" height="60.5"/>
+                <text class="axis" x="196.2" y="138" text-anchor="middle">AOÛT</text>
+                <rect class="bar" style="--i:4" x="232.5" y="58.3" width="20" height="63.7"/>
+                <text class="axis" x="242.5" y="138" text-anchor="middle">SEPT.</text>
+                <rect class="bar bar--now" style="--i:5" x="278.8" y="48.6" width="20" height="73.4"/>
+                <text class="axis" x="288.8" y="138" text-anchor="middle">OCT.</text>
+                <circle class="marker" cx="288.8" cy="48.6" r="4"/>
+                <g class="tip"><rect x="170.8" y="42.6" width="96" height="36"/><text class="tip-sub" x="180.8" y="56.6">OCTOBRE</text><text x="180.8" y="71.6">Indice <tspan class="tip-val">68</tspan></text></g>
               </svg>
-              <div class="trend__months" aria-hidden="true"><span>Mai</span><span>Juin</span><span>Juil.</span><span>Août</span><span>Sept.</span><span>Oct.</span></div>
             </div>
           </div>
           <div class="report__detail">
@@ -188,9 +177,9 @@
             </div>
             <div class="priorities">
               <div class="priorities__head"><span>Priorités du mois</span><span>Effort</span></div>
-              <div class="prio prio--high" data-rise style="--d:.35s"><span class="prio__sev" aria-hidden="true"></span><div class="prio__text"><span class="prio__title">Changer les 2 mots de passe exposés</span><span class="prio__why">Risque élevé · accès possible à la messagerie de deux collaborateurs</span></div><span class="prio__effort">15 min</span></div>
-              <div class="prio" data-rise style="--d:.45s"><span class="prio__sev" aria-hidden="true"></span><div class="prio__text"><span class="prio__title">Activer DMARC sur le domaine du cabinet</span><span class="prio__why">Risque modéré · usurpation d’adresse auprès de vos clients</span></div><span class="prio__effort">1 h</span></div>
-              <div class="prio" data-rise style="--d:.55s"><span class="prio__sev" aria-hidden="true"></span><div class="prio__text"><span class="prio__title">Fermer l’accès bureau à distance</span><span class="prio__why">Risque modéré · porte d’entrée classique des rançongiciels</span></div><span class="prio__effort">½ journée</span></div>
+              <div class="prio prio--high" data-rise style="--d:.35s"><span class="prio__sev" aria-hidden="true"></span><div class="prio__text"><span class="prio__title">Changer les 2 mots de passe exposés</span><span class="prio__why">Risque élevé · accès possible à deux messageries</span></div><span class="prio__effort">15 min</span></div>
+              <div class="prio" data-rise style="--d:.45s"><span class="prio__sev" aria-hidden="true"></span><div class="prio__text"><span class="prio__title">Activer DMARC sur le domaine</span><span class="prio__why">Risque modéré · usurpation d’adresse</span></div><span class="prio__effort">1 h</span></div>
+              <div class="prio" data-rise style="--d:.55s"><span class="prio__sev" aria-hidden="true"></span><div class="prio__text"><span class="prio__title">Fermer l’accès bureau à distance</span><span class="prio__why">Risque modéré · porte d’entrée des rançongiciels</span></div><span class="prio__effort">½ journée</span></div>
             </div>
           </div>
         </div>
@@ -205,8 +194,8 @@
     </div>
 
     <div class="report-legend">
-      <div data-reveal><p class="h3">Un indice qui se lit d’un coup d’œil</p><p>Une note sur 100 et un niveau de risque, pour savoir en une seconde si la situation s’améliore.</p></div>
-      <div data-reveal style="--d:.1s"><p class="h3">Des priorités, pas un inventaire</p><p>Les actions sont classées par risque réel pour le cabinet et par effort, pour que votre prestataire informatique sache par où commencer.</p></div>
+      <div data-reveal><p class="h3">Un indice d’un coup d’œil</p><p>Une note sur 100 et un niveau de risque, pour savoir en une seconde si la situation s’améliore.</p></div>
+      <div data-reveal style="--d:.1s"><p class="h3">Des priorités, pas un inventaire</p><p>Classées par risque réel pour le cabinet et par effort, pour que votre prestataire sache par où commencer.</p></div>
       <div data-reveal style="--d:.2s"><p class="h3">Une signature, pas un robot</p><p>Les outils mesurent, l’expert juge. Aucune conclusion ne part sans avoir été vérifiée et expliquée.</p></div>
     </div>
   </div>
@@ -217,63 +206,70 @@
     <div class="section-head" data-reveal>
       <p class="eyebrow">Le parcours</p>
       <h2 class="h2" id="parcours-title">D’abord le Diagnostic. <em>Ensuite, le suivi.</em></h2>
-      <p class="lead">On ne prescrit pas avant d’avoir examiné. Le Diagnostic établit votre point de départ&nbsp;; le suivi mensuel mesure les progrès et repère ce qui change.</p>
     </div>
-    <ol class="path" role="list">
+    <ol class="path">
       <li class="path__step path__step--entry" data-reveal>
-        <div class="path__marker"><b>1</b></div>
+        <div class="path__marker"><b>01</b></div>
         <p class="path__when">Semaines 1 à 3</p>
         <h3 class="h3">Diagnostic initial</h3>
         <p>Un entretien avec les associés, l’examen complet de votre environnement, puis un rapport de référence présenté de vive voix, avec une feuille de route.</p>
       </li>
       <li class="path__step" data-reveal style="--d:.1s">
-        <div class="path__marker"><b>2</b></div>
+        <div class="path__marker"><b>02</b></div>
         <p class="path__when">Chaque mois</p>
         <h3 class="h3">Analyse et rapport</h3>
-        <p>Nous refaisons l’examen, comparons avec le mois précédent et vous remettons un rapport validé par l’expert&nbsp;: indice, risque, priorités.</p>
+        <p>L’examen est refait, comparé au mois précédent, puis validé par l’expert&nbsp;: indice, risque, trois priorités.</p>
       </li>
       <li class="path__step" data-reveal style="--d:.2s">
-        <div class="path__marker"><b>3</b></div>
+        <div class="path__marker"><b>03</b></div>
         <p class="path__when">Dans la durée</p>
         <h3 class="h3">Suivi des progrès</h3>
         <p>Les corrections sont vérifiées d’un mois sur l’autre. Vous disposez d’un historique utile face à un client, un assureur ou un auditeur.</p>
       </li>
     </ol>
-    <p style="margin-top:40px" data-reveal><a class="link-arrow" href="comment-ca-marche.html">Le déroulé détaillé <span class="arrow" aria-hidden="true">→</span></a></p>
+    <p style="margin-top:44px" data-reveal><a class="link-arrow" href="comment-ca-marche.html">Le déroulé détaillé <span class="arrow" aria-hidden="true">↗</span></a></p>
   </div>
 </section>
 
-<section class="section" aria-labelledby="offres-title">
+<section class="section section--light" aria-labelledby="offres-title">
   <div class="wrap">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Offres</p>
+    <div class="section-head section-head--center" data-reveal>
+      <p class="eyebrow">Nos offres</p>
       <h2 class="h2" id="offres-title">Un point d’entrée, <em>deux rythmes de suivi.</em></h2>
     </div>
-    <div class="offers">
-      <article class="offer offer--entry" data-reveal>
-        <span class="offer__badge">Point de départ</span>
-        <h3 class="offer__name">Diagnostic</h3>
-        <p class="offer__desc">L’état des lieux complet de votre cabinet, restitué par l’expert.</p>
-        <div class="price"><span class="price__amount num">690</span><span class="price__unit">€ HT, une fois</span></div>
-        <p class="price__note"><b>Prix de lancement.</b> Déductible du premier mois d’abonnement.</p>
-        <a class="btn btn--primary" href="contact.html">Demander un Diagnostic <span class="arrow" aria-hidden="true">→</span></a>
-      </article>
-      <article class="offer" data-reveal style="--d:.08s">
-        <span class="offer__badge offer__badge--muted">Suivi essentiel</span>
-        <h3 class="offer__name">Radar</h3>
-        <p class="offer__desc">L’analyse mensuelle de votre exposition, avec rapport validé.</p>
-        <div class="price"><span class="price__amount num">299</span><span class="price__unit">€ HT / mois</span></div>
-        <p class="price__note">ou 239 € / mois en engagement annuel</p>
-        <a class="btn" href="tarifs.html">Voir le détail <span class="arrow" aria-hidden="true">→</span></a>
-      </article>
-      <article class="offer" data-reveal style="--d:.16s">
-        <span class="offer__badge offer__badge--muted">Suivi approfondi</span>
-        <h3 class="offer__name">Shield</h3>
-        <p class="offer__desc">Le suivi complet, avec un point mensuel en visio avec l’expert.</p>
-        <div class="price"><span class="price__amount num">549</span><span class="price__unit">€ HT / mois</span></div>
-        <p class="price__note">ou 449 € / mois en engagement annuel</p>
-        <a class="btn" href="tarifs.html">Voir le détail <span class="arrow" aria-hidden="true">→</span></a>
-      </article>
+    <div class="acc-card" data-reveal>
+      <div class="acc" data-acc>
+        <button class="acc-btn" type="button" id="acc-diag" aria-expanded="true" aria-controls="panel-diag">Diagnostic <span class="acc-btn__meta">690 €</span><span class="acc-btn__icon" aria-hidden="true"></span></button>
+        <div class="acc-panel" id="panel-diag" role="region" aria-labelledby="acc-diag">
+          <div class="price"><span class="price__amount num">690 €</span><span class="price__unit">HT, une fois · prix de lancement</span></div>
+          <ul class="diamonds">
+            <li><div><b>L’état des lieux complet</b><span>Messagerie, accès, comptes, exposition sur Internet et identifiants dans les fuites publiques.</span></div></li>
+            <li><div><b>Restitution par l’expert</b><span>Une présentation en visio et une feuille de route classée par priorité.</span></div></li>
+            <li><div><b>Déductible</b><span>Son montant est déduit du premier mois d’abonnement. Requis avant Shield.</span></div></li>
+          </ul>
+          <a class="btn btn--primary" href="contact.html">Demander un Diagnostic <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <button class="acc-btn" type="button" id="acc-radar" aria-expanded="false" aria-controls="panel-radar">Radar <span class="acc-btn__meta">dès 239 €/mois</span><span class="acc-btn__icon" aria-hidden="true"></span></button>
+        <div class="acc-panel" id="panel-radar" role="region" aria-labelledby="acc-radar" hidden>
+          <div class="price"><span class="price__amount num">299 €</span><span class="price__unit">HT / mois · 239 € en engagement annuel</span></div>
+          <ul class="diamonds">
+            <li><div><b>Analyse mensuelle de l’exposition</b><span>Ce que votre cabinet montre à l’extérieur, examiné chaque mois.</span></div></li>
+            <li><div><b>Fuites d’identifiants</b><span>Recherche des comptes du cabinet dans les fuites de données publiques.</span></div></li>
+            <li><div><b>Rapport validé</b><span>Indice, niveau de risque et trois priorités, avec l’expert joignable par écrit.</span></div></li>
+          </ul>
+          <a class="btn btn--primary" href="tarifs.html">Voir le détail <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <button class="acc-btn" type="button" id="acc-shield" aria-expanded="false" aria-controls="panel-shield">Shield <span class="acc-btn__meta">dès 449 €/mois</span><span class="acc-btn__icon" aria-hidden="true"></span></button>
+        <div class="acc-panel" id="panel-shield" role="region" aria-labelledby="acc-shield" hidden>
+          <div class="price"><span class="price__amount num">549 €</span><span class="price__unit">HT / mois · 449 € en engagement annuel</span></div>
+          <ul class="diamonds">
+            <li><div><b>Tout Radar, et l’intérieur aussi</b><span>Revue mensuelle de Microsoft 365 ou Google Workspace : comptes, double authentification, partages.</span></div></li>
+            <li><div><b>Un rendez-vous mensuel</b><span>30 minutes en visio avec l’expert pour décider ensemble.</span></div></li>
+            <li><div><b>Questionnaires clients et assureurs</b><span>Un appui pour répondre aux exigences de sécurité de vos clients.</span></div></li>
+          </ul>
+          <a class="btn btn--primary" href="tarifs.html">Voir le détail <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -290,72 +286,68 @@
         <p class="eyebrow eyebrow--plain">Expertise comptable</p>
         <h3>Liasses, paies, relevés bancaires.</h3>
         <ul>
-          <li><b>Fraude au virement</b> : un faux e-mail du cabinet suffit à détourner un paiement client.</li>
-          <li><b>Période fiscale</b> : une indisponibilité en avril ou en mai coûte cher.</li>
-          <li><b>Conformité</b> : RGPD, exigences de l’Ordre et questions des assureurs.</li>
+          <li><b>Fraude au virement.</b> Un faux e-mail du cabinet suffit à détourner un paiement client.</li>
+          <li><b>Période fiscale.</b> Une indisponibilité en pleine campagne coûte cher.</li>
+          <li><b>Conformité.</b> RGPD, exigences de la profession et questions des assureurs.</li>
         </ul>
-        <a class="link-arrow" href="pour-qui.html#comptables">Les enjeux des cabinets comptables <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="link-arrow" href="pour-qui.html#comptables">Cabinets comptables <span class="arrow" aria-hidden="true">↗</span></a>
       </article>
       <article class="audience" data-reveal style="--d:.1s">
         <p class="eyebrow eyebrow--plain">Cabinets d’avocats</p>
         <h3>Dossiers, stratégies, pièces confidentielles.</h3>
         <ul>
-          <li><b>Secret professionnel</b> : une fuite engage la responsabilité du cabinet.</li>
-          <li><b>Réputation</b> : la confiance d’un client ne se reconstruit pas après un incident.</li>
-          <li><b>Exigences clients</b> : les directions juridiques envoient des questionnaires de sécurité.</li>
+          <li><b>Secret professionnel.</b> Une fuite engage la responsabilité du cabinet.</li>
+          <li><b>Réputation.</b> La confiance d’un client ne se reconstruit pas après un incident.</li>
+          <li><b>Exigences clients.</b> Les directions juridiques envoient des questionnaires de sécurité.</li>
         </ul>
-        <a class="link-arrow" href="pour-qui.html#avocats">Les enjeux des cabinets d’avocats <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="link-arrow" href="pour-qui.html#avocats">Cabinets d’avocats <span class="arrow" aria-hidden="true">↗</span></a>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="fondateur-title">
+<section class="section" aria-labelledby="fondateur-title" style="padding-top:0">
   <div class="wrap founder">
     <div class="founder__card" data-reveal>
       <span class="founder__monogram" aria-hidden="true">Y.</span>
-      <div class="founder__creds">
-        <span class="cred">ISO 27001 Lead Auditor</span>
-        <span class="cred">Détection &amp; réponse XDR</span>
-      </div>
+      <div class="founder__creds"><span class="cred">ISO 27001 Lead Auditor</span><span class="cred">Détection &amp; réponse XDR</span></div>
     </div>
     <div class="founder__body" data-reveal style="--d:.1s">
       <p class="eyebrow">L’expert derrière le rapport</p>
       <h2 class="h2" id="fondateur-title">Une personne, <em>pas un algorithme.</em></h2>
-      <blockquote>Les outils mesurent. Mon travail, c’est de juger ce qui compte vraiment pour votre cabinet, et de vous l’expliquer clairement.</blockquote>
+      <blockquote>« Les outils mesurent. Mon travail, c’est de juger ce qui compte vraiment pour votre cabinet, et de vous l’expliquer clairement. »</blockquote>
       <p class="founder__who"><b>Youssou, fondateur de SOCBoard.</b> Professionnel de la cybersécurité dans un grand groupe industriel, plusieurs années sur des plateformes de détection et de réponse aux incidents (XDR/XSIAM), certifié ISO&nbsp;27001 Lead Auditor.</p>
-      <a class="link-arrow" href="a-propos.html">Parcours et méthode <span class="arrow" aria-hidden="true">→</span></a>
+      <p><a class="link-arrow" href="a-propos.html">Parcours et méthode <span class="arrow" aria-hidden="true">↗</span></a></p>
     </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="honnete-title">
+<section class="section section--light" aria-labelledby="honnete-title">
   <div class="wrap honest">
     <div class="section-head" style="margin:0" data-reveal>
       <p class="eyebrow">En toute clarté</p>
       <h2 class="h2" id="honnete-title">Ce que SOCBoard est, <em>et ce qu’il n’est pas.</em></h2>
-      <p class="lead">Un service de conseil et d’analyse experte, à rythme mensuel. Nous préférons vous le dire tout de suite.</p>
+      <p class="lead">Un service de conseil et d’analyse experte, à rythme mensuel. Autant vous le dire tout de suite.</p>
     </div>
     <dl class="honest__list" data-reveal style="--d:.1s">
       <div class="honest__row"><dt>C’est</dt><dd><b>Une analyse mensuelle validée par un expert.</b><span>Un examen régulier, comparé mois après mois, avec des recommandations priorisées.</span></dd></div>
-      <div class="honest__row"><dt>C’est</dt><dd><b>Un interlocuteur qui parle votre langue.</b><span>Risques métier, secret professionnel, responsabilité : pas de jargon.</span></dd></div>
+      <div class="honest__row"><dt>C’est</dt><dd><b>Un interlocuteur qui parle votre langue.</b><span>Risques métier, secret professionnel, responsabilité&nbsp;: pas de jargon.</span></dd></div>
       <div class="honest__row"><dt>Ce n’est pas</dt><dd><b>Une surveillance 24 h/24.</b><span>SOCBoard ne surveille pas votre réseau en temps réel et ne déclenche pas d’alerte immédiate.</span></dd></div>
-      <div class="honest__row"><dt>Ce n’est pas</dt><dd><b>Une intervention d’urgence.</b><span>En cas d’incident en cours, contactez votre prestataire informatique et les dispositifs d’assistance officiels.</span></dd></div>
+      <div class="honest__row"><dt>Ce n’est pas</dt><dd><b>Une intervention d’urgence.</b><span>En cas d’incident en cours, contactez votre prestataire informatique et les dispositifs officiels d’assistance.</span></dd></div>
     </dl>
   </div>
 </section>
 
-<section class="section final" aria-labelledby="final-title" data-cta-hide>
+<section class="section final grid-lines" aria-labelledby="final-title" data-cta-hide>
   <div class="wrap">
     <div class="final__inner" data-reveal>
-      <div style="display:grid;gap:20px">
+      <div style="display:grid;gap:24px">
         <p class="eyebrow">Commencer</p>
-        <h2 class="h2" id="final-title">Savoir où en est votre cabinet, <em>en trois semaines.</em></h2>
-        <p class="lead">Le Diagnostic vous donne une photographie complète et une feuille de route. Vous décidez ensuite, en connaissance de cause, de la suite.</p>
+        <h2 class="display" id="final-title">Savoir où vous en êtes <em>en trois semaines.</em></h2>
       </div>
       <div class="final__side">
         <a class="btn btn--primary" href="contact.html">Demander un Diagnostic <span class="btn__meta">690 €</span></a>
-        <a class="btn" href="contact.html?objet=rdv">Prendre rendez-vous d’abord</a>
+        <a class="btn" href="contact.html?objet=rdv">Prendre rendez-vous <span class="arrow" aria-hidden="true">↗</span></a>
         <ul class="final__facts">
           <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Premier échange de 20 minutes, sans engagement</li>
           <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Déductible du premier mois d’abonnement</li>
@@ -398,6 +390,7 @@
         </ul>
       </div>
     </div>
+    <p class="footer-wordmark" aria-hidden="true">SOCBoard</p>
     <div class="footer-base">
       <span>© <span data-year>2026</span> SOCBoard · socboard.fr</span>
       <span>Service d’analyse mensuelle. Ni surveillance 24/7, ni intervention d’urgence.</span>
