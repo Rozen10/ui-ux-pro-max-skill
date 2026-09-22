@@ -1,0 +1,115 @@
+<!--
+title: Demander un Diagnostic · SOCBoard
+description: Demandez votre Diagnostic de cybersécurité (690 €, déductible du premier mois) ou un premier échange de 20 minutes avec l’expert. Réponse sous un jour ouvré.
+ctabar: no
+-->
+<section class="page-hero" style="padding-bottom:32px">
+  <div class="wrap page-hero__grid">
+    <p class="eyebrow">Contact</p>
+    <h1 class="display">Demander <em>un Diagnostic.</em></h1>
+    <p class="lead">Quelques informations suffisent. Youssou vous répond personnellement sous un jour ouvré pour convenir d’un premier échange de 20&nbsp;minutes.</p>
+  </div>
+</section>
+
+<section class="section section--tight" style="border-top:0;padding-top:0" aria-label="Formulaire de demande">
+  <div class="wrap split">
+    <form class="form" data-contact-form data-endpoint="" novalidate>
+      <fieldset class="field">
+        <legend>Votre demande</legend>
+        <div class="choice-group" style="margin-top:8px">
+          <label class="choice"><input type="radio" name="Objet" id="objet-diag" value="Diagnostic" checked><span>Diagnostic<small>690 € HT, prix de lancement</small></span></label>
+          <label class="choice"><input type="radio" name="Objet" id="objet-rdv" value="Premier échange"><span>Premier échange<small>20 min, sans engagement</small></span></label>
+          <label class="choice"><input type="radio" name="Objet" id="objet-question" value="Question"><span>Une question<small>Réponse par e-mail</small></span></label>
+        </div>
+      </fieldset>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="nom">Nom et prénom</label>
+          <input id="nom" name="Nom" type="text" autocomplete="name" required aria-describedby="nom-error">
+          <p class="error" id="nom-error" hidden></p>
+        </div>
+        <div class="field">
+          <label for="cabinet">Cabinet</label>
+          <input id="cabinet" name="Cabinet" type="text" autocomplete="organization" required aria-describedby="cabinet-error">
+          <p class="error" id="cabinet-error" hidden></p>
+        </div>
+      </div>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="email">E-mail professionnel</label>
+          <input id="email" name="E-mail" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-error">
+          <p class="error" id="email-error" hidden></p>
+        </div>
+        <div class="field">
+          <label for="tel">Téléphone <span class="hint">(facultatif)</span></label>
+          <input id="tel" name="Téléphone" type="tel" autocomplete="tel" inputmode="tel">
+        </div>
+      </div>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="type">Type de cabinet</label>
+          <select id="type" name="Type de cabinet" required aria-describedby="type-error">
+            <option value="">Choisir…</option>
+            <option>Expertise comptable</option>
+            <option>Avocats</option>
+            <option>Autre profession réglementée</option>
+          </select>
+          <p class="error" id="type-error" hidden></p>
+        </div>
+        <div class="field">
+          <label for="taille">Nombre de collaborateurs</label>
+          <select id="taille" name="Effectif">
+            <option value="">Choisir…</option>
+            <option>Moins de 10</option>
+            <option>10 à 49</option>
+            <option>50 à 200</option>
+            <option>Plus de 200</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="message">Contexte <span class="hint">(facultatif)</span></label>
+        <textarea id="message" name="Message" rows="4" aria-describedby="message-hint"></textarea>
+        <p class="hint" id="message-hint">Une préoccupation particulière, une demande d’un client ou d’un assureur, votre prestataire informatique…</p>
+      </div>
+
+      <div class="form__status" role="status" tabindex="-1" hidden></div>
+
+      <button class="btn btn--primary" type="submit" style="justify-self:start">Envoyer ma demande</button>
+      <p class="form__legal">Vos informations servent uniquement à répondre à votre demande. Elles ne sont ni revendues ni utilisées pour de la prospection.</p>
+    </form>
+
+    <aside class="contact-aside">
+      <div class="contact-card">
+        <h2>Ce qui se passe ensuite</h2>
+        <ol class="timeline" style="margin-top:8px">
+          <li><b>Sous un jour ouvré</b><span>Youssou vous répond et propose un créneau.</span></li>
+          <li><b>Premier échange, 20 min</b><span>Votre situation, vos questions, sans engagement.</span></li>
+          <li><b>Proposition écrite</b><span>Périmètre du Diagnostic et engagement de confidentialité.</span></li>
+        </ol>
+      </div>
+      <div class="contact-card">
+        <h2>Par e-mail</h2>
+        <div class="copy-line"><code>contact@socboard.fr</code><button class="copy-btn" type="button" data-copy="contact@socboard.fr">Copier</button></div>
+        <p class="muted" style="font-size:.875rem">France et Suisse romande · accompagnement en français, à distance.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+<script>
+  (function () {
+    try {
+      var q = new URLSearchParams(location.search);
+      if (q.get("objet") === "rdv") document.getElementById("objet-rdv").checked = true;
+      var offre = q.get("offre");
+      if (offre) {
+        var m = document.getElementById("message");
+        m.value = "Offre envisagée : " + (offre === "shield" ? "Shield" : "Radar") + "\n";
+      }
+    } catch (e) {}
+  })();
+</script>
