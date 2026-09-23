@@ -1178,13 +1178,13 @@ body { letter-spacing: -0.011em; }
 .site-header.is-scrolled { background: rgba(20, 19, 17, 0.9); }
 .brand { font-family: var(--font-body); letter-spacing: -0.03em; text-transform: none; font-weight: 700; font-size: 1.1875rem; gap: 14px; }
 .brand svg { display: none; }
-.brand::after { content: "analyse cyber mensuelle"; font-weight: 400; font-size: 0.9375rem; letter-spacing: -0.01em; color: var(--muted); }
+.brand::after { content: none; }
 @media (max-width: 1180px) { .brand::after { display: none; } }
-.nav a { text-transform: lowercase; font-size: 1rem; color: #d6cec1; }
+.nav a { text-transform: none; font-size: 1rem; color: #d6cec1; }
 .nav a:hover, .nav a[aria-current="page"] { color: #f7f3ec; }
 .header-actions .btn { min-height: 40px; padding: 8px 16px; font-size: 0.875rem; }
 .header-actions .btn--ghost-desktop { display: none; }
-.mobile-nav a:not(.btn) { font-family: var(--font-body); text-transform: lowercase; font-weight: 700; letter-spacing: -0.04em; }
+.mobile-nav a:not(.btn) { font-family: var(--font-body); text-transform: none; font-weight: 700; letter-spacing: -0.04em; }
 .menu-btn { border-color: var(--line-strong); }
 
 /* ---------- Hero « instrument » ---------- */
