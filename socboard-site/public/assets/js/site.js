@@ -354,7 +354,8 @@
   if (dust && dust.getContext) {
     var dctx = dust.getContext("2d");
     var DW = 0, DH = 0, ddpr = 1, parts = [], dRun = false, dVis = true;
-    var mote = { x: 0, y: 0, tx: 0, ty: 0, hasPointer: false };
+    var mote = { x: 0, y: 0, tx: 0, ty: 0, px: 0, py: 0, R: 60, spread: 1, hasPointer: false };
+    var grains = [];
     var rnd = Math.random;
     var dustColor = (getComputedStyle(dust).getPropertyValue("--dust") || "").trim() || "#fff";
     var gaussR = function () { return (rnd() + rnd() + rnd() - 1.5) / 1.5; };
@@ -382,14 +383,39 @@
           vx: (rnd() - 0.5) * 0.06, vy: -0.01 - rnd() * 0.04 });
       }
     };
+    var seedGrains = function () {
+      grains = [];
+      mote.R = clamp(DW * 0.05, 38, 78);
+      var n = DW < 700 ? 900 : 2200;
+      for (var i = 0; i < n; i++) {
+        // rayon de Rayleigh : cœur dense, bords qui s'effilochent
+        var u = rnd();
+        var rad = mote.R * 0.42 * Math.sqrt(-2 * Math.log(1 - u * 0.985));
+        var norm = rad / mote.R;
+        var sizeRoll = rnd();
+        var sparkle = rnd() < 0.03;
+        grains.push({
+          ang: rnd() * Math.PI * 2,
+          rad: rad,
+          spin: (rnd() - 0.5) * 0.35,
+          k: 0.05 + 0.2 * Math.exp(-norm * 1.8) * (0.6 + 0.4 * rnd()),
+          s: sparkle ? 1.6 : sizeRoll < 0.62 ? 0.7 : sizeRoll < 0.92 ? 1 : 1.4,
+          a: sparkle ? 1 : Math.min(1, 0.12 + 0.95 * Math.exp(-norm * norm * 2.2)) * (0.55 + 0.45 * rnd()),
+          f: sparkle ? 6 + rnd() * 6 : 0.8 + rnd() * 2.5,
+          ph: rnd() * 6.28,
+          x: mote.x, y: mote.y
+        });
+      }
+    };
     var dResize = function () {
       var r = dust.getBoundingClientRect();
-      ddpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      ddpr = Math.min(window.devicePixelRatio || 1, 2);
       DW = Math.max(1, Math.round(r.width)); DH = Math.max(1, Math.round(r.height));
       dust.width = DW * ddpr; dust.height = DH * ddpr;
       dctx.setTransform(ddpr, 0, 0, ddpr, 0, 0);
-      if (!mote.x) { mote.x = mote.tx = DW * 0.54; mote.y = mote.ty = DH * 0.55; }
+      if (!mote.x) { mote.x = mote.tx = mote.px = DW * 0.54; mote.y = mote.ty = mote.py = DH * 0.55; }
       seed();
+      seedGrains();
     };
     var dDraw = function (now) {
       var t = now / 1000;
@@ -411,15 +437,33 @@
         dctx.globalAlpha = q.a * (0.65 + 0.35 * Math.sin(t * q.f + q.p));
         dctx.fillRect(px, py, q.s, q.s);
       }
-      // halo pixelisé (tramé) autour du « mote »
-      var R = clamp(DW * 0.055, 40, 90);
-      for (var j = 0; j < 260; j++) {
-        var gx = gaussR() * R * 1.6, gy = gaussR() * R * 0.75;
-        var dd = (gx * gx) / (R * R * 2.56) + (gy * gy) / (R * R * 0.5625);
-        if (dd > 1) continue;
-        dctx.globalAlpha = (1 - dd) * (0.55 + 0.45 * rnd());
-        var sz = rnd() < 0.3 ? 4 : 3;
-        dctx.fillRect(Math.round((mote.x + gx) / 3) * 3, Math.round((mote.y + gy) / 3) * 3, sz, sz);
+      // halo granulaire : un nuage de grains persistants qui suit le curseur
+      // avec une inertie propre à chaque grain (les grains extérieurs traînent)
+      var mvx = mote.x - mote.px, mvy = mote.y - mote.py;
+      var speed = Math.min(Math.sqrt(mvx * mvx + mvy * mvy), 40);
+      mote.px = mote.x; mote.py = mote.y;
+      mote.spread += ((1 + speed * 0.035) - mote.spread) * 0.08;
+      var R = mote.R;
+      // lueur douce sous les grains
+      var glow = dctx.createRadialGradient(mote.x, mote.y, 0, mote.x, mote.y, R * 1.5);
+      glow.addColorStop(0, "rgba(239, 230, 214, 0.16)");
+      glow.addColorStop(0.45, "rgba(239, 230, 214, 0.05)");
+      glow.addColorStop(1, "rgba(239, 230, 214, 0)");
+      dctx.globalAlpha = 1;
+      dctx.fillStyle = glow;
+      dctx.fillRect(mote.x - R * 1.6, mote.y - R * 1.6, R * 3.2, R * 3.2);
+      dctx.fillStyle = dustColor;
+      for (var j = 0; j < grains.length; j++) {
+        var g = grains[j];
+        var ang = g.ang + t * g.spin;
+        var breath = mote.spread * (1 + 0.05 * Math.sin(t * 1.3 + g.ph));
+        var tx = mote.x + Math.cos(ang) * g.rad * 1.55 * breath;
+        var ty = mote.y + Math.sin(ang) * g.rad * 0.8 * breath;
+        g.x += (tx - g.x) * g.k;
+        g.y += (ty - g.y) * g.k;
+        var tw = 0.62 + 0.38 * Math.sin(t * g.f + g.ph);
+        dctx.globalAlpha = g.a * tw;
+        dctx.fillRect(g.x, g.y, g.s, g.s);
       }
       dctx.globalAlpha = 1;
     };
