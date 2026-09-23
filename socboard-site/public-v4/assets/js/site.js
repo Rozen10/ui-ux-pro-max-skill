@@ -356,6 +356,7 @@
     var DW = 0, DH = 0, ddpr = 1, parts = [], dRun = false, dVis = true;
     var mote = { x: 0, y: 0, tx: 0, ty: 0, hasPointer: false };
     var rnd = Math.random;
+    var dustColor = (getComputedStyle(dust).getPropertyValue("--dust") || "").trim() || "#fff";
     var gaussR = function () { return (rnd() + rnd() + rnd() - 1.5) / 1.5; };
 
     var seed = function () {
@@ -399,7 +400,7 @@
       mote.x += (mote.tx - mote.x) * 0.06;
       mote.y += (mote.ty - mote.y) * 0.06;
       dctx.clearRect(0, 0, DW, DH);
-      dctx.fillStyle = "#fff";
+      dctx.fillStyle = dustColor;
       for (var i = 0; i < parts.length; i++) {
         var q = parts[i];
         q.x += q.vx; q.y += q.vy;

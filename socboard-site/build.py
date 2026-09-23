@@ -65,7 +65,7 @@ def parse(src: str):
 VARIANTS = {
     "v4": {
         "fonts": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap",
-        "theme": "#0a0a0a",
+        "theme": "#141311",
     },
 }
 
