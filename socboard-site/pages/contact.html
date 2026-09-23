@@ -30,9 +30,9 @@ ctabar: no
           <p class="error" id="nom-error" hidden></p>
         </div>
         <div class="field">
-          <label for="cabinet">Cabinet</label>
-          <input id="cabinet" name="Cabinet" type="text" autocomplete="organization" required aria-describedby="cabinet-error">
-          <p class="error" id="cabinet-error" hidden></p>
+          <label for="entreprise">Entreprise</label>
+          <input id="entreprise" name="Entreprise" type="text" autocomplete="organization" required aria-describedby="entreprise-error">
+          <p class="error" id="entreprise-error" hidden></p>
         </div>
       </div>
 
@@ -50,14 +50,8 @@ ctabar: no
 
       <div class="form__row">
         <div class="field">
-          <label for="type">Type de cabinet</label>
-          <select id="type" name="Type de cabinet" required aria-describedby="type-error">
-            <option value="">Choisir…</option>
-            <option>Expertise comptable</option>
-            <option>Avocats</option>
-            <option>Autre profession réglementée</option>
-          </select>
-          <p class="error" id="type-error" hidden></p>
+          <label for="secteur">Secteur d’activité <span class="hint">(facultatif)</span></label>
+          <input id="secteur" name="Secteur" type="text" autocomplete="off">
         </div>
         <div class="field">
           <label for="taille">Nombre de collaborateurs</label>

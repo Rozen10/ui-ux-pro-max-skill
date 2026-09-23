@@ -679,7 +679,7 @@
     };
     var check = function (input) {
       if (input.validity.valueMissing) return "Ce champ est nécessaire pour vous recontacter.";
-      if (input.validity.typeMismatch) return "Vérifiez l’adresse e-mail (exemple : nom@cabinet.fr).";
+      if (input.validity.typeMismatch) return "Vérifiez l’adresse e-mail (exemple : nom@entreprise.fr).";
       return "";
     };
     form.querySelectorAll("input[required], select[required]").forEach(function (input) {
@@ -725,7 +725,7 @@
       var lines = [];
       data.forEach(function (v, k) { if (v) lines.push(k + " : " + v); });
       var href = "mailto:contact@socboard.fr?subject=" +
-        encodeURIComponent("Demande de Diagnostic — " + (data.get("Cabinet") || "")) +
+        encodeURIComponent("Demande de Diagnostic — " + (data.get("Entreprise") || "")) +
         "&body=" + encodeURIComponent(lines.join("\n"));
       say("Votre messagerie va s’ouvrir avec la demande pré-remplie. Si rien ne s’ouvre, écrivez à <b>contact@socboard.fr</b>.");
       window.location.href = href;
