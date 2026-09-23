@@ -1604,3 +1604,112 @@ body { letter-spacing: -0.011em; }
   70%, 100% { box-shadow: 0 0 0 8px rgba(216, 201, 174, 0); }
 }
 @media (prefers-reduced-motion: reduce) { .header-actions .btn--primary::before { animation: none; } }
+
+/* ======================================================================
+   Responsive : lisibilité, zones tactiles, tablette et petits écrans
+   ====================================================================== */
+
+/* Aucun texte sous 12 px (libellés monospace, badges, tableau, pied de page) */
+.node__state, .tag-sample, .report__meta, .score__label, .friction__num,
+.offer__badge, .compare thead th, .honest__row dt, .copy-btn,
+.footer-grid h2, .priorities__head, .finding__label, .finding__bar,
+.finding__foot, .story__link, .status, .trust-line, .signal-band__labels,
+.steps-list__num, .translation__index, .next-action small, .next-action a,
+.step__index span, .step__aside h3, .timeline span, .cred, .kpi__label,
+.prio__effort, .bars .axis, .tabpanel__label, .deck__foot, .footer-base { font-size: max(0.75rem, 12px); }
+
+/* Zones tactiles ≥ 44 px */
+.footer-grid a { min-height: 44px; display: inline-flex; align-items: center; padding: 0; }
+.crumbs a { min-height: 44px; }
+.copy-btn { min-height: 44px; padding: 8px 16px; }
+.next-action a { display: inline-flex; align-items: center; min-height: 44px; }
+.story--action > a { width: 44px; height: 44px; right: 8px; top: 8px; }
+.story--action { padding-right: 64px; }
+.faq summary { min-height: 56px; }
+.acc-btn { min-height: 64px; }
+
+/* Scan : une colonne dès que les cases deviennent étroites */
+@media (max-width: 600px) {
+  .scan__field { grid-template-columns: minmax(0, 1fr); }
+  .node__name { flex-wrap: wrap; row-gap: 2px; }
+  .node__state { white-space: normal; }
+}
+
+/* Tablette : hero sur une colonne, pile de cartes centrée et contenue */
+@media (max-width: 980px) {
+  .ihero { padding-top: calc(var(--header-h) + 32px); }
+  .ihero__title { max-width: 12ch; }
+  .instrument { justify-items: center; width: 100%; max-width: 620px; margin-inline: auto; }
+  .instrument__kicker { justify-self: start; }
+  .deck { width: 100%; height: clamp(230px, 52vw, 400px); }
+  .deck__card { left: 6%; width: 70%; }
+  .ihero__foot { gap: 16px; }
+  .report-legend { gap: 0; }
+}
+
+/* Téléphones */
+@media (max-width: 640px) {
+  :root { --header-h: 64px; }
+  .section { padding-block: clamp(64px, 16vw, 96px); }
+  .ihero__title { font-size: clamp(2.5rem, 12.5vw, 4rem); max-width: none; hyphens: auto; -webkit-hyphens: auto; }
+  .ihero__lead { font-size: 1.0625rem; }
+  .ihero__ctas { display: grid; grid-template-columns: 1fr; gap: 10px; width: 100%; }
+  .ihero__ctas .btn { width: 100%; }
+  .ihero__ctas .text-link { justify-self: start; margin-left: 0; }
+  .ihero__note { font-size: 0.875rem; }
+  .deck { height: clamp(210px, 62vw, 300px); }
+  .deck__card { width: 76%; left: 2%; }
+  .deck__big { font-size: clamp(1.25rem, 6.5vw, 1.75rem); }
+  .crumbs { font-size: 0.875rem; }
+  .status { font-size: 12px; letter-spacing: 0.1em; }
+  .h2 { font-size: clamp(1.9rem, 8.4vw, 2.6rem); }
+  .lead { font-size: 1.0625rem; }
+  .display { font-size: clamp(2.3rem, 11vw, 3.5rem); hyphens: auto; -webkit-hyphens: auto; }
+  .page-hero .display { font-size: clamp(2.3rem, 11vw, 3.5rem); }
+  .final .display { font-size: clamp(2.2rem, 10.5vw, 3.25rem); }
+  .section-head { margin-bottom: 36px; }
+  .report__bar, .report__foot { padding-inline: 16px; }
+  .report__body > * { padding: 18px 16px; }
+  .next-action { margin-inline: 16px; }
+  .kpi__num { font-size: 1.9rem; }
+  .prio { grid-template-columns: 3px minmax(0, 1fr); }
+  .prio__effort { grid-column: 2; justify-self: start; }
+  .finding__fact strong { font-size: clamp(5rem, 28vw, 7rem); }
+  .finding__bar, .finding__foot { padding-inline: 16px; }
+  .finding__fact, .finding__story { padding: 22px 16px; }
+  .story { grid-template-columns: 26px minmax(0, 1fr); gap: 10px; }
+  .story--action { padding: 14px 56px 14px 12px; }
+  .steps-list li { padding: 22px 0; }
+  .acc-card { padding: 20px 18px; border-radius: 16px; }
+  .acc-panel .price__amount { font-size: 2.75rem; }
+  .offer { padding: 24px 20px; }
+  .offer__name { font-size: 2.25rem; }
+  .price__amount { font-size: 3rem; }
+  .final__inner { gap: 28px; }
+  .final__side .btn { width: 100%; }
+  .footer-grid { gap: 24px; }
+  .footer-wordmark { font-size: 22vw; }
+  .footer-base { flex-direction: column; gap: 6px; }
+  .trust-line { justify-content: flex-start; }
+}
+
+/* Très petits écrans (iPhone SE 1re génération, 320 px) */
+@media (max-width: 360px) {
+  :root { --gutter: 14px; }
+  .ihero__title { font-size: 2.35rem; }
+  .brand { font-size: 1.0625rem; }
+  .btn { padding-inline: 18px; }
+  .kpis { grid-template-columns: 1fr; }
+  .acc-btn { font-size: 1.25rem; gap: 10px; }
+  .acc-btn__meta { display: none; }
+}
+
+/* Téléphone en paysage : le hero ne force pas la hauteur de l'écran */
+@media (max-height: 500px) and (orientation: landscape) {
+  .ihero { min-height: 0; }
+  .deck { height: 240px; }
+}
+.site-footer { overflow: hidden; }
+.footer-wordmark { white-space: nowrap; }
+@media (max-width: 640px) { .footer-wordmark { font-size: 19vw; } }
+html { overflow-x: clip; }
