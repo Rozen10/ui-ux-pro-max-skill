@@ -1544,3 +1544,7 @@ body { letter-spacing: -0.011em; }
 @media (max-width: 860px) { .faq-home { grid-template-columns: 1fr; } }
 
 @media (prefers-reduced-motion: reduce) { .band__track { animation: none; } }
+
+/* Hero sans onglets : la pile de cartes occupe seule la colonne droite */
+.instrument { align-self: center; }
+.deck { height: clamp(260px, 30vw, 460px); }
