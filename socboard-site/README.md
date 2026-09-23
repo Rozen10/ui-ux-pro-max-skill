@@ -19,3 +19,12 @@ Déploiement : publier le dossier `public/` tel quel (Netlify, Vercel, Cloudflar
   Sans endpoint, le formulaire ouvre la messagerie du visiteur vers contact@socboard.fr.
 - `pages/mentions-legales.html` : remplacer les champs entre crochets.
 - Photo du fondateur : remplacer le monogramme « Y. » (`.founder__card`).
+
+## Variantes de design
+
+`python3 build.py` génère aussi les variantes déclarées dans `VARIANTS` (build.py) :
+
+- `public/` : version principale (V2, inspirée DAQ / FMI / Finseo)
+- `public-v4/` : essai « instrument », inspiré de jamiemckaye.com. Son CSS est dans
+  `public-v4/assets/css/site.css`, sa page d'accueil dans `pages-v4/index.html` ;
+  les autres pages sont partagées avec `pages/`.

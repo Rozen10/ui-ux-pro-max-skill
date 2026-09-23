@@ -14,6 +14,7 @@ puis le contenu de <main>. Les partials (head, header, footer) sont
 injectés autour. Aucune dépendance : python3 build.py
 """
 import re
+import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -57,12 +58,38 @@ def parse(src: str):
     return meta, src
 
 
-def build():
+# Variantes de design : même contenu, habillage différent.
+# Chaque variante lit d'abord pages-<nom>/ (pages qui changent), puis pages/.
+# Son CSS est écrit directement dans public-<nom>/assets/css/site.css ;
+# le JS et le favicon sont copiés depuis public/.
+VARIANTS = {
+    "v4": {
+        "fonts": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap",
+        "theme": "#0a0a0a",
+    },
+}
+
+
+def build(variant=None):
+    out = OUT if variant is None else ROOT / f"public-{variant}"
+    overrides = None if variant is None else ROOT / f"pages-{variant}"
     head = (PARTIALS / "head.html").read_text(encoding="utf-8")
+    if variant:
+        cfg = VARIANTS[variant]
+        head = re.sub(r'<link rel="stylesheet" href="https://fonts.googleapis.com[^"]*">',
+                      f'<link rel="stylesheet" href="{cfg["fonts"]}">', head)
+        head = re.sub(r'<meta name="theme-color" content="[^"]*">',
+                      f'<meta name="theme-color" content="{cfg["theme"]}">', head)
+        head = head.replace('<html lang="fr">', f'<html lang="fr" data-variant="{variant}">')
+        (out / "assets" / "js").mkdir(parents=True, exist_ok=True)
+        shutil.copy(OUT / "assets" / "js" / "site.js", out / "assets" / "js" / "site.js")
+        shutil.copy(OUT / "assets" / "favicon.svg", out / "assets" / "favicon.svg")
     header = (PARTIALS / "header.html").read_text(encoding="utf-8")
     footer = (PARTIALS / "footer.html").read_text(encoding="utf-8")
 
     for page in sorted(PAGES.glob("*.html")):
+        if overrides and (overrides / page.name).exists():
+            page = overrides / page.name
         meta, body = parse(page.read_text(encoding="utf-8"))
         name = page.name
         canonical = "" if name == "index.html" else name
@@ -76,13 +103,17 @@ def build():
             foot = re.sub(r'<div class="cta-bar".*?</div>\n', "", foot, count=1, flags=re.S)
 
         body = body.replace("{{check}}", CHECK).replace("{{arrow}}", ARROW)
+        for part in re.findall(r"\{\{partial:([\w.-]+)\}\}", body):
+            body = body.replace("{{partial:%s}}" % part, (PARTIALS / part).read_text(encoding="utf-8"))
         if "{{bars}}" in body:
             body = body.replace("{{bars}}", (PARTIALS / "report-bars.svg").read_text(encoding="utf-8"))
         body = split_words(body)
         html = f'{h}{nav}<main id="contenu">\n{body.rstrip()}\n</main>\n{foot}'
-        (OUT / name).write_text(html, encoding="utf-8")
-        print("  ", name)
+        (out / name).write_text(html, encoding="utf-8")
+        print("  ", out.name + "/" + name)
 
 
 if __name__ == "__main__":
     build()
+    for v in VARIANTS:
+        build(v)
