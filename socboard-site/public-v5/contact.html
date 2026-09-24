@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="fr" data-variant="v5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Demander un Diagnostic · SOCBoard</title>
+<meta name="description" content="Demandez votre Diagnostic de cybersécurité (690 €, déductible du premier mois) ou un premier échange de 20 minutes avec notre équipe. Réponse sous un jour ouvré.">
+<meta name="theme-color" content="#11100e">
+<meta property="og:title" content="Demander un Diagnostic · SOCBoard">
+<meta property="og:description" content="Demandez votre Diagnostic de cybersécurité (690 €, déductible du premier mois) ou un premier échange de 20 minutes avec notre équipe. Réponse sous un jour ouvré.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:url" content="https://socboard.fr/contact.html">
+<link rel="canonical" href="https://socboard.fr/contact.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/v5.css">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="SOCBoard, accueil">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M5 17h6l2.2-5 3.4 11 2.6-8 1.6 2H27" fill="none" stroke="#7cc8ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      SOCBoard
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="comment-ca-marche.html">Comment ça marche</a>
+      <a href="pour-qui.html">Pour qui</a>
+      <a href="tarifs.html">Offres et tarifs</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn--sm btn--ghost-desktop" href="contact.html?objet=rdv">Prendre rendez-vous</a>
+      <a class="btn btn--sm btn--primary" href="contact.html">Demander un Diagnostic</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Ouvrir le menu"><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile" hidden>
+  <a href="index.html">Accueil</a>
+  <a href="comment-ca-marche.html">Comment ça marche</a>
+  <a href="pour-qui.html">Pour qui</a>
+  <a href="tarifs.html">Offres et tarifs</a>
+  <a href="a-propos.html">À propos</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html" aria-current="page">Contact</a>
+  <a class="btn btn--primary" href="contact.html">Demander un Diagnostic <span class="btn__meta">690 €</span></a>
+</nav>
+<main id="contenu">
+<section class="page-hero grid-lines" style="padding-bottom:32px">
+  <div class="wrap page-hero__grid">
+    <p class="eyebrow">Contact</p>
+    <h1 class="display">Demander <em>un Diagnostic.</em></h1>
+    <p class="lead">Quelques informations suffisent. Notre équipe vous répond sous un jour ouvré pour convenir d’un premier échange de 20&nbsp;minutes.</p>
+  </div>
+</section>
+
+<section class="section section--tight" style="border-top:0;padding-top:0" aria-label="Formulaire de demande">
+  <div class="wrap split">
+    <form class="form" data-contact-form data-endpoint="" novalidate>
+      <fieldset class="field">
+        <legend>Votre demande</legend>
+        <div class="choice-group" style="margin-top:8px">
+          <label class="choice"><input type="radio" name="Objet" id="objet-diag" value="Diagnostic" checked><span>Diagnostic<small>690 € HT, prix de lancement</small></span></label>
+          <label class="choice"><input type="radio" name="Objet" id="objet-rdv" value="Premier échange"><span>Premier échange<small>20 min, sans engagement</small></span></label>
+          <label class="choice"><input type="radio" name="Objet" id="objet-question" value="Question"><span>Une question<small>Réponse par e-mail</small></span></label>
+        </div>
+      </fieldset>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="nom">Nom et prénom</label>
+          <input id="nom" name="Nom" type="text" autocomplete="name" required aria-describedby="nom-error">
+          <p class="error" id="nom-error" hidden></p>
+        </div>
+        <div class="field">
+          <label for="entreprise">Entreprise</label>
+          <input id="entreprise" name="Entreprise" type="text" autocomplete="organization" required aria-describedby="entreprise-error">
+          <p class="error" id="entreprise-error" hidden></p>
+        </div>
+      </div>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="email">E-mail professionnel</label>
+          <input id="email" name="E-mail" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-error">
+          <p class="error" id="email-error" hidden></p>
+        </div>
+        <div class="field">
+          <label for="tel">Téléphone <span class="hint">(facultatif)</span></label>
+          <input id="tel" name="Téléphone" type="tel" autocomplete="tel" inputmode="tel">
+        </div>
+      </div>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="secteur">Secteur d’activité <span class="hint">(facultatif)</span></label>
+          <input id="secteur" name="Secteur" type="text" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="taille">Nombre de collaborateurs</label>
+          <select id="taille" name="Effectif">
+            <option value="">Choisir…</option>
+            <option>Moins de 10</option>
+            <option>10 à 49</option>
+            <option>50 à 200</option>
+            <option>Plus de 200</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="message">Contexte <span class="hint">(facultatif)</span></label>
+        <textarea id="message" name="Message" rows="4" aria-describedby="message-hint"></textarea>
+        <p class="hint" id="message-hint">Une préoccupation particulière, une demande d’un client ou d’un assureur, votre prestataire informatique…</p>
+      </div>
+
+      <div class="form__status" role="status" tabindex="-1" hidden></div>
+
+      <button class="btn btn--primary" type="submit" style="justify-self:start">Envoyer ma demande</button>
+      <p class="form__legal">Vos informations servent uniquement à répondre à votre demande. Elles ne sont ni revendues ni utilisées pour de la prospection.</p>
+    </form>
+
+    <aside class="contact-aside">
+      <div class="contact-card">
+        <h2>Ce qui se passe ensuite</h2>
+        <ol class="timeline" style="margin-top:8px">
+          <li><b>Sous un jour ouvré</b><span>Notre équipe vous répond et propose un créneau.</span></li>
+          <li><b>Premier échange, 20 min</b><span>Votre situation, vos questions, sans engagement.</span></li>
+          <li><b>Proposition écrite</b><span>Périmètre du Diagnostic et engagement de confidentialité.</span></li>
+        </ol>
+      </div>
+      <div class="contact-card">
+        <h2>Par e-mail</h2>
+        <div class="copy-line"><code>contact@socboard.fr</code><button class="copy-btn" type="button" data-copy="contact@socboard.fr">Copier</button></div>
+        <p class="muted" style="font-size:.875rem">France et Suisse romande · accompagnement en français, à distance.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+<script>
+  (function () {
+    try {
+      var q = new URLSearchParams(location.search);
+      if (q.get("objet") === "rdv") document.getElementById("objet-rdv").checked = true;
+      var offre = q.get("offre");
+      if (offre) {
+        var m = document.getElementById("message");
+        m.value = "Offre envisagée : " + (offre === "shield" ? "Shield" : "Radar") + "\n";
+      }
+    } catch (e) {}
+  })();
+</script>
+</main>
+<footer class="site-footer" data-cta-hide>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" aria-label="SOCBoard, accueil">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M5 17h6l2.2-5 3.4 11 2.6-8 1.6 2H27" fill="none" stroke="#7cc8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          SOCBoard
+        </a>
+        <p>La solution d’analyse de cybersécurité mensuelle, validée par nos experts, pour les entreprises. France et Suisse romande.</p>
+      </div>
+      <div>
+        <h2>La solution</h2>
+        <ul>
+          <li><a href="comment-ca-marche.html">Comment ça marche</a></li>
+          <li><a href="tarifs.html">Offres et tarifs</a></li>
+          <li><a href="pour-qui.html">Pour qui</a></li>
+          <li><a href="faq.html">Questions fréquentes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>SOCBoard</h2>
+        <ul>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="contact.html">Demander un Diagnostic</a></li>
+          <li><a href="contact.html?objet=rdv">Prendre rendez-vous</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-wordmark" aria-hidden="true">SOCBoard</p>
+    <div class="footer-base">
+      <span>© <span data-year>2026</span> SOCBoard · socboard.fr</span>
+      <span>Solution d’analyse mensuelle. Ni surveillance 24/7, ni intervention d’urgence.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/site.js" defer></script>
+<script src="assets/js/v5.js" defer></script>
+</body>
+</html>

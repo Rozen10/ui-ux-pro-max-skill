@@ -67,6 +67,13 @@ VARIANTS = {
         "fonts": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap",
         "theme": "#141311",
     },
+    # V5 : reprend le CSS de la V4 et ajoute sa propre surcouche (assets-v5/).
+    "v5": {
+        "fonts": "https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&display=swap",
+        "theme": "#11100e",
+        "base_css": "v4",
+        "extra": ["css/v5.css", "js/v5.js"],
+    },
 }
 
 
@@ -84,6 +91,17 @@ def build(variant=None):
         (out / "assets" / "js").mkdir(parents=True, exist_ok=True)
         shutil.copy(OUT / "assets" / "js" / "site.js", out / "assets" / "js" / "site.js")
         shutil.copy(OUT / "assets" / "favicon.svg", out / "assets" / "favicon.svg")
+        if cfg.get("base_css"):
+            (out / "assets" / "css").mkdir(parents=True, exist_ok=True)
+            shutil.copy(ROOT / f"public-{cfg['base_css']}" / "assets" / "css" / "site.css",
+                        out / "assets" / "css" / "site.css")
+        for rel in cfg.get("extra", []):
+            src = ROOT / f"assets-{variant}" / rel
+            (out / "assets" / rel).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(src, out / "assets" / rel)
+            if rel.endswith(".css"):
+                head = head.replace('<link rel="stylesheet" href="assets/css/site.css">',
+                                    f'<link rel="stylesheet" href="assets/css/site.css">\n<link rel="stylesheet" href="assets/{rel}">')
     header = (PARTIALS / "header.html").read_text(encoding="utf-8")
     footer = (PARTIALS / "footer.html").read_text(encoding="utf-8")
 
@@ -108,6 +126,10 @@ def build(variant=None):
         if "{{bars}}" in body:
             body = body.replace("{{bars}}", (PARTIALS / "report-bars.svg").read_text(encoding="utf-8"))
         body = split_words(body)
+        if variant:
+            for rel in VARIANTS[variant].get("extra", []):
+                if rel.endswith(".js"):
+                    foot = foot.replace("</body>", f'<script src="assets/{rel}" defer></script>\n</body>')
         html = f'{h}{nav}<main id="contenu">\n{body.rstrip()}\n</main>\n{foot}'
         (out / name).write_text(html, encoding="utf-8")
         print("  ", out.name + "/" + name)

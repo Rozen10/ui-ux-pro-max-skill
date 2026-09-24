@@ -28,3 +28,9 @@ Déploiement : publier le dossier `public/` tel quel (Netlify, Vercel, Cloudflar
 - `public-v4/` : essai « instrument », inspiré de jamiemckaye.com. Son CSS est dans
   `public-v4/assets/css/site.css`, sa page d'accueil dans `pages-v4/index.html` ;
   les autres pages sont partagées avec `pages/`.
+- `public-v5/` : refonte « sable ». Le mot-clé du hero (« visible. ») et de la conclusion
+  est dessiné par des grains qui s'assemblent, s'écartent sous le curseur et se dispersent
+  au scroll ; défilement horizontal épinglé (constat → action), courbe mensuelle tracée au
+  scroll, cartes d'offres empilées, boutons magnétiques. Reprend le CSS de la V4
+  (copié au build) + `assets-v5/css/v5.css` et `assets-v5/js/v5.js` ; page d'accueil dans
+  `pages-v5/index.html`. Tout est statique avec `prefers-reduced-motion`.
