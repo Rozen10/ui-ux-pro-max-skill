@@ -349,61 +349,86 @@
     });
   });
 
-  /* ---------- Poussière de particules + halo qui suit le curseur (v4) ---------- */
+  /* ---------- Poussière de sable + « mote » qui suit le curseur (v4) ----------
+     Inspiré de jamiemckaye.com : dGrains carrés alignés sur les pixels, dune dense,
+     un nuage elliptique qui suit la souris avec un ressort (élan, léger dépassement),
+     s'étire dans le sens du mouvement, laisse une traînée qui s'enroule, et balaie
+     la poussière du fond qui revient ensuite à sa place.
+     Rendu groupé par niveaux d'opacité (un seul fill par niveau) pour tenir 60 i/s. */
   var dust = document.querySelector("[data-dust]");
   if (dust && dust.getContext) {
     var dctx = dust.getContext("2d");
-    var DW = 0, DH = 0, ddpr = 1, parts = [], dRun = false, dVis = true;
-    var mote = { x: 0, y: 0, tx: 0, ty: 0, px: 0, py: 0, R: 60, spread: 1, hasPointer: false };
-    var grains = [];
+    var DW = 0, DH = 0, ddpr = 1, dRun = false, dVis = true, dSmall = false;
+    var dField = [], dGrains = [], dSparks = [];
+    var mote = { x: 0, y: 0, vx: 0, vy: 0, tx: 0, ty: 0, ang: -0.2, stretch: 1, R: 50, hasPointer: false, idleT: 0 };
     var rnd = Math.random;
-    var dustColor = (getComputedStyle(dust).getPropertyValue("--dust") || "").trim() || "#fff";
-    var gaussR = function () { return (rnd() + rnd() + rnd() - 1.5) / 1.5; };
+    var dustRGB = (getComputedStyle(dust).getPropertyValue("--dust-rgb") || "").trim() || "239, 230, 214";
+    var D_LEVELS = 10;
+    var dBuckets = [];
+    for (var bi = 0; bi < D_LEVELS; bi++) dBuckets.push([]);
+    var dPush = function (x, y, s, a) {
+      if (a <= 0.02) return;
+      var lv = Math.min(D_LEVELS - 1, (a * D_LEVELS) | 0);
+      dBuckets[lv].push(Math.round(x), Math.round(y), s);
+    };
+    var dFlush = function () {
+      for (var lv = 0; lv < D_LEVELS; lv++) {
+        var arr = dBuckets[lv];
+        if (!arr.length) continue;
+        dctx.fillStyle = "rgba(" + dustRGB + "," + ((lv + 0.6) / D_LEVELS).toFixed(2) + ")";
+        dctx.beginPath();
+        for (var i = 0; i < arr.length; i += 3) dctx.rect(arr[i], arr[i + 1], arr[i + 2], arr[i + 2]);
+        dctx.fill();
+        arr.length = 0;
+      }
+    };
+    var dGauss = function () { return (rnd() + rnd() + rnd() + rnd() - 2) / 2; };
+    var dGrainSize = function () { var r = rnd(); return r < 0.62 ? 1 : r < 0.9 ? 2 : 3; };
 
-    var seed = function () {
-      parts = [];
-      var area = DW * DH;
-      var n = Math.round(clamp(area / (DW < 700 ? 1800 : 900), 300, 2000));
+    var seedField = function () {
+      dField = [];
+      var n = Math.round(clamp(DW * DH / (dSmall ? 420 : 190), 900, dSmall ? 3600 : 8500));
+      // amas nuageux de sable (comme des dunes vues de haut), surtout en bas à droite
+      var clumps = [
+        { x: 0.86, y: 0.7, sx: 0.16, sy: 0.18, w: 0.24 },
+        { x: 0.7, y: 0.92, sx: 0.2, sy: 0.08, w: 0.22 },
+        { x: 0.95, y: 0.45, sx: 0.08, sy: 0.22, w: 0.12 },
+        { x: 0.42, y: 0.97, sx: 0.22, sy: 0.05, w: 0.12 },
+        { x: 0.6, y: 0.78, sx: 0.07, sy: 0.14, w: 0.1 }
+      ];
+      var wsum = 0; clumps.forEach(function (c) { wsum += c.w; });
       for (var i = 0; i < n; i++) {
-        var kind = rnd();
-        var x, y, a;
-        if (kind < 0.35) {            // poussière ambiante
-          x = rnd() * DW; y = rnd() * DH; a = 0.05 + rnd() * 0.25;
-        } else if (kind < 0.8) {      // dune dense en bas à droite
-          x = DW * (0.3 + 0.7 * Math.pow(rnd(), 0.55));
-          y = DH * (0.55 + 0.45 * Math.pow(rnd(), 0.5));
-          a = 0.25 + rnd() * 0.6;
-        } else {                      // faisceau diagonal sous le halo
+        var kind = rnd(), x, y, a;
+        if (kind < 0.16) {              // poussière ambiante, très fine
+          x = rnd() * DW; y = rnd() * DH; a = 0.05 + rnd() * 0.2;
+        } else if (kind < 0.84) {       // amas de sable
+          var pick = rnd() * wsum, c = clumps[0];
+          for (var ci = 0; ci < clumps.length; ci++) { pick -= clumps[ci].w; if (pick <= 0) { c = clumps[ci]; break; } }
+          x = DW * (c.x + dGauss() * c.sx); y = DH * (c.y + dGauss() * c.sy);
+          a = 0.1 + rnd() * 0.5;
+        } else {                        // faisceau diagonal
           var t = rnd();
-          x = DW * (0.56 - 0.08 * t) + gaussR() * (20 + 60 * t);
-          y = DH * (0.62 + 0.38 * t) + gaussR() * 10;
-          a = 0.1 + rnd() * 0.4;
+          x = DW * (0.6 - 0.1 * t) + dGauss() * (16 + 60 * t);
+          y = DH * (0.58 + 0.42 * t) + dGauss() * 10;
+          a = 0.12 + rnd() * 0.45;
         }
-        parts.push({ x: x, y: y, s: rnd() < 0.85 ? 1 : 1.8, a: a, f: 0.5 + rnd() * 2, p: rnd() * 6.28,
-          vx: (rnd() - 0.5) * 0.06, vy: -0.01 - rnd() * 0.04 });
+        dField.push({ hx: x, hy: y, ox: 0, oy: 0, vx: 0, vy: 0, s: rnd() < 0.82 ? 1 : 2, a: a,
+          f: 0.6 + rnd() * 2.2, p: rnd() * 6.28, dx: (rnd() - 0.5) * 0.04, dy: -0.006 - rnd() * 0.02 });
       }
     };
     var seedGrains = function () {
-      grains = [];
-      mote.R = clamp(DW * 0.05, 38, 78);
-      var n = DW < 700 ? 900 : 2200;
+      dGrains = [];
+      mote.R = clamp(DW * 0.042, 30, 66);
+      var n = dSmall ? 1300 : 3000;
       for (var i = 0; i < n; i++) {
-        // rayon de Rayleigh : cœur dense, bords qui s'effilochent
-        var u = rnd();
-        var rad = mote.R * 0.42 * Math.sqrt(-2 * Math.log(1 - u * 0.985));
-        var norm = rad / mote.R;
-        var sizeRoll = rnd();
-        var sparkle = rnd() < 0.03;
-        grains.push({
-          ang: rnd() * Math.PI * 2,
-          rad: rad,
-          spin: (rnd() - 0.5) * 0.35,
-          k: 0.05 + 0.2 * Math.exp(-norm * 1.8) * (0.6 + 0.4 * rnd()),
-          s: sparkle ? 1.6 : sizeRoll < 0.62 ? 0.7 : sizeRoll < 0.92 ? 1 : 1.4,
-          a: sparkle ? 1 : Math.min(1, 0.12 + 0.95 * Math.exp(-norm * norm * 2.2)) * (0.55 + 0.45 * rnd()),
-          f: sparkle ? 6 + rnd() * 6 : 0.8 + rnd() * 2.5,
-          ph: rnd() * 6.28,
-          x: mote.x, y: mote.y
+        var ang = rnd() * Math.PI * 2;
+        var rad = Math.min(1.25, Math.sqrt(-2 * Math.log(1 - rnd() * 0.97)) * 0.42);
+        var core = Math.exp(-rad * rad * 3.2);
+        dGrains.push({
+          u: Math.cos(ang) * rad, v: Math.sin(ang) * rad,
+          k: 0.08 + 0.3 * core * (0.5 + 0.5 * rnd()),
+          s: dGrainSize(), a: Math.min(1, 0.18 + 0.95 * core) * (0.6 + 0.4 * rnd()),
+          f: 1 + rnd() * 5, p: rnd() * 6.28, x: mote.x, y: mote.y
         });
       }
     };
@@ -411,76 +436,123 @@
       var r = dust.getBoundingClientRect();
       ddpr = Math.min(window.devicePixelRatio || 1, 2);
       DW = Math.max(1, Math.round(r.width)); DH = Math.max(1, Math.round(r.height));
+      dSmall = DW < 700;
       dust.width = DW * ddpr; dust.height = DH * ddpr;
       dctx.setTransform(ddpr, 0, 0, ddpr, 0, 0);
-      if (!mote.x) { mote.x = mote.tx = mote.px = DW * 0.54; mote.y = mote.ty = mote.py = DH * 0.55; }
-      seed();
-      seedGrains();
+      dctx.imageSmoothingEnabled = false;
+      if (!mote.x) { mote.x = mote.tx = DW * 0.56; mote.y = mote.ty = DH * 0.62; }
+      seedField(); seedGrains(); dSparks = [];
     };
+
+    var dLast = 0;
     var dDraw = function (now) {
       var t = now / 1000;
+      var dt = dLast ? Math.min(2, (now - dLast) / 16.67) : 1;
+      dLast = now;
+
+      // Cible : la souris, ou une dérive lente et naturelle quand elle est absente
       if (!mote.hasPointer) {
-        mote.tx = DW * (0.54 + 0.05 * Math.sin(t * 0.21));
-        mote.ty = DH * (0.55 + 0.04 * Math.sin(t * 0.33 + 1));
+        mote.idleT += 0.004 * dt;
+        mote.tx = DW * (0.56 + 0.16 * Math.sin(mote.idleT * 1.3) + 0.05 * Math.sin(mote.idleT * 3.1));
+        mote.ty = DH * (0.62 + 0.1 * Math.sin(mote.idleT * 2.1 + 1.2));
       }
-      mote.x += (mote.tx - mote.x) * 0.06;
-      mote.y += (mote.ty - mote.y) * 0.06;
+      // Ressort amorti : élan + léger dépassement
+      mote.vx += (mote.tx - mote.x) * 0.035 * dt;
+      mote.vy += (mote.ty - mote.y) * 0.035 * dt;
+      var damp = Math.pow(0.8, dt);
+      mote.vx *= damp; mote.vy *= damp;
+      mote.x += mote.vx * dt; mote.y += mote.vy * dt;
+      var speed = Math.sqrt(mote.vx * mote.vx + mote.vy * mote.vy);
+
+      // Orientation et étirement selon la vitesse
+      var wantAng = speed > 0.6 ? Math.atan2(mote.vy, mote.vx) : -0.2;
+      var dA = wantAng - mote.ang;
+      while (dA > Math.PI / 2) dA -= Math.PI;
+      while (dA < -Math.PI / 2) dA += Math.PI;
+      mote.ang += dA * Math.min(1, 0.02 + speed * 0.012) * dt;
+      mote.stretch += ((1 + Math.min(speed * 0.045, 1.1)) - mote.stretch) * 0.12 * dt;
+
       dctx.clearRect(0, 0, DW, DH);
-      dctx.fillStyle = dustColor;
-      for (var i = 0; i < parts.length; i++) {
-        var q = parts[i];
-        q.x += q.vx; q.y += q.vy;
-        if (q.y < -4) q.y = DH + 4;
-        if (q.x < -4) q.x = DW + 4; else if (q.x > DW + 4) q.x = -4;
-        var dx = q.x - mote.x, dy = q.y - mote.y, d2 = dx * dx + dy * dy, px = q.x, py = q.y;
-        if (d2 < 12000) { var k = (1 - d2 / 12000) * 18 / Math.sqrt(d2 + 1); px += dx * k; py += dy * k; }
-        dctx.globalAlpha = q.a * (0.65 + 0.35 * Math.sin(t * q.f + q.p));
-        dctx.fillRect(px, py, q.s, q.s);
+
+      // Poussière du fond : dérive + souffle du mote + retour élastique
+      var A = mote.R * 2.1 * mote.stretch, B = mote.R * 0.7 / Math.sqrt(mote.stretch);
+      var reach = A * 1.5, reach2 = reach * reach;
+      for (var i = 0; i < dField.length; i++) {
+        var q = dField[i];
+        q.hx += q.dx * dt; q.hy += q.dy * dt;
+        if (q.hy < -4) q.hy = DH + 4;
+        if (q.hx < -4) q.hx = DW + 4; else if (q.hx > DW + 4) q.hx = -4;
+        var px = q.hx + q.ox, py = q.hy + q.oy;
+        var ex = px - mote.x, ey = py - mote.y, e2 = ex * ex + ey * ey;
+        if (e2 < reach2) {
+          var d = Math.sqrt(e2) + 0.01, w = 1 - d / reach; w *= w;
+          q.vx += (mote.vx * 0.22 + ex / d * 1.1) * w * dt;
+          q.vy += (mote.vy * 0.22 + ey / d * 1.1) * w * dt;
+        }
+        q.vx += -q.ox * 0.012 * dt; q.vy += -q.oy * 0.012 * dt;
+        var fd = Math.pow(0.9, dt);
+        q.vx *= fd; q.vy *= fd;
+        q.ox += q.vx * dt; q.oy += q.vy * dt;
+        dPush(q.hx + q.ox, q.hy + q.oy, q.s, q.a * (0.7 + 0.3 * Math.sin(t * q.f + q.p)));
       }
-      // halo granulaire : un nuage de grains persistants qui suit le curseur
-      // avec une inertie propre à chaque grain (les grains extérieurs traînent)
-      var mvx = mote.x - mote.px, mvy = mote.y - mote.py;
-      var speed = Math.min(Math.sqrt(mvx * mvx + mvy * mvy), 40);
-      mote.px = mote.x; mote.py = mote.y;
-      mote.spread += ((1 + speed * 0.035) - mote.spread) * 0.08;
-      var R = mote.R;
-      // lueur douce sous les grains
-      var glow = dctx.createRadialGradient(mote.x, mote.y, 0, mote.x, mote.y, R * 1.5);
-      glow.addColorStop(0, "rgba(239, 230, 214, 0.16)");
-      glow.addColorStop(0.45, "rgba(239, 230, 214, 0.05)");
-      glow.addColorStop(1, "rgba(239, 230, 214, 0)");
-      dctx.globalAlpha = 1;
-      dctx.fillStyle = glow;
-      dctx.fillRect(mote.x - R * 1.6, mote.y - R * 1.6, R * 3.2, R * 3.2);
-      dctx.fillStyle = dustColor;
-      for (var j = 0; j < grains.length; j++) {
-        var g = grains[j];
-        var ang = g.ang + t * g.spin;
-        var breath = mote.spread * (1 + 0.05 * Math.sin(t * 1.3 + g.ph));
-        var tx = mote.x + Math.cos(ang) * g.rad * 1.55 * breath;
-        var ty = mote.y + Math.sin(ang) * g.rad * 0.8 * breath;
-        g.x += (tx - g.x) * g.k;
-        g.y += (ty - g.y) * g.k;
-        var tw = 0.62 + 0.38 * Math.sin(t * g.f + g.ph);
-        dctx.globalAlpha = g.a * tw;
-        dctx.fillRect(g.x, g.y, g.s, g.s);
+
+      // Traînée : des dGrains se détachent et s'enroulent en arc
+      if (speed > 1.2) {
+        var emit = Math.min(60, speed * 3.2) * dt;
+        for (var e = 0; e < emit && dSparks.length < 2600; e++) {
+          var g0 = dGrains[(rnd() * dGrains.length) | 0];
+          var side = rnd() < 0.5 ? -1 : 1;
+          dSparks.push({ x: g0.x, y: g0.y,
+            vx: mote.vx * (0.15 + rnd() * 0.3) - mote.vy * 0.12 * side * rnd(),
+            vy: mote.vy * (0.15 + rnd() * 0.3) + mote.vx * 0.12 * side * rnd(),
+            curl: (0.012 + rnd() * 0.03) * side, life: 1, decay: 0.01 + rnd() * 0.02, s: dGrainSize(), a: 0.5 + rnd() * 0.5 });
+        }
       }
-      dctx.globalAlpha = 1;
+      for (var sI = dSparks.length - 1; sI >= 0; sI--) {
+        var sp = dSparks[sI];
+        var c = Math.cos(sp.curl * dt), sn = Math.sin(sp.curl * dt);
+        var nvx = sp.vx * c - sp.vy * sn; sp.vy = sp.vx * sn + sp.vy * c; sp.vx = nvx;
+        var sd = Math.pow(0.955, dt);
+        sp.vx *= sd; sp.vy *= sd;
+        sp.x += sp.vx * dt; sp.y += sp.vy * dt;
+        sp.life -= sp.decay * dt;
+        if (sp.life <= 0) { dSparks[sI] = dSparks[dSparks.length - 1]; dSparks.pop(); continue; }
+        dPush(sp.x, sp.y, sp.s, sp.a * sp.life);
+      }
+
+      // Le mote : ellipse de dGrains, cœur dense, inertie propre à chaque grain
+      var ca = Math.cos(mote.ang), sa = Math.sin(mote.ang);
+      for (var j = 0; j < dGrains.length; j++) {
+        var g = dGrains[j];
+        var breath = 1 + 0.04 * Math.sin(t * 1.4 + g.p);
+        var lx = g.u * A * breath, ly = g.v * B * breath;
+        var tx = mote.x + lx * ca - ly * sa, ty = mote.y + lx * sa + ly * ca;
+        var k = 1 - Math.pow(1 - g.k, dt);
+        g.x += (tx - g.x) * k; g.y += (ty - g.y) * k;
+        dPush(g.x, g.y, g.s, g.a * (0.72 + 0.28 * Math.sin(t * g.f + g.p)));
+      }
+      dFlush();
     };
+
     var dLoop = function (now) { if (!dRun) return; dDraw(now); requestAnimationFrame(dLoop); };
     var dStart = function () {
       if (dRun || reduceMotion.matches || !dVis || document.hidden) return;
-      dRun = true; requestAnimationFrame(dLoop);
+      dRun = true; dLast = 0; requestAnimationFrame(dLoop);
     };
-    dResize(); dDraw(performance.now());
-    window.addEventListener("resize", function () { dResize(); if (!dRun) dDraw(performance.now()); });
-    var host = dust.parentElement;
-    host.addEventListener("pointermove", function (e) {
-      if (e.pointerType !== "mouse") return;
-      var r = dust.getBoundingClientRect();
-      mote.hasPointer = true; mote.tx = e.clientX - r.left; mote.ty = e.clientY - r.top;
+    dResize();
+    for (var dWarm = 0; dWarm < 40; dWarm++) dDraw(performance.now() + dWarm * 16);
+    var dRT;
+    window.addEventListener("resize", function () {
+      clearTimeout(dRT);
+      dRT = setTimeout(function () { dResize(); if (!dRun) dDraw(performance.now()); }, 120);
     });
-    host.addEventListener("pointerleave", function () { mote.hasPointer = false; });
+    var dHost = dust.parentElement;
+    dHost.addEventListener("pointermove", function (ev) {
+      if (ev.pointerType !== "mouse") return;
+      var r = dust.getBoundingClientRect();
+      mote.hasPointer = true; mote.tx = ev.clientX - r.left; mote.ty = ev.clientY - r.top;
+    }, { passive: true });
+    dHost.addEventListener("pointerleave", function () { mote.hasPointer = false; });
     document.addEventListener("visibilitychange", function () { if (document.hidden) dRun = false; else dStart(); });
     if (hasIO) new IntersectionObserver(function (en) { dVis = en[0].isIntersecting; if (dVis) dStart(); else dRun = false; }).observe(dust);
     dStart();

@@ -1385,6 +1385,7 @@ body { letter-spacing: -0.011em; }
   --sand: #d8c9ae;       /* beige sable : accent */
   --sand-deep: #b9a684;
   --dust: #efe6d6;       /* couleur des particules */
+  --dust-rgb: 239, 230, 214;
   --signal: var(--sand);
   --signal-strong: #e9dcc3;
   --signal-soft: rgba(216, 201, 174, 0.14);
