@@ -1082,3 +1082,6 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
   .scan__sticky { position: relative; top: 0; min-height: 0; }
   .scan__line { display: none; }
 }
+
+/* Champ piège anti-robots du formulaire : hors écran, jamais visible */
+.form__trap { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }

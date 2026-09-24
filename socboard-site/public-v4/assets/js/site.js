@@ -741,6 +741,14 @@
   }
 
   /* ---------- Formulaire de contact ---------- */
+  // Les paramètres d’URL ne sont appliqués qu’à des options connues.
+  if (document.getElementById("objet-rdv")) {
+    var query = new URLSearchParams(window.location.search);
+    if (query.get("objet") === "rdv") document.getElementById("objet-rdv").checked = true;
+    var offer = query.get("offre");
+    var messageField = document.getElementById("message");
+    if (offer && messageField) messageField.value = "Offre envisagée : " + (offer === "shield" ? "Shield" : "Radar") + "\n";
+  }
   var form = document.querySelector("[data-contact-form]");
   if (form) {
     var status = form.querySelector(".form__status");
@@ -769,38 +777,39 @@
       });
       if (firstBad) { firstBad.focus(); return; }
 
-      var data = new FormData(form);
-      var endpoint = form.getAttribute("data-endpoint");
+      var formData = new FormData(form);
+      var data = {};
+      formData.forEach(function (value, key) { data[key] = String(value); });
       var submitBtn = form.querySelector('button[type="submit"]');
-      var say = function (html) { status.innerHTML = html; status.hidden = false; status.focus(); };
-
-      if (endpoint) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Envoi en cours…";
-        fetch(endpoint, { method: "POST", body: data, headers: { Accept: "application/json" } })
-          .then(function (r) {
-            if (!r.ok) throw new Error(String(r.status));
+      var say = function (message) { status.textContent = message; status.hidden = false; status.focus(); };
+      var controller = new AbortController();
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Envoi en cours…";
+      var timeout = window.setTimeout(function () { controller.abort(); }, 9000);
+      fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        credentials: "same-origin",
+        mode: "same-origin",
+        signal: controller.signal
+      })
+        .then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (payload) {
+            if (!r.ok) throw new Error(payload.error || "L’envoi n’a pas abouti.");
             form.reset();
-            say("<b>Demande reçue.</b> Notre équipe vous répond sous un jour ouvré pour fixer un créneau.");
-          })
-          .catch(function () {
-            say("L’envoi n’a pas abouti. Écrivez-nous directement à <b>contact@socboard.fr</b>, ou réessayez dans un instant.");
-          })
-          .finally(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Envoyer ma demande";
+            say("Demande envoyée. Notre équipe vous répond sous un jour ouvré.");
           });
-        return;
-      }
-
-      // Pas de service d'envoi configuré : on prépare un e-mail.
-      var lines = [];
-      data.forEach(function (v, k) { if (v) lines.push(k + " : " + v); });
-      var href = "mailto:contact@socboard.fr?subject=" +
-        encodeURIComponent("Demande de Diagnostic — " + (data.get("Entreprise") || "")) +
-        "&body=" + encodeURIComponent(lines.join("\n"));
-      say("Votre messagerie va s’ouvrir avec la demande pré-remplie. Si rien ne s’ouvre, écrivez à <b>contact@socboard.fr</b>.");
-      window.location.href = href;
+        })
+        .catch(function (error) {
+          var message = error.name === "AbortError" ? "L’envoi prend trop de temps. Réessayez ou écrivez à contact@socboard.fr." : (error.message || "L’envoi n’a pas abouti. Réessayez ou écrivez à contact@socboard.fr.");
+          say(message);
+        })
+        .finally(function () {
+          window.clearTimeout(timeout);
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Envoyer ma demande";
+        });
     });
   }
 

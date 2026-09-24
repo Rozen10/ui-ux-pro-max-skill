@@ -1,220 +1,307 @@
 <!--
 title: SOCBoard · Votre cybersécurité, enfin visible
-description: Chaque mois, nos analystes examinent l’exposition de votre entreprise et vous remettent un rapport clair, priorisé, lisible par la direction. Diagnostic 690 € HT.
+description: SOCBoard transforme la cybersécurité de votre entreprise en décisions claires et en actions concrètes, chaque mois. Commencez par un Diagnostic à 690 €.
 -->
+<div class="v5-intro" aria-hidden="true">
+  <div class="v5-intro__mark">
+    <svg viewBox="0 0 36 36"><path class="hex" d="M18 2.8 31.2 10v16L18 33.2 4.8 26V10L18 2.8Z"/><path class="pulse" d="M10.2 18h4.1l2.2-5 3.4 10 2.2-5h3.7"/></svg>
+    <span class="v5-intro__word"><span>S</span><span>O</span><span>C</span><span>B</span><span>O</span><span>A</span><span>R</span><span>D</span></span>
+  </div>
+  <span class="v5-intro__count" data-intro-count>00</span>
+</div>
+<div class="v5-progress" aria-hidden="true"><span data-progress></span></div>
+
 <section class="v5-hero" aria-labelledby="hero-title" data-sand-host>
   <canvas class="v5-sand" data-sand aria-hidden="true"></canvas>
   <div class="wrap v5-hero__inner">
-    <p class="v5-hero__eyebrow v5-rise" style="--i:0">Analyse de cybersécurité mensuelle, validée par nos analystes</p>
+    <p class="v5-hero__eyebrow v5-rise" style="--i:0">La sécurité des entreprises, en clair</p>
     <h1 class="v5-hero__title" id="hero-title">
       <span class="v5-line"><span style="--i:1">Votre cybersécurité,</span></span>
       <span class="v5-line"><span style="--i:2">enfin <span class="v5-sandword" data-sand-word>visible.</span></span></span>
     </h1>
-    <div class="v5-hero__foot">
-      <p class="v5-hero__lead v5-rise" style="--i:3">Chaque mois, nos analystes examinent votre exposition et vous remettent un rapport clair, priorisé, lisible par la direction.</p>
-      <div class="v5-hero__ctas v5-rise" style="--i:4">
-        <a class="v5-btn v5-btn--primary" href="contact.html" data-magnetic><span class="v5-btn__label">Demander un Diagnostic</span><span class="v5-btn__meta">690 €</span></a>
-        <a class="v5-btn v5-btn--ghost" href="#methode">Voir la méthode</a>
+    <div class="v5-hero__body">
+      <div class="v5-hero__copy">
+        <p class="v5-hero__lead v5-rise" style="--i:3">Les risques deviennent lisibles. Les priorités deviennent évidentes. Et chaque prochaine étape tient en une action concrète&nbsp;: chaque mois, pour les entreprises.</p>
+        <div class="v5-hero__ctas v5-rise" style="--i:4">
+          <a class="v5-btn v5-btn--primary" href="contact.html" data-magnetic><span class="v5-btn__label">Évaluer ma cybersécurité</span><span class="v5-btn__arrow" aria-hidden="true">↗</span></a>
+          <a class="v5-btn v5-btn--ghost" href="#solution" data-magnetic>Découvrir SOCBoard</a>
+          <a class="text-link" href="#offres">Voir les offres</a>
+        </div>
+        <p class="v5-hero__note v5-rise" style="--i:5"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>Une vision claire, sans jargon ni alarmisme.</p>
       </div>
+
+      <div class="instrument v5-instrument v5-rise" style="--i:4" data-instrument>
+        <p class="instrument__kicker">Votre rapport mensuel, en un coup d’œil.</p>
+        <div class="deck" data-deck>
+          <div class="deck__card deck__card--back2" aria-hidden="true"><span>{ }</span></div>
+          <div class="deck__card deck__card--back1" aria-hidden="true"><span>↗</span></div>
+          <article class="deck__card deck__card--front" aria-label="Aperçu du rapport SOCBoard (exemple)">
+            <header class="deck__head"><span>socboard.fr</span><span aria-hidden="true">↗</span></header>
+            <div class="deck__waves">{{partial:card-waves.svg}}</div>
+            <p class="deck__big" data-view="0">Indice 68.<br><em>Risque modéré.</em></p>
+            <footer class="deck__foot"><span>Rapport mensuel · exemple</span><b>SB</b></footer>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="v5-hero__foot v5-rise" style="--i:6">
+      <nav class="crumbs" aria-label="Accès rapides">
+        <a href="tarifs.html">Diagnostic</a><span aria-hidden="true">/</span>
+        <a href="comment-ca-marche.html">Suivi mensuel</a><span aria-hidden="true">/</span>
+        <a href="pour-qui.html">Pour qui</a><span aria-hidden="true">/</span>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <p class="status" aria-hidden="true"><b>01</b> Rapport par mois · chaque point est un signal examiné</p>
     </div>
   </div>
   <div data-cta-sentinel></div>
 </section>
 
-<section class="v5-manifesto" aria-labelledby="constat-title">
+<section class="v5-problem section--light" id="probleme" aria-labelledby="probleme-title">
   <div class="wrap">
-    <h2 class="sr-only" id="constat-title">Le constat</h2>
-    <p class="v5-manifesto__text" data-lit>Vous avez des outils, un prestataire, parfois une assurance. Pourtant, personne ne vous dit simplement <em>où vous en êtes,</em> ni ce qu’il faut <em>traiter en premier.</em></p>
+    <h2 class="v5-problem__title" id="probleme-title" data-lit>Vous avez des outils. <em>Mais avez-vous une vue d’ensemble&nbsp;?</em></h2>
+    <div class="v5-problem__copy">
+      <p data-reveal>Un antivirus ici, des sauvegardes là, un prestataire informatique, des alertes un peu partout. La sécurité d’une entreprise se construit par morceaux&nbsp;: difficile de savoir si le tout tient vraiment.</p>
+      <p data-reveal style="--d:.1s"><b>SOCBoard rassemble les pièces.</b> Vous voyez ce qui compte, vous comprenez pourquoi, et vous savez par quoi commencer.</p>
+    </div>
+    <div class="v5-frictions" data-deal>
+      <article class="v5-fr" data-spot><span class="v5-fr__num">01 / Visibilité</span><h3>Des outils dispersés</h3><p>Votre niveau de sécurité se cache dans plusieurs consoles et chez plusieurs prestataires.</p><span class="v5-fr__glyph" aria-hidden="true">◌</span></article>
+      <article class="v5-fr" data-spot><span class="v5-fr__num">02 / Clarté</span><h3>Des alertes sans contexte</h3><p>Les constats techniques ne disent pas ce qu’ils changent pour l’entreprise et ses clients.</p><span class="v5-fr__glyph" aria-hidden="true">≈</span></article>
+      <article class="v5-fr" data-spot><span class="v5-fr__num">03 / Priorité</span><h3>Tout semble urgent</h3><p>Sans hiérarchie, difficile de consacrer le peu de temps disponible au bon endroit.</p><span class="v5-fr__glyph" aria-hidden="true">!</span></article>
+      <article class="v5-fr" data-spot><span class="v5-fr__num">04 / Continuité</span><h3>Un audit, puis le flou</h3><p>Les recommandations perdent leur élan sans suivi d’un mois sur l’autre.</p><span class="v5-fr__glyph" aria-hidden="true">∿</span></article>
+    </div>
   </div>
 </section>
 
-<section class="v5-voices section--light" aria-labelledby="voices-title">
+<section class="section scan v5-scan" data-scan aria-labelledby="scan-title">
   <div class="wrap">
-    <h2 class="v5-h2" id="voices-title" data-reveal>Ce que nous entendons, chaque semaine.</h2>
-    <ul class="v5-voices__list" role="list">
-      <li data-reveal><p>«&nbsp;Nous recevons des alertes. <b>Aucune ne dit par quoi commencer.</b>&nbsp;»</p></li>
-      <li data-reveal style="--d:.08s"><p>«&nbsp;Le dernier rapport faisait quarante pages. <b>La direction ne l’a pas lu.</b>&nbsp;»</p></li>
-      <li data-reveal style="--d:.16s"><p>«&nbsp;Notre prestataire gère le quotidien. <b>Personne ne tient la feuille de route sécurité.</b>&nbsp;»</p></li>
-      <li data-reveal style="--d:.24s"><p>«&nbsp;Un client nous a demandé notre niveau de sécurité. <b>Nous n’avions rien à lui montrer.</b>&nbsp;»</p></li>
-    </ul>
+    <div class="scan__track">
+      <div class="scan__sticky">
+        <div class="scan__copy">
+          <p class="eyebrow">L’auscultation</p>
+          <h2 class="v5-h2" id="scan-title" data-split>Ce qu’un attaquant voit de votre entreprise. <em>Nous le voyons d’abord.</em></h2>
+          <p class="lead">Messagerie, accès à distance, identifiants des collaborateurs, Microsoft&nbsp;365&nbsp;: nous examinons ce qu’un attaquant verrait de l’extérieur, puis nous vous disons simplement ce qui mérite votre attention.</p>
+          <p class="scan__status" aria-live="polite"><span>Points examinés <b class="num" data-scan-count>0/8</b></span><span class="found">Points faibles <b class="num" data-scan-found>0</b></span></p>
+          <p class="scan__note">Exemple illustratif, sur une entreprise fictive.</p>
+        </div>
+        <div class="scan__field" role="list" aria-label="Empreinte numérique d’une entreprise (exemple)">
+          <div class="scan__line" aria-hidden="true"></div>
+          <div class="node" role="listitem"><p class="node__name">Messagerie de l’entreprise <span class="node__state">Examiné</span></p></div>
+          <div class="node is-weak" role="listitem"><p class="node__name">Usurpation d’adresse <span class="node__state">À corriger</span></p><p class="node__finding">Aucune politique DMARC&nbsp;: un tiers peut envoyer un e-mail «&nbsp;de la part&nbsp;» de l’entreprise à vos clients.</p></div>
+          <div class="node" role="listitem"><p class="node__name">Microsoft 365 <span class="node__state">Examiné</span></p></div>
+          <div class="node is-weak" role="listitem"><p class="node__name">Identifiants exposés <span class="node__state">À corriger</span></p><p class="node__finding">2 mots de passe professionnels retrouvés dans une fuite de données publique.</p></div>
+          <div class="node" role="listitem"><p class="node__name">Site web et domaine <span class="node__state">Examiné</span></p></div>
+          <div class="node" role="listitem"><p class="node__name">Postes de travail <span class="node__state">Examiné</span></p></div>
+          <div class="node is-weak" role="listitem"><p class="node__name">Accès à distance <span class="node__state">À corriger</span></p><p class="node__finding">Un bureau à distance ouvert sur Internet, sans double authentification.</p></div>
+          <div class="node" role="listitem"><p class="node__name">Partage des dossiers clients <span class="node__state">Examiné</span></p></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="v5-pan" id="solution" aria-labelledby="pan-title" data-pan>
+<section class="v5-solution section--light" id="solution" aria-labelledby="rapport-title">
+  <div class="wrap">
+    <div class="v5-center">
+      <p class="eyebrow" data-reveal>Un rapport fait pour décider</p>
+      <h2 class="v5-h2" id="rapport-title" data-split>Votre posture de sécurité. <em>En un seul regard.</em></h2>
+      <p class="lead" data-reveal style="--d:.15s">Le niveau global, les risques importants et la prochaine action utile, sans devoir traduire le jargon. Chaque mois, validé par nos analystes.</p>
+    </div>
+
+    <div class="report-stage v5-report-stage" id="rapport" data-tilt-scrub>
+      <article class="report" aria-label="Exemple de rapport mensuel SOCBoard">
+        <header class="report__bar">
+          <div class="report__title">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 17h6l2.2-5 3.4 11 2.6-8 1.6 2H27" fill="none" stroke="#d8c9ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Rapport mensuel · Martin &amp; Co
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <span class="report__meta">Octobre</span>
+            <span class="tag-sample">Exemple · données fictives</span>
+          </div>
+        </header>
+        <div class="report__body">
+          <div class="report__score">
+            <p class="score__label" data-rise>Indice de santé cyber · 6 derniers mois</p>
+            <div class="score__row" data-rise style="--d:.1s">
+              <span class="score__num"><span class="num" data-count="68">68</span><small>/100</small></span>
+              <span class="delta"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 11l4-4 3 3 5-5M10 5h4v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+9 pts ce mois</span>
+            </div>
+            <span class="risk-pill" data-rise style="--d:.2s"><i aria-hidden="true"></i>Risque modéré</span>
+            <div class="bars" role="img" aria-label="Indice de mai à octobre : 52, 55, 57, 56, 59, puis 68 en octobre.">
+              <svg viewBox="0 0 320 146" aria-hidden="true">
+                {{bars}}
+              </svg>
+            </div>
+          </div>
+          <div class="report__detail">
+            <div class="kpis">
+              <div class="kpi kpi--alert" data-rise style="--d:.1s"><span class="kpi__num num" data-count="2">2</span><span class="kpi__label">identifiants exposés</span></div>
+              <div class="kpi" data-rise style="--d:.16s"><span class="kpi__num num" data-count="3">3</span><span class="kpi__label">comptes sans double authentification</span></div>
+              <div class="kpi" data-rise style="--d:.22s"><span class="kpi__num num" data-count="5">5</span><span class="kpi__label">mises à jour en retard</span></div>
+              <div class="kpi" data-rise style="--d:.28s"><span class="kpi__num num" data-count="4">4</span><span class="kpi__label">points corrigés depuis septembre</span></div>
+            </div>
+            <div class="priorities">
+              <div class="priorities__head"><span>Priorités du mois</span><span>Effort</span></div>
+              <div class="prio prio--high" data-rise style="--d:.35s"><span class="prio__sev" aria-hidden="true"></span><div class="prio__text"><span class="prio__title">Changer les 2 mots de passe exposés</span><span class="prio__why">Risque élevé · accès possible à deux messageries</span></div><span class="prio__effort">15 min</span></div>
+              <div class="prio" data-rise style="--d:.45s"><span class="prio__sev" aria-hidden="true"></span><div class="prio__text"><span class="prio__title">Activer DMARC sur le domaine</span><span class="prio__why">Risque modéré · usurpation d’adresse</span></div><span class="prio__effort">1 h</span></div>
+              <div class="prio" data-rise style="--d:.55s"><span class="prio__sev" aria-hidden="true"></span><div class="prio__text"><span class="prio__title">Fermer l’accès bureau à distance</span><span class="prio__why">Risque modéré · porte d’entrée des rançongiciels</span></div><span class="prio__effort">½ journée</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="next-action" data-rise style="--d:.6s">
+          <p><span aria-hidden="true">✳</span><b>Votre prochaine action&nbsp;: changer les 2 mots de passe exposés.</b><small>15 min</small></p>
+          <a href="#offres">Voir le plan <span aria-hidden="true">↗</span></a>
+        </div>
+        <footer class="report__foot">
+          <div class="validated">
+            <svg class="sig" viewBox="0 0 96 30" aria-hidden="true"><path d="M4 22c6-10 10-16 13-15s-3 16 1 15 7-14 11-13-2 12 2 12 6-9 10-9 1 8 5 8 8-10 12-10 3 6 7 6 9-4 14-6"/></svg>
+            <span>Analyse <b>validée et signée</b> par l’équipe SOCBoard</span>
+          </div>
+          <span class="report__meta">Prochain rapport : début novembre</span>
+        </footer>
+      </article>
+    </div>
+
+    <div class="v5-legend">
+      <div data-reveal><p class="h3">Un indice d’un coup d’œil</p><p>Une note sur 100 et un niveau de risque, pour savoir en une seconde si la situation s’améliore.</p></div>
+      <div data-reveal style="--d:.1s"><p class="h3">Des priorités, pas un inventaire</p><p>Classées par risque réel pour l’entreprise et par effort, pour que votre prestataire sache par où commencer.</p></div>
+      <div data-reveal style="--d:.2s"><p class="h3">Une signature, pas un robot</p><p>La plateforme mesure, nos analystes jugent. Aucune conclusion ne part sans avoir été vérifiée et expliquée.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="v5-pan" id="traduction" aria-labelledby="traduction-title" data-pan>
   <div class="v5-pan__stick">
     <div class="v5-pan__track" data-pan-track>
       <div class="v5-pan__intro">
-        <h2 class="v5-h2" id="pan-title">Un constat technique, <em>traduit en décision.</em></h2>
-        <p class="v5-pan__sub">Voici comment un point du rapport passe de la mesure à l’action. Un exemple réel de ce que nos analystes relèvent.</p>
+        <p class="eyebrow">La technique, traduite pour décider</p>
+        <h2 class="v5-h2" id="traduction-title">Du signal technique. <em>À la bonne décision.</em></h2>
+        <p class="v5-pan__sub">Chaque constat raconte la même histoire&nbsp;: ce qui se passe, ce que cela peut changer pour l’entreprise, et quoi faire maintenant.</p>
       </div>
-      <article class="v5-panel">
-        <p class="v5-panel__tag">Constat</p>
-        <h3 class="v5-panel__title">Votre nom de domaine peut être usurpé.</h3>
-        <p class="v5-panel__body">Aucune politique DMARC n’est publiée pour <span class="v5-mono">votre-domaine.fr</span>. N’importe qui peut envoyer un e-mail qui semble venir de chez vous.</p>
+      <article class="v5-panel v5-panel--fact" aria-label="Exemple concret : constat">
+        <div class="v5-panel__tags"><span>Exemple concret</span><span>Identités · Microsoft 365</span><span class="is-high">01 / Risque élevé</span></div>
+        <div>
+          <p class="v5-panel__tag">Constat</p>
+          <strong class="v5-panel__big" data-pan-count="3">3</strong>
+          <p class="v5-panel__body">comptes de messagerie<br>sans double authentification</p>
+        </div>
       </article>
       <article class="v5-panel">
-        <p class="v5-panel__tag">Impact</p>
-        <h3 class="v5-panel__title">Un escroc peut écrire à vos clients en votre nom.</h3>
-        <p class="v5-panel__body">Fausse facture, changement de RIB, demande de virement urgente. Le risque est financier, et votre réputation est en jeu.</p>
+        <p class="v5-panel__tag">01 · Pourquoi c’est important</p>
+        <h3 class="v5-panel__title">Un seul mot de passe volé peut ouvrir la messagerie de l’entreprise, et les échanges avec vos clients.</h3>
+        <p class="v5-panel__body">Ces comptes donnent accès aux dossiers, aux pièces jointes et aux contacts clients.</p>
       </article>
-      <article class="v5-panel">
-        <p class="v5-panel__tag">Action</p>
-        <h3 class="v5-panel__title">Activer DMARC en mode rejet.</h3>
-        <p class="v5-panel__body">Environ trente minutes pour votre prestataire. Les instructions exactes lui sont fournies, prêtes à appliquer.</p>
+      <div class="v5-pan__link" aria-hidden="true"><i></i><span>Donc</span><i></i></div>
+      <article class="v5-panel v5-panel--action">
+        <p class="v5-panel__tag">02 · Action recommandée</p>
+        <h3 class="v5-panel__title">Activez la double authentification sur les 3 comptes.</h3>
+        <p class="v5-panel__body">Une action guidée, priorisée, puis vérifiée dans le rapport du mois suivant.</p>
+        <a class="v5-panel__go" href="#offres" aria-label="Voir les offres">↗</a>
       </article>
-      <article class="v5-panel">
-        <p class="v5-panel__tag">Suivi</p>
-        <h3 class="v5-panel__title">Vérifié le mois suivant.</h3>
-        <p class="v5-panel__body">Le point est contrôlé dans votre prochain rapport. Corrigé, il sort des priorités. Sinon, il y reste, expliqué.</p>
-      </article>
+      <div class="v5-pan__outro">
+        <p class="v5-pan__chain">Constat <b>→</b> Impact <b>→</b> Action</p>
+        <p class="v5-pan__claim">Compréhensible par toute l’entreprise. <em>Actionnable dès maintenant.</em></p>
+      </div>
     </div>
     <div class="v5-pan__progress" aria-hidden="true"><span data-pan-bar></span></div>
   </div>
 </section>
 
-<section class="v5-curve section--light" aria-labelledby="curve-title" data-curve>
-  <div class="v5-curve__stick">
-    <div class="wrap v5-curve__grid">
-      <div class="v5-curve__copy">
-        <h2 class="v5-h2" id="curve-title">Mois après mois, <em>la courbe monte.</em></h2>
-        <p>Chaque rapport se compare au précédent. Vous voyez ce qui s’améliore, ce qui apparaît, et les trois priorités du mois.</p>
-        <div class="v5-curve__score" aria-hidden="true">
-          <span class="v5-curve__num" data-curve-num>41</span>
-          <span class="v5-curve__unit">/ 100<br>indice de santé</span>
-        </div>
-        <p class="v5-curve__note">Exemple illustratif&nbsp;: six mois de suivi d’une entreprise de quarante personnes.</p>
-      </div>
-      <figure class="v5-curve__fig">
-        <svg class="v5-curve__svg" viewBox="0 0 1000 520" role="img" aria-label="Indice de santé passant de 41 en janvier à 68 en juin" data-values="41,46,53,57,64,68" data-months="Janv.,Févr.,Mars,Avr.,Mai,Juin"></svg>
-      </figure>
+<section class="v5-method section--light" id="methode" aria-labelledby="methode-title" data-method>
+  <div class="wrap v5-method__grid">
+    <div class="v5-method__side">
+      <p class="eyebrow" data-reveal>De la visibilité à l’action</p>
+      <h2 class="v5-h2" id="methode-title" data-split>Moins de bruit. <em>Plus de progrès.</em></h2>
+      <p class="lead" data-reveal style="--d:.1s">SOCBoard traduit les signaux de sécurité en un chemin clair, pensé pour les moyens et les priorités d’une entreprise.</p>
+      <a class="v5-btn v5-btn--ghost" href="#offres" data-reveal style="--d:.2s" data-magnetic>Voir les offres</a>
+      <svg class="v5-method__path" viewBox="0 0 400 180" aria-hidden="true"><path class="track" d="M8 164 C 80 160, 110 120, 150 112 S 230 96, 260 60 S 340 20, 392 14"/><path class="draw" data-method-path d="M8 164 C 80 160, 110 120, 150 112 S 230 96, 260 60 S 340 20, 392 14"/><circle data-method-dot r="6" cx="8" cy="164"/></svg>
     </div>
-  </div>
-</section>
-
-<section class="v5-method" id="methode" aria-labelledby="method-title">
-  <div class="wrap">
-    <h2 class="v5-h2" id="method-title" data-reveal>La plateforme mesure. <em>Nos analystes jugent.</em></h2>
-    <ol class="v5-method__rows" role="list">
-      <li class="v5-row" data-clip>
-        <span class="v5-row__word">Mesurer</span>
-        <p class="v5-row__text">La plateforme examine votre exposition et votre configuration, de façon identique chaque mois.</p>
-      </li>
-      <li class="v5-row" data-clip>
-        <span class="v5-row__word">Vérifier</span>
-        <p class="v5-row__text">Chaque constat est contrôlé par nos analystes. Les faux positifs sont écartés avant d’arriver dans votre rapport.</p>
-      </li>
-      <li class="v5-row" data-clip>
-        <span class="v5-row__word">Hiérarchiser</span>
-        <p class="v5-row__text">Les risques sont classés selon leur impact réel&nbsp;: données clients, continuité, finances, réputation.</p>
-      </li>
-      <li class="v5-row" data-clip>
-        <span class="v5-row__word">Expliquer</span>
-        <p class="v5-row__text">Le rapport est rédigé pour la direction. Les détails techniques sont fournis à part pour votre prestataire.</p>
-      </li>
+    <ol class="v5-steps" role="list">
+      <li class="v5-step" data-step><span class="v5-step__num">01</span><div><h3>Mesurer votre point de départ</h3><p>Le Diagnostic dresse un état des lieux lisible de vos outils, de vos pratiques et de votre niveau de sécurité.</p></div></li>
+      <li class="v5-step" data-step><span class="v5-step__num">02</span><div><h3>Comprendre les risques réels</h3><p>Chaque constat est expliqué par son impact concret sur vos comptes, vos données clients et votre activité.</p></div></li>
+      <li class="v5-step" data-step><span class="v5-step__num">03</span><div><h3>Progresser dans le bon ordre</h3><p>Chaque mois, trois priorités adaptées à vos capacités, et un suivi visible de ce qui a été corrigé.</p></div></li>
     </ol>
   </div>
 </section>
 
-<section class="v5-offers" id="offres" aria-labelledby="offers-title">
+<section class="v5-offers" id="offres" aria-labelledby="offres-title">
   <div class="wrap">
-    <div class="v5-offers__head">
-      <h2 class="v5-h2" id="offers-title" data-reveal>Une porte d’entrée. <em>Deux façons de suivre.</em></h2>
-      <div class="billing" data-billing role="group" aria-label="Période de facturation">
-        <span class="billing__thumb" aria-hidden="true"></span>
-        <button type="button" data-mode="monthly" aria-pressed="true">Mensuel</button>
-        <button type="button" data-mode="annual" aria-pressed="false">Annuel <span class="save">jusqu’à -20 %</span></button>
-      </div>
-      <p class="sr-only" aria-live="polite" data-billing-live></p>
+    <div class="v5-center">
+      <p class="eyebrow" data-reveal>Commencez à votre rythme</p>
+      <h2 class="v5-h2" id="offres-title" data-split>Un premier état des lieux. <em>Puis un cap qui tient.</em></h2>
+      <p class="lead" data-reveal style="--d:.15s">Un Diagnostic pour clarifier votre situation, puis un suivi mensuel pour transformer les constats en progrès durables.</p>
     </div>
 
     <div class="v5-stack" data-stack>
-      <article class="v5-card v5-card--diag">
+      <article class="v5-card v5-card--diag" data-spot>
         <div class="v5-card__main">
           <h3 class="v5-card__name">Diagnostic</h3>
-          <p class="v5-card__pitch">Le point de départ. Un état des lieux complet, restitué en visio, auquel chaque rapport se compare ensuite.</p>
-          <a class="v5-btn v5-btn--primary" href="contact.html" data-magnetic><span class="v5-btn__label">Demander un Diagnostic</span></a>
+          <p class="v5-price"><span class="v5-price__num">690&nbsp;€</span><span class="v5-price__unit">HT, une fois<br>prix de lancement</span></p>
+          <a class="v5-btn v5-btn--primary" href="contact.html" data-magnetic><span class="v5-btn__label">Demander un Diagnostic</span><span class="v5-btn__arrow" aria-hidden="true">↗</span></a>
         </div>
-        <div class="v5-card__side">
-          <p class="v5-price"><span class="v5-price__num">690</span><span class="v5-price__unit">€ HT<br>une fois</span></p>
-          <p class="v5-card__note">Prix de lancement. Déductible du premier mois d’abonnement.</p>
-          <ul class="v5-ticks" role="list">
-            <li>Entretien avec la direction</li>
-            <li>Examen de votre exposition et de vos accès</li>
-            <li>Rapport de référence, validé et signé</li>
-            <li>Feuille de route à 90 jours</li>
-          </ul>
-        </div>
+        <ul class="v5-ticks" role="list">
+          <li><b>L’état des lieux complet</b><span>Messagerie, accès, comptes, exposition sur Internet et identifiants dans les fuites publiques.</span></li>
+          <li><b>Restitution par nos analystes</b><span>Une présentation en visio et une feuille de route classée par priorité.</span></li>
+          <li><b>Déductible</b><span>Son montant est déduit du premier mois d’abonnement. Requis avant Shield.</span></li>
+        </ul>
       </article>
 
-      <article class="v5-card v5-card--radar">
+      <article class="v5-card v5-card--radar" data-spot>
         <div class="v5-card__main">
           <h3 class="v5-card__name">Radar</h3>
-          <p class="v5-card__pitch">L’analyse mensuelle de votre exposition externe, avec un rapport validé par nos analystes.</p>
-          <a class="v5-btn v5-btn--ghost" href="contact.html?offre=radar">Choisir Radar</a>
+          <p class="v5-price"><span class="v5-price__num">299&nbsp;€</span><span class="v5-price__unit">HT / mois<br>239 € en engagement annuel</span></p>
+          <a class="v5-btn v5-btn--ghost" href="tarifs.html" data-magnetic>Voir le détail <span aria-hidden="true">↗</span></a>
         </div>
-        <div class="v5-card__side">
-          <p class="v5-price"><span class="v5-price__num" data-price data-monthly="299" data-annual="239">299</span><span class="v5-price__unit">€ HT<br>par mois</span></p>
-          <p class="v5-card__note" data-note-monthly="Sans engagement, résiliable chaque mois." data-note-annual="Engagement 12 mois, 720 € économisés sur l’année.">Sans engagement, résiliable chaque mois.</p>
-          <ul class="v5-ticks" role="list">
-            <li>Rapport mensuel validé</li>
-            <li>Historique de votre indice de santé</li>
-            <li>Les trois priorités du mois</li>
-            <li>Réponses à vos questions, sans jargon</li>
-          </ul>
-        </div>
+        <ul class="v5-ticks" role="list">
+          <li><b>Analyse mensuelle de l’exposition</b><span>Ce que votre entreprise montre à l’extérieur, examiné chaque mois.</span></li>
+          <li><b>Fuites d’identifiants</b><span>Recherche des comptes de l’entreprise dans les fuites de données publiques.</span></li>
+          <li><b>Rapport validé</b><span>Indice, niveau de risque et trois priorités, avec nos analystes joignables par écrit.</span></li>
+        </ul>
       </article>
 
-      <article class="v5-card v5-card--shield">
+      <article class="v5-card v5-card--shield" data-spot>
         <div class="v5-card__main">
           <h3 class="v5-card__name">Shield</h3>
-          <p class="v5-card__pitch">Tout Radar, plus la revue de votre environnement Microsoft 365 ou Google Workspace et un point mensuel avec votre analyste.</p>
-          <a class="v5-btn v5-btn--ghost" href="contact.html?offre=shield">Choisir Shield</a>
+          <p class="v5-price"><span class="v5-price__num">549&nbsp;€</span><span class="v5-price__unit">HT / mois<br>449 € en engagement annuel</span></p>
+          <a class="v5-btn v5-btn--ghost" href="tarifs.html" data-magnetic>Voir le détail <span aria-hidden="true">↗</span></a>
         </div>
-        <div class="v5-card__side">
-          <p class="v5-price"><span class="v5-price__num" data-price data-monthly="549" data-annual="449">549</span><span class="v5-price__unit">€ HT<br>par mois</span></p>
-          <p class="v5-card__note" data-note-monthly="Diagnostic requis au préalable. Sans engagement." data-note-annual="Diagnostic requis au préalable. Engagement 12 mois, 1 200 € économisés.">Diagnostic requis au préalable. Sans engagement.</p>
-          <ul class="v5-ticks" role="list">
-            <li>Tout le contenu de Radar</li>
-            <li>Revue Microsoft 365 ou Google Workspace</li>
-            <li>Point de 30 minutes en visio, chaque mois</li>
-            <li>Accès en lecture seule, révocable</li>
-          </ul>
-        </div>
+        <ul class="v5-ticks" role="list">
+          <li><b>Tout Radar, et l’intérieur aussi</b><span>Revue mensuelle de Microsoft 365 ou Google Workspace&nbsp;: comptes, double authentification, partages.</span></li>
+          <li><b>Un rendez-vous mensuel</b><span>30 minutes en visio avec votre analyste pour décider ensemble.</span></li>
+          <li><b>Questionnaires clients et assureurs</b><span>Un appui pour répondre aux exigences de sécurité de vos clients.</span></li>
+        </ul>
       </article>
     </div>
-  </div>
-</section>
 
-<section class="v5-honest section--light" aria-labelledby="honest-title">
-  <div class="wrap v5-honest__grid">
-    <h2 class="v5-h2" id="honest-title" data-reveal>Un rythme mensuel. <em>Pas une alarme.</em></h2>
-    <div class="v5-honest__body" data-reveal style="--d:.1s">
-      <p>SOCBoard ne surveille pas votre réseau en temps réel et ne déclenche pas d’alerte immédiate. Son rôle&nbsp;: réduire, mois après mois, la probabilité qu’un incident survienne, et documenter vos progrès.</p>
-      <dl class="v5-facts">
-        <div><dt>Accès</dt><dd>En lecture seule, révocables à tout moment.</dd></div>
-        <div><dt>Confidentialité</dt><dd>Engagement signé avant tout échange.</dd></div>
-        <div><dt>Méthode</dt><dd>Fondée sur la norme ISO 27001.</dd></div>
-        <div><dt>Zone</dt><dd>France et Suisse romande, en français.</dd></div>
-      </dl>
-    </div>
+    <ul class="v5-trust" role="list">
+      <li data-reveal>{{check}} Sans engagement en formule mensuelle</li>
+      <li data-reveal style="--d:.08s">{{check}} Recommandations compréhensibles</li>
+      <li data-reveal style="--d:.16s">{{check}} Adapté à la réalité d’une entreprise</li>
+    </ul>
   </div>
 </section>
 
 <section class="v5-faq section--light" id="faq" aria-labelledby="faq-title">
   <div class="wrap v5-faq__grid">
-    <div>
-      <h2 class="v5-h2" id="faq-title" data-reveal>Questions directes.</h2>
-      <a class="text-link" href="faq.html">Toutes les questions</a>
+    <div class="v5-faq__side">
+      <p class="eyebrow" data-reveal>Questions fréquentes</p>
+      <h2 class="v5-h2" id="faq-title" data-split>La sécurité, <em>sans zone grise.</em></h2>
+      <p class="lead" data-reveal style="--d:.1s">Les réponses essentielles pour savoir si SOCBoard correspond à votre entreprise.</p>
+      <a class="text-link" href="faq.html" data-reveal style="--d:.15s">Toutes les questions <span aria-hidden="true">↗</span></a>
     </div>
     <div class="faq v5-faq__list">
-      <details><summary>Avez-vous accès aux données de mes clients&nbsp;? <span class="plus" aria-hidden="true"></span></summary>
-        <div class="answer"><p><b>Non.</b> Nous analysons la configuration et l’exposition de votre entreprise, jamais le contenu de vos dossiers.</p></div></details>
-      <details><summary>Faut-il prévenir notre prestataire informatique&nbsp;? <span class="plus" aria-hidden="true"></span></summary>
-        <div class="answer"><p>C’est recommandé. SOCBoard travaille avec lui&nbsp;: nos priorités lui donnent une feuille de route claire, et il reste maître des interventions.</p></div></details>
-      <details><summary>Pourquoi commencer par le Diagnostic&nbsp;? <span class="plus" aria-hidden="true"></span></summary>
-        <div class="answer"><p>Il établit le point de départ auquel chaque rapport se compare. Il est obligatoire avant Shield, et son prix est déduit du premier mois d’abonnement.</p></div></details>
-      <details><summary>Que faire si je subis une attaque maintenant&nbsp;? <span class="plus" aria-hidden="true"></span></summary>
-        <div class="answer"><p>Contactez immédiatement votre prestataire informatique et, en France, <b>cybermalveillance.gouv.fr</b>. SOCBoard n’est pas une solution d’intervention d’urgence.</p></div></details>
+      <details data-reveal><summary>Faut-il avoir une équipe informatique en interne&nbsp;? <span class="plus" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Non. SOCBoard s’adresse aux entreprises qui s’appuient sur un prestataire informatique et n’ont pas de responsable sécurité dédié. Les constats et les actions sont formulés pour être compris par la direction comme par votre prestataire.</p></div></details>
+      <details data-reveal style="--d:.05s"><summary>Est-ce une solution réservée aux experts&nbsp;? <span class="plus" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Non. L’objectif est justement de rendre la sécurité accessible. Chaque risque est présenté avec son impact et une action recommandée, sans connaissances techniques préalables.</p></div></details>
+      <details data-reveal style="--d:.1s"><summary>Comment se déroule le Diagnostic&nbsp;? <span class="plus" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Nous cadrons le périmètre avec vous, examinons les éléments utiles à votre contexte, puis vous présentons un état des lieux et un plan d’action priorisé lors d’une restitution claire. Son prix, 690&nbsp;€ HT, est déductible du premier mois d’abonnement.</p></div></details>
+      <details data-reveal style="--d:.15s"><summary>SOCBoard remplace-t-il nos outils de sécurité&nbsp;? <span class="plus" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Non. SOCBoard vous aide à comprendre et piloter votre sécurité à partir de vos outils et pratiques existants. Il complète l’antivirus, les sauvegardes et votre prestataire, sans les remplacer.</p></div></details>
+      <details data-reveal style="--d:.2s"><summary>Surveillez-vous l’entreprise en continu&nbsp;? <span class="plus" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Non. SOCBoard est une analyse experte à rythme mensuel, pas une surveillance 24&nbsp;h/24 ni une alerte en temps réel. En cas d’incident en cours, contactez immédiatement votre prestataire informatique.</p></div></details>
     </div>
   </div>
 </section>
@@ -222,10 +309,19 @@ description: Chaque mois, nos analystes examinent l’exposition de votre entrep
 <section class="v5-final" aria-labelledby="final-title" data-cta-hide data-sand-host>
   <canvas class="v5-sand" data-sand aria-hidden="true"></canvas>
   <div class="wrap v5-final__inner">
-    <h2 class="v5-final__title" id="final-title">Et si votre sécurité devenait <span class="v5-sandword" data-sand-word>claire&nbsp;?</span></h2>
+    <p class="eyebrow" data-reveal>Le premier pas est le plus simple</p>
+    <h2 class="v5-final__title" id="final-title">Et si votre sécurité devenait <span class="v5-sandword" data-sand-word>plus claire&nbsp;?</span></h2>
     <div class="v5-final__side">
-      <p>Vingt minutes avec notre équipe pour vérifier que SOCBoard répond à votre situation. Sans engagement.</p>
-      <a class="v5-btn v5-btn--primary" href="contact.html" data-magnetic><span class="v5-btn__label">Demander un Diagnostic</span><span class="v5-btn__meta">690 €</span></a>
+      <p class="lead" data-reveal>Faites le point sur votre entreprise et repartez avec des priorités concrètes.</p>
+      <div class="v5-final__ctas" data-reveal style="--d:.1s">
+        <a class="v5-btn v5-btn--primary" href="contact.html" data-magnetic><span class="v5-btn__label">Parler de mon entreprise</span><span class="v5-btn__meta"><span class="v5-hide-sm">Diagnostic · </span>690 €</span></a>
+        <a class="v5-btn v5-btn--ghost" href="#solution" data-magnetic>Revoir le rapport</a>
+      </div>
+      <ul class="v5-final__facts" role="list">
+        <li data-reveal>{{check}} Premier échange de 20 minutes, sans engagement</li>
+        <li data-reveal style="--d:.08s">{{check}} Déductible du premier mois d’abonnement</li>
+        <li data-reveal style="--d:.16s">{{check}} Confidentialité formalisée par écrit</li>
+      </ul>
     </div>
   </div>
 </section>

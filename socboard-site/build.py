@@ -90,6 +90,7 @@ def build(variant=None):
         head = head.replace('<html lang="fr">', f'<html lang="fr" data-variant="{variant}">')
         (out / "assets" / "js").mkdir(parents=True, exist_ok=True)
         shutil.copy(OUT / "assets" / "js" / "site.js", out / "assets" / "js" / "site.js")
+        shutil.copy(OUT / "assets" / "js" / "boot.js", out / "assets" / "js" / "boot.js")
         shutil.copy(OUT / "assets" / "favicon.svg", out / "assets" / "favicon.svg")
         if cfg.get("base_css"):
             (out / "assets" / "css").mkdir(parents=True, exist_ok=True)
@@ -102,6 +103,8 @@ def build(variant=None):
             if rel.endswith(".css"):
                 head = head.replace('<link rel="stylesheet" href="assets/css/site.css">',
                                     f'<link rel="stylesheet" href="assets/css/site.css">\n<link rel="stylesheet" href="assets/{rel}">')
+    # Déploiement Vercel : fonction d'envoi du formulaire + en-têtes de sécurité
+    shutil.copytree(ROOT / "deploy", out, dirs_exist_ok=True)
     header = (PARTIALS / "header.html").read_text(encoding="utf-8")
     footer = (PARTIALS / "footer.html").read_text(encoding="utf-8")
 

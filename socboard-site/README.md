@@ -15,8 +15,10 @@ Déploiement : publier le dossier `public/` tel quel (Netlify, Vercel, Cloudflar
 
 ## À compléter avant la mise en ligne
 
-- Formulaire : renseigner `data-endpoint` dans `pages/contact.html` (Formspree, Netlify Forms…).
-  Sans endpoint, le formulaire ouvre la messagerie du visiteur vers contact@socboard.fr.
+- Formulaire : il envoie la demande à `/api/contact` (fonction Vercel dans `deploy/api/`),
+  qui la transmet par e-mail via Resend. Configuration : voir `deploy/DEPLOY.md`.
+  `deploy/` (API, `vercel.json` avec CSP et en-têtes de sécurité, guide) est copié
+  dans chaque dossier généré par `python3 build.py`.
 - `pages/mentions-legales.html` : remplacer les champs entre crochets.
 - Photo du fondateur : remplacer le monogramme « Y. » (`.founder__card`).
 
@@ -28,7 +30,7 @@ Déploiement : publier le dossier `public/` tel quel (Netlify, Vercel, Cloudflar
 - `public-v4/` : essai « instrument », inspiré de jamiemckaye.com. Son CSS est dans
   `public-v4/assets/css/site.css`, sa page d'accueil dans `pages-v4/index.html` ;
   les autres pages sont partagées avec `pages/`.
-- `public-v5/` : refonte « sable ». Le mot-clé du hero (« visible. ») et de la conclusion
+- `public-v5/` : refonte « sable », avec les textes de la v4. Le mot-clé du hero (« visible. ») et de la conclusion
   est dessiné par des grains qui s'assemblent, s'écartent sous le curseur et se dispersent
   au scroll ; défilement horizontal épinglé (constat → action), courbe mensuelle tracée au
   scroll, cartes d'offres empilées, boutons magnétiques. Reprend le CSS de la V4

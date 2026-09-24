@@ -17,15 +17,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@200;300;400;500;600;800&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
-<script>document.documentElement.classList.add("js")</script>
+<script src="assets/js/boot.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#contenu">Aller au contenu</a>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="SOCBoard, accueil">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M5 17h6l2.2-5 3.4 11 2.6-8 1.6 2H27" fill="none" stroke="#7cc8ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      SOCBoard
+      <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 2.8 31.2 10v16L18 33.2 4.8 26V10L18 2.8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10.2 18h4.1l2.2-5 3.4 10 2.2-5h3.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      SOCBOARD
     </a>
     <nav class="nav" aria-label="Navigation principale">
       <a href="comment-ca-marche.html">Comment ça marche</a>
@@ -62,7 +62,8 @@
 
 <section class="section section--tight" style="border-top:0;padding-top:0" aria-label="Formulaire de demande">
   <div class="wrap split">
-    <form class="form" data-contact-form data-endpoint="" novalidate>
+    <form class="form" data-contact-form novalidate>
+      <div class="form__trap" aria-hidden="true"><label for="website">Ne pas remplir ce champ</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
       <fieldset class="field">
         <legend>Votre demande</legend>
         <div class="choice-group" style="margin-top:8px">
@@ -143,27 +144,14 @@
     </aside>
   </div>
 </section>
-<script>
-  (function () {
-    try {
-      var q = new URLSearchParams(location.search);
-      if (q.get("objet") === "rdv") document.getElementById("objet-rdv").checked = true;
-      var offre = q.get("offre");
-      if (offre) {
-        var m = document.getElementById("message");
-        m.value = "Offre envisagée : " + (offre === "shield" ? "Shield" : "Radar") + "\n";
-      }
-    } catch (e) {}
-  })();
-</script>
 </main>
 <footer class="site-footer" data-cta-hide>
   <div class="wrap">
     <div class="footer-grid">
       <div>
         <a class="brand" href="index.html" aria-label="SOCBoard, accueil">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M5 17h6l2.2-5 3.4 11 2.6-8 1.6 2H27" fill="none" stroke="#7cc8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          SOCBoard
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 2.8 31.2 10v16L18 33.2 4.8 26V10L18 2.8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10.2 18h4.1l2.2-5 3.4 10 2.2-5h3.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          SOCBOARD
         </a>
         <p>La solution d’analyse de cybersécurité mensuelle, validée par nos experts, pour les entreprises. France et Suisse romande.</p>
       </div>

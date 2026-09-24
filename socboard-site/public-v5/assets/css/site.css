@@ -1714,3 +1714,6 @@ body { letter-spacing: -0.011em; }
 .footer-wordmark { white-space: nowrap; }
 @media (max-width: 640px) { .footer-wordmark { font-size: 19vw; } }
 html { overflow-x: clip; }
+
+/* Champ piège anti-robots du formulaire : hors écran, jamais visible */
+.form__trap { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }

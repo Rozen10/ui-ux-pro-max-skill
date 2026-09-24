@@ -13,7 +13,8 @@ ctabar: no
 
 <section class="section section--tight" style="border-top:0;padding-top:0" aria-label="Formulaire de demande">
   <div class="wrap split">
-    <form class="form" data-contact-form data-endpoint="" novalidate>
+    <form class="form" data-contact-form novalidate>
+      <div class="form__trap" aria-hidden="true"><label for="website">Ne pas remplir ce champ</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
       <fieldset class="field">
         <legend>Votre demande</legend>
         <div class="choice-group" style="margin-top:8px">
@@ -94,16 +95,3 @@ ctabar: no
     </aside>
   </div>
 </section>
-<script>
-  (function () {
-    try {
-      var q = new URLSearchParams(location.search);
-      if (q.get("objet") === "rdv") document.getElementById("objet-rdv").checked = true;
-      var offre = q.get("offre");
-      if (offre) {
-        var m = document.getElementById("message");
-        m.value = "Offre envisagée : " + (offre === "shield" ? "Shield" : "Radar") + "\n";
-      }
-    } catch (e) {}
-  })();
-</script>

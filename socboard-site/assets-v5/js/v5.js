@@ -1,23 +1,31 @@
-/* SOCBoard v5 : sable, défilements pilotés, courbe, cartes empilées.
-   Chargé après site.js. Sans dépendance. Tout s'arrête avec
-   prefers-reduced-motion (rendu statique, contenu identique). */
+/* SOCBoard v5 : intro, sable, titres découpés, défilements pilotés,
+   rapport qui se redresse, parcours de méthode, cartes empilées.
+   Chargé après site.js. Sans dépendance. Avec prefers-reduced-motion,
+   tout est rendu à l'état final, sans mouvement. */
 (function () {
   "use strict";
 
   var doc = document.documentElement;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var hasIO = "IntersectionObserver" in window;
 
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function lerp(a, b, t) { return a + (b - a) * t; }
   function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
 
-  /* Progression d'une section au scroll : 0 quand son haut touche le haut de
+  /* Progression d'une section épinglée : 0 quand son haut touche le haut de
      l'écran, 1 quand son bas touche le bas. */
   function stickyProgress(el) {
     var r = el.getBoundingClientRect();
     var span = r.height - window.innerHeight;
     return span > 0 ? clamp(-r.top / span, 0, 1) : (r.top < 0 ? 1 : 0);
+  }
+  /* Progression d'un élément qui traverse l'écran : 0 quand son haut entre
+     par le bas (à `from` × hauteur), 1 quand il atteint `to` × hauteur. */
+  function enterProgress(el, from, to) {
+    var r = el.getBoundingClientRect(), vh = window.innerHeight;
+    return clamp((vh * from - r.top) / (vh * (from - to)), 0, 1);
   }
 
   /* Une seule boucle de scroll, cadencée par rAF */
@@ -33,10 +41,64 @@
   window.addEventListener("scroll", requestScroll, { passive: true });
   window.addEventListener("resize", requestScroll);
 
-  /* ---------- Entrée du hero ---------- */
-  requestAnimationFrame(function () {
-    requestAnimationFrame(function () { doc.classList.add("is-loaded"); });
+  function onceVisible(el, fn, margin) {
+    if (!hasIO || reduce) { fn(el); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { fn(en.target); io.unobserve(en.target); }
+      });
+    }, { rootMargin: margin || "0px 0px -12% 0px" });
+    io.observe(el);
+  }
+
+  /* ======================================================================
+     Intro : hexagone tracé, SOCBOARD, compteur, rideau qui se lève
+     ====================================================================== */
+  var introDone = new Promise(function (resolve) {
+    var overlay = document.querySelector(".v5-intro");
+    var reveal = function () {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { doc.classList.add("is-loaded"); resolve(); });
+      });
+    };
+    if (!doc.classList.contains("has-intro") || !overlay) {
+      doc.classList.remove("has-intro");
+      reveal();
+      return;
+    }
+    try { sessionStorage.setItem("sb-intro", "1"); } catch (e) {}
+    var count = overlay.querySelector("[data-intro-count]");
+    var t0 = null, DUR = 1100;
+    var tick = function (ts) {
+      if (t0 === null) t0 = ts;
+      var k = clamp((ts - t0) / DUR, 0, 1);
+      if (count) count.textContent = String(Math.round(easeOut(k) * 100)).padStart(2, "0");
+      if (k < 1) { requestAnimationFrame(tick); return; }
+      doc.classList.add("intro-out");
+      setTimeout(reveal, 380);
+      setTimeout(function () { doc.classList.remove("has-intro", "intro-out"); }, 1100);
+    };
+    requestAnimationFrame(tick);
   });
+
+  /* ======================================================================
+     En-tête qui s'efface en descendant, revient en remontant + progression
+     ====================================================================== */
+  var header = document.querySelector(".site-header");
+  var bar = document.querySelector("[data-progress]");
+  var lastY = window.scrollY;
+  scrollJobs.push(function () {
+    var y = window.scrollY;
+    var menuOpen = document.querySelector('.menu-btn[aria-expanded="true"]');
+    if (header && !menuOpen) header.classList.toggle("is-hidden", y > lastY && y > window.innerHeight * 0.8);
+    lastY = y;
+    if (bar) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = "scaleX(" + (max > 0 ? y / max : 0).toFixed(4) + ")";
+    }
+  });
+  if (header) header.addEventListener("focusin", function () { header.classList.remove("is-hidden"); });
+
 
   /* ======================================================================
      Sable : un mot dessiné par des grains qui s'assemblent
@@ -291,18 +353,18 @@
 
     /* attendre la police : les cibles dépendent du dessin exact du mot */
     var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-    ready.then(function () { setTimeout(init, isHero ? 60 : 0); });
+    /* le hero s'assemble quand l'intro se lève */
+    Promise.all([ready, isHero ? introDone : null]).then(function () { setTimeout(init, isHero ? 60 : 0); });
   }
 
   document.querySelectorAll("[data-sand-host]").forEach(Sand);
 
   /* ======================================================================
-     Manifeste : les mots s'allument au passage
+     Découpe d'un texte en mots (<span class="w">), en gardant <em>, <b>…
      ====================================================================== */
-  var lit = document.querySelector("[data-lit]");
-  if (lit) {
+  function splitWords(root, wrap) {
     var words = [];
-    (function split(node) {
+    (function walk(node) {
       Array.prototype.slice.call(node.childNodes).forEach(function (c) {
         if (c.nodeType === 3) {
           var frag = document.createDocumentFragment();
@@ -310,48 +372,128 @@
             if (!part) return;
             if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
             var s = document.createElement("span");
-            s.className = "w";
-            s.textContent = part;
+            if (wrap) {
+              s.className = "v5-w";
+              var inner = document.createElement("span");
+              inner.textContent = part;
+              s.appendChild(inner);
+            } else {
+              s.className = "w";
+              s.textContent = part;
+            }
             words.push(s);
             frag.appendChild(s);
           });
           node.replaceChild(frag, c);
-        } else if (c.nodeType === 1) split(c);
+        } else if (c.nodeType === 1) walk(c);
       });
-    })(lit);
-    if (!reduce) {
-      scrollJobs.push(function () {
-        var r = lit.getBoundingClientRect(), vh = window.innerHeight;
-        /* s'allume entre 85 % et 35 % de la hauteur d'écran */
-        var p = clamp((vh * 0.85 - r.top) / (r.height + vh * 0.5), 0, 1);
-        var n = Math.round(p * words.length);
-        for (var i = 0; i < words.length; i++) words[i].classList.toggle("is-lit", i < n);
+    })(root);
+    return words;
+  }
+
+  /* Titres qui montent mot à mot derrière un masque */
+  document.querySelectorAll("[data-split]").forEach(function (h) {
+    var words = splitWords(h, true);
+    words.forEach(function (w, i) { w.style.setProperty("--wi", i); });
+    onceVisible(h, function (el) { el.classList.add("is-split-in"); }, "0px 0px -10% 0px");
+  });
+
+  /* Titre du problème : les mots s'allument pendant le scroll */
+  document.querySelectorAll("[data-lit]").forEach(function (lit) {
+    var words = splitWords(lit, false);
+    if (reduce) return;
+    scrollJobs.push(function () {
+      var p = enterProgress(lit, 0.9, 0.3);
+      var n = Math.round(p * words.length);
+      for (var i = 0; i < words.length; i++) words[i].classList.toggle("is-lit", i < n);
+    });
+  });
+
+  /* Frictions : les cartes sont distribuées en 3D */
+  document.querySelectorAll("[data-deal]").forEach(function (el) {
+    onceVisible(el, function (t) { t.classList.add("is-in"); }, "0px 0px -15% 0px");
+  });
+
+  /* Halo qui suit le pointeur sur les cartes */
+  if (finePointer) {
+    document.querySelectorAll("[data-spot]").forEach(function (c) {
+      c.addEventListener("pointermove", function (e) {
+        var r = c.getBoundingClientRect();
+        c.style.setProperty("--sx", (e.clientX - r.left).toFixed(0) + "px");
+        c.style.setProperty("--sy", (e.clientY - r.top).toFixed(0) + "px");
       });
-    }
+    });
   }
 
   /* ======================================================================
-     Constat → action : défilement horizontal épinglé
+     Rapport : incliné en arrivant, il se redresse et s'avance au scroll
+     ====================================================================== */
+  var stage = document.querySelector("[data-tilt-scrub]");
+  if (stage && !reduce) {
+    var rep = stage.querySelector(".report");
+    scrollJobs.push(function () {
+      var p = easeOut(enterProgress(stage, 1.05, 0.25));
+      rep.style.setProperty("--tx", (26 * (1 - p)).toFixed(2) + "deg");
+      rep.style.setProperty("--ts", (0.86 + 0.14 * p).toFixed(4));
+      rep.style.setProperty("--ty", (80 * (1 - p)).toFixed(1) + "px");
+    });
+  }
+
+  /* ======================================================================
+     Traduction : défilement horizontal épinglé
      ====================================================================== */
   var pan = document.querySelector("[data-pan]");
   if (pan) {
     var track = pan.querySelector("[data-pan-track]");
-    var bar = pan.querySelector("[data-pan-bar]");
+    var pbar = pan.querySelector("[data-pan-bar]");
+    var panels = Array.prototype.slice.call(pan.querySelectorAll(".v5-panel"));
+    var big = pan.querySelector("[data-pan-count]");
+    var bigDone = false;
     var panMq = window.matchMedia("(min-width: 900px) and (min-height: 600px)");
     var dist = 0;
+    var countBig = function () {
+      if (bigDone || !big) return;
+      bigDone = true;
+      if (reduce) return;
+      var to = +big.getAttribute("data-pan-count"), t0 = null;
+      var f = function (ts) {
+        if (t0 === null) t0 = ts;
+        var k = clamp((ts - t0) / 900, 0, 1);
+        big.textContent = String(Math.round(easeOut(k) * to));
+        if (k < 1) requestAnimationFrame(f);
+      };
+      big.textContent = "0";
+      requestAnimationFrame(f);
+    };
     var layoutPan = function () {
       var on = panMq.matches && !reduce;
       pan.classList.toggle("is-pan", on);
-      if (!on) { pan.style.height = ""; track.style.transform = ""; return; }
+      if (!on) {
+        pan.style.height = ""; track.style.transform = "";
+        panels.forEach(function (p) { p.style.removeProperty("--pr"); p.style.removeProperty("--ps"); });
+        return;
+      }
       dist = Math.max(0, track.scrollWidth - window.innerWidth);
       pan.style.height = (window.innerHeight + dist) + "px";
       requestScroll();
     };
     scrollJobs.push(function () {
-      if (!pan.classList.contains("is-pan")) return;
+      if (!pan.classList.contains("is-pan")) {
+        if (big && enterProgress(big, 0.9, 0.5) > 0) countBig();
+        return;
+      }
       var p = stickyProgress(pan);
       track.style.transform = "translate3d(" + (-dist * p).toFixed(1) + "px,0,0)";
-      if (bar) bar.style.transform = "scaleX(" + p.toFixed(4) + ")";
+      if (pbar) pbar.style.transform = "scaleX(" + p.toFixed(4) + ")";
+      var vw = window.innerWidth;
+      panels.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        /* -1 à droite de l'écran, 0 au centre, 1 à gauche */
+        var c = clamp(((r.left + r.width / 2) - vw / 2) / (vw * 0.75), -1, 1);
+        el.style.setProperty("--pr", (-c * 14).toFixed(2) + "deg");
+        el.style.setProperty("--ps", (1 - Math.abs(c) * 0.06).toFixed(4));
+        if (el.classList.contains("v5-panel--fact") && r.left < vw * 0.8) countBig();
+      });
     });
     panMq.addEventListener("change", layoutPan);
     window.addEventListener("resize", layoutPan);
@@ -360,116 +502,38 @@
   }
 
   /* ======================================================================
-     Courbe mensuelle : tracée au scroll
+     Méthode : l'étape au centre de l'écran s'allume, le parcours se trace
      ====================================================================== */
-  var curve = document.querySelector("[data-curve]");
-  if (curve) {
-    var svg = curve.querySelector("svg");
-    var num = curve.querySelector("[data-curve-num]");
-    var vals = svg.getAttribute("data-values").split(",").map(Number);
-    var months = svg.getAttribute("data-months").split(",");
-    var NS = "http://www.w3.org/2000/svg";
-    var X0 = 40, X1 = 960, Y0 = 440, Y1 = 40, MIN = 30, MAX = 80;
-    var pts = vals.map(function (v, i) {
-      return [X0 + (X1 - X0) * i / (vals.length - 1), Y0 - (v - MIN) / (MAX - MIN) * (Y0 - Y1)];
-    });
-    function el(name, attrs, parent) {
-      var e = document.createElementNS(NS, name);
-      for (var a in attrs) e.setAttribute(a, attrs[a]);
-      (parent || svg).appendChild(e);
-      return e;
+  var method = document.querySelector("[data-method]");
+  if (method) {
+    var steps = Array.prototype.slice.call(method.querySelectorAll("[data-step]"));
+    var path = method.querySelector("[data-method-path]");
+    var dot = method.querySelector("[data-method-dot]");
+    var plen = path ? path.getTotalLength() : 0;
+    if (path) { path.style.strokeDasharray = plen; path.style.strokeDashoffset = reduce ? 0 : plen; }
+    if (reduce && dot && path) {
+      var endPt = path.getPointAtLength(plen);
+      dot.setAttribute("cx", endPt.x); dot.setAttribute("cy", endPt.y);
     }
-    /* Catmull-Rom → Bézier pour une courbe souple */
-    var d = "M" + pts[0][0] + " " + pts[0][1];
-    for (var i = 0; i < pts.length - 1; i++) {
-      var p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
-      d += " C" + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + " " + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) +
-        " " + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + " " + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) +
-        " " + p2[0] + " " + p2[1];
-    }
-    var defs = el("defs", {});
-    var grad = el("linearGradient", { id: "v5CurveFill", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-    el("stop", { offset: "0", "stop-color": "#11100e", "stop-opacity": ".12" }, grad);
-    el("stop", { offset: "1", "stop-color": "#11100e", "stop-opacity": "0" }, grad);
-    var clip = el("clipPath", { id: "v5CurveClip" }, defs);
-    var clipRect = el("rect", { x: 0, y: 0, width: 0, height: 520 }, clip);
-    [40, 50, 60, 70].forEach(function (v) {
-      var y = Y0 - (v - MIN) / (MAX - MIN) * (Y0 - Y1);
-      el("line", { class: "grid", x1: X0, x2: X1, y1: y, y2: y });
-    });
-    el("path", { class: "area", d: d + " L" + X1 + " " + Y0 + " L" + X0 + " " + Y0 + " Z", "clip-path": "url(#v5CurveClip)" });
-    var line = el("path", { class: "line", d: d });
-    var dots = [], labels = [];
-    pts.forEach(function (p, i) {
-      el("text", { class: "month", x: p[0], y: 500, "text-anchor": "middle" }).textContent = months[i];
-      var lb = el("text", { class: "val", x: p[0], y: p[1] - 22, "text-anchor": "middle" });
-      lb.textContent = vals[i];
-      labels.push(lb);
-      dots.push(el("circle", { class: "dot" + (i === pts.length - 1 ? " is-last" : ""), cx: p[0], cy: p[1], r: 9 }));
-    });
-    var len = line.getTotalLength();
-    line.style.strokeDasharray = len;
-
-    var setCurve = function (p) {
-      line.style.strokeDashoffset = (len * (1 - p)).toFixed(1);
-      clipRect.setAttribute("width", (X0 + (X1 - X0) * p + 10).toFixed(1));
-      var f = p * (vals.length - 1);
-      var idx = Math.floor(f), frac = f - idx;
-      var v = idx >= vals.length - 1 ? vals[vals.length - 1] : lerp(vals[idx], vals[idx + 1], frac);
-      num.textContent = Math.round(v);
-      dots.forEach(function (dt, i) {
-        var on = f >= i - 0.02;
-        dt.classList.toggle("is-on", on);
-        labels[i].classList.toggle("is-on", on);
-      });
-    };
-
-    var curveMq = window.matchMedia("(min-width: 900px) and (min-height: 640px)");
-    var pinned = false;
-    var layoutCurve = function () {
-      pinned = curveMq.matches && !reduce;
-      curve.classList.toggle("is-curve-pin", pinned);
-      curve.style.height = pinned ? "240vh" : "";
-      requestScroll();
-    };
-    if (reduce) setCurve(1);
-    else {
+    if (!reduce) {
       scrollJobs.push(function () {
-        if (!pinned) return;
-        /* la courbe se trace sur les 80 premiers % du parcours épinglé */
-        setCurve(clamp(stickyProgress(curve) / 0.8, 0, 1));
+        var mid = window.innerHeight * 0.55;
+        var best = -1;
+        steps.forEach(function (s, i) {
+          var r = s.getBoundingClientRect();
+          if (r.top < mid) best = i;
+        });
+        steps.forEach(function (s, i) { s.classList.toggle("is-active", i === Math.max(0, best)); });
+        if (path) {
+          var first = steps[0].getBoundingClientRect(), last = steps[steps.length - 1].getBoundingClientRect();
+          var p = clamp((mid - first.top) / Math.max(1, last.bottom - first.top), 0, 1);
+          path.style.strokeDashoffset = (plen * (1 - p)).toFixed(1);
+          var pt = path.getPointAtLength(plen * p);
+          dot.setAttribute("cx", pt.x.toFixed(1)); dot.setAttribute("cy", pt.y.toFixed(1));
+        }
       });
-      /* hors épinglage (mobile) : tracé animé à l'entrée */
-      setCurve(0);
-      new IntersectionObserver(function (en, obs) {
-        if (pinned || !en[0].isIntersecting) return;
-        obs.disconnect();
-        var t0 = null;
-        var tick = function (ts) {
-          if (t0 === null) t0 = ts;
-          var p = clamp((ts - t0) / 2200, 0, 1);
-          setCurve(easeOut(p));
-          if (p < 1 && !pinned) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }, { threshold: 0.35 }).observe(svg);
-      curveMq.addEventListener("change", layoutCurve);
-      layoutCurve();
     }
   }
-
-  /* ======================================================================
-     Méthode : révélation par découpe
-     ====================================================================== */
-  var clips = document.querySelectorAll("[data-clip]");
-  if ("IntersectionObserver" in window && !reduce) {
-    var clipIO = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("is-in"); clipIO.unobserve(en.target); }
-      });
-    }, { rootMargin: "0px 0px -12% 0px" });
-    clips.forEach(function (c) { clipIO.observe(c); });
-  } else clips.forEach(function (c) { c.classList.add("is-in"); });
 
   /* ======================================================================
      Offres : les cartes du dessous reculent quand la suivante arrive
@@ -493,24 +557,27 @@
     });
   }
 
+  /* Pied de page : le mot-symbole monte à l'arrivée */
+  var wordmark = document.querySelector(".footer-wordmark");
+  if (wordmark) onceVisible(wordmark, function (el) { el.classList.add("is-in"); }, "0px");
+
   /* ======================================================================
      Boutons magnétiques + remplissage depuis le point d'entrée
      ====================================================================== */
   if (finePointer && !reduce) {
     document.querySelectorAll("[data-magnetic]").forEach(function (b) {
-      b.addEventListener("pointermove", function (e) {
-        var r = b.getBoundingClientRect();
-        var x = e.clientX - r.left, y = e.clientY - r.top;
-        b.style.setProperty("--mx", ((x - r.width / 2) * 0.18).toFixed(1) + "px");
-        b.style.setProperty("--my", ((y - r.height / 2) * 0.3).toFixed(1) + "px");
-        b.style.setProperty("--cx", x.toFixed(0) + "px");
-        b.style.setProperty("--cy", y.toFixed(0) + "px");
-      });
-      b.addEventListener("pointerenter", function (e) {
+      var place = function (e) {
         var r = b.getBoundingClientRect();
         b.style.setProperty("--cx", (e.clientX - r.left).toFixed(0) + "px");
         b.style.setProperty("--cy", (e.clientY - r.top).toFixed(0) + "px");
+        return r;
+      };
+      b.addEventListener("pointermove", function (e) {
+        var r = place(e);
+        b.style.setProperty("--mx", ((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1) + "px");
+        b.style.setProperty("--my", ((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1) + "px");
       });
+      b.addEventListener("pointerenter", place);
       b.addEventListener("pointerleave", function () {
         b.style.setProperty("--mx", "0px");
         b.style.setProperty("--my", "0px");
