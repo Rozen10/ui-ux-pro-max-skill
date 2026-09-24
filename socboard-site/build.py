@@ -88,6 +88,7 @@ def build(variant=None):
         head = re.sub(r'<meta name="theme-color" content="[^"]*">',
                       f'<meta name="theme-color" content="{cfg["theme"]}">', head)
         head = head.replace('<html lang="fr">', f'<html lang="fr" data-variant="{variant}">')
+        head = head.replace('<meta name="theme-color"', f'<meta name="sb-variant" content="{variant}">\n<meta name="theme-color"', 1)
         (out / "assets" / "js").mkdir(parents=True, exist_ok=True)
         shutil.copy(OUT / "assets" / "js" / "site.js", out / "assets" / "js" / "site.js")
         shutil.copy(OUT / "assets" / "js" / "boot.js", out / "assets" / "js" / "boot.js")
