@@ -384,6 +384,9 @@
     };
     var dGauss = function () { return (rnd() + rnd() + rnd() + rnd() - 2) / 2; };
     var dGrainSize = function () { var r = rnd(); return r < 0.62 ? 1 : r < 0.9 ? 2 : 3; };
+    // Halo (option data-dust-halo) : lumière douce qui accompagne le mote
+    var dHalo = dust.hasAttribute("data-dust-halo");
+    dust.sbMote = mote; // exposé pour que d'autres effets suivent le même nuage
 
     var seedField = function () {
       dField = [];
@@ -518,6 +521,23 @@
         sp.life -= sp.decay * dt;
         if (sp.life <= 0) { dSparks[sI] = dSparks[dSparks.length - 1]; dSparks.pop(); continue; }
         dPush(sp.x, sp.y, sp.s, sp.a * sp.life);
+      }
+
+      // Halo : lueur elliptique orientée comme le mote, qui s'étire avec la vitesse
+      if (dHalo) {
+        var hr = mote.R * 3.4;
+        dctx.save();
+        dctx.translate(mote.x, mote.y);
+        dctx.rotate(mote.ang);
+        dctx.scale(0.8 + 0.45 * mote.stretch, 0.8 / Math.sqrt(mote.stretch));
+        var hg = dctx.createRadialGradient(0, 0, 0, 0, 0, hr);
+        hg.addColorStop(0, "rgba(" + dustRGB + ",0.3)");
+        hg.addColorStop(0.28, "rgba(" + dustRGB + ",0.12)");
+        hg.addColorStop(0.6, "rgba(" + dustRGB + ",0.035)");
+        hg.addColorStop(1, "rgba(" + dustRGB + ",0)");
+        dctx.fillStyle = hg;
+        dctx.fillRect(-hr, -hr, hr * 2, hr * 2);
+        dctx.restore();
       }
 
       // Le mote : ellipse de dGrains, cœur dense, inertie propre à chaque grain

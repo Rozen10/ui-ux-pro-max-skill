@@ -598,3 +598,6 @@ body::after {
   .v5-hide-sm { display: none; }
   .v5-trust { justify-content: flex-start; flex-direction: column; }
 }
+
+/* Nuage « mote » + halo façon jamiemckaye.com, sous le mot-sable */
+.v5-dust { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; --dust-rgb: 236, 224, 202; }

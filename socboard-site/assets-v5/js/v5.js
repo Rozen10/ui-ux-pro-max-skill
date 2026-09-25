@@ -118,6 +118,8 @@
     var LEVELS = [0.38, 0.6, 0.8, 1];
     var RGB = "236, 224, 202";
     var mouse = { x: -9999, y: -9999, vx: 0, vy: 0, on: false };
+    /* Si le hero porte le nuage « mote » (site.js), c'est lui qui souffle le sable */
+    var dustCanvas = host.querySelector("[data-dust]");
     var running = false, visible = false, started = 0, built = false;
     var disperse = 0;
 
@@ -182,7 +184,8 @@
       var box = wordBox();
       var pts = sampleTargets(box);
       N = pts.length / 2;
-      A = Math.round(clamp(W * H / (small ? 2600 : 1700), 180, small ? 420 : 1100));
+      /* pas de poussière d'ambiance en double quand le nuage « mote » est là */
+      A = dustCanvas ? 0 : Math.round(clamp(W * H / (small ? 2600 : 1700), 180, small ? 420 : 1100));
       var T = N + A;
       px = new Float32Array(T); py = new Float32Array(T);
       vx = new Float32Array(T); vy = new Float32Array(T);
@@ -236,8 +239,15 @@
       var s = disperse;
       var T = N + A;
       var mx = mouse.x, my = mouse.y, mon = mouse.on;
-      var R = small ? 70 : 120, R2 = R * R;
+      var R = small ? 70 : 120;
       var mvx = mouse.vx, mvy = mouse.vy;
+      var dm = dustCanvas && dustCanvas.sbMote;
+      if (dm && dm.hasPointer) {
+        mx = dm.x; my = dm.y; mon = true;
+        mvx = dm.vx; mvy = dm.vy;
+        R = Math.max(R, dm.R * 2.2);
+      }
+      var R2 = R * R;
 
       for (var i = 0; i < T; i++) {
         var gx, gy;
