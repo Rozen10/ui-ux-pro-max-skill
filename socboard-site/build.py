@@ -74,6 +74,15 @@ VARIANTS = {
         "base_css": "v4",
         "extra": ["css/v5.css", "js/v5.js"],
     },
+    # V6 : refonte claire inspirée de finseo.ai, sur la base du CSS principal (V2).
+    # « v5:js/v5.js » réutilise le moteur d'animations de la V5 (sable, titres…).
+    "v6": {
+        "fonts": "https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap",
+        "theme": "#f7f6f3",
+        "base_css": "main",
+        "extra": ["css/v6.css", "v5:js/v5.js"],
+        "before_header": "partials/v6-announce.html",
+    },
 }
 
 
@@ -95,10 +104,11 @@ def build(variant=None):
         shutil.copy(OUT / "assets" / "favicon.svg", out / "assets" / "favicon.svg")
         if cfg.get("base_css"):
             (out / "assets" / "css").mkdir(parents=True, exist_ok=True)
-            shutil.copy(ROOT / f"public-{cfg['base_css']}" / "assets" / "css" / "site.css",
-                        out / "assets" / "css" / "site.css")
+            base = OUT if cfg["base_css"] == "main" else ROOT / f"public-{cfg['base_css']}"
+            shutil.copy(base / "assets" / "css" / "site.css", out / "assets" / "css" / "site.css")
         for rel in cfg.get("extra", []):
-            src = ROOT / f"assets-{variant}" / rel
+            src_variant, _, rel = rel.rpartition(":")
+            src = ROOT / f"assets-{src_variant or variant}" / rel
             (out / "assets" / rel).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(src, out / "assets" / rel)
             if rel.endswith(".css"):
@@ -120,6 +130,8 @@ def build(variant=None):
                  .replace("{{description}}", meta.get("description", ""))
                  .replace("{{canonical}}", canonical))
         nav = header.replace(f'<a href="{name}">', f'<a href="{name}" aria-current="page">')
+        if variant and VARIANTS[variant].get("before_header"):
+            nav = (ROOT / VARIANTS[variant]["before_header"]).read_text(encoding="utf-8") + nav
         foot = footer
         if meta.get("ctabar") == "no":
             foot = re.sub(r'<div class="cta-bar".*?</div>\n', "", foot, count=1, flags=re.S)
@@ -132,6 +144,7 @@ def build(variant=None):
         body = split_words(body)
         if variant:
             for rel in VARIANTS[variant].get("extra", []):
+                rel = rel.rpartition(":")[2]
                 if rel.endswith(".js"):
                     foot = foot.replace("</body>", f'<script src="assets/{rel}" defer></script>\n</body>')
         html = f'{h}{nav}<main id="contenu">\n{body.rstrip()}\n</main>\n{foot}'

@@ -36,3 +36,9 @@ Déploiement : publier le dossier `public/` tel quel (Netlify, Vercel, Cloudflar
   scroll, cartes d'offres empilées, boutons magnétiques. Reprend le CSS de la V4
   (copié au build) + `assets-v5/css/v5.css` et `assets-v5/js/v5.js` ; page d'accueil dans
   `pages-v5/index.html`. Tout est statique avec `prefers-reduced-motion`.
+- `public-v6/` : refonte intégrale claire, inspirée de finseo.ai (blanc cassé, encre, cadre
+  pointillé, hero centré en deux tons, rapport en grand panneau sombre, bento, tarifs en
+  3 colonnes). Textes inchangés. CSS : base principale (V2) copiée au build +
+  `assets-v6/css/v6.css` ; animations : moteur `assets-v5/js/v5.js` réutilisé ;
+  accueil dans `pages-v6/index.html`, bandeau d'annonce dans `partials/v6-announce.html`,
+  graphique du rapport dans `partials/v6-lines.svg`.

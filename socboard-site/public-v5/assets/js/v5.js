@@ -116,7 +116,8 @@
     var px, py, vx, vy, tx, ty, k, sz, ph, dl, sh, jx, jy;
     var order = [];                    // indices triés par teinte
     var LEVELS = [0.38, 0.6, 0.8, 1];
-    var RGB = "236, 224, 202";
+    /* couleur des grains : --sand-rgb sur le canvas (beige par défaut) */
+    var RGB = (getComputedStyle(canvas).getPropertyValue("--sand-rgb") || "").trim() || "236, 224, 202";
     var mouse = { x: -9999, y: -9999, vx: 0, vy: 0, on: false };
     /* Si le hero porte le nuage « mote » (site.js), c'est lui qui souffle le sable */
     var dustCanvas = host.querySelector("[data-dust]");
@@ -185,7 +186,7 @@
       var pts = sampleTargets(box);
       N = pts.length / 2;
       /* pas de poussière d'ambiance en double quand le nuage « mote » est là */
-      A = dustCanvas ? 0 : Math.round(clamp(W * H / (small ? 2600 : 1700), 180, small ? 420 : 1100));
+      A = (dustCanvas || canvas.hasAttribute("data-sand-calm")) ? 0 : Math.round(clamp(W * H / (small ? 2600 : 1700), 180, small ? 420 : 1100));
       var T = N + A;
       px = new Float32Array(T); py = new Float32Array(T);
       vx = new Float32Array(T); vy = new Float32Array(T);

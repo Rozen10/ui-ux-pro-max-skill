@@ -1,0 +1,60 @@
+<svg class="v6-lines" viewBox="0 0 600 230" aria-hidden="true">
+<line class="v6-lines__grid" x1="0" x2="600" y1="196.0" y2="196.0"/>
+<line class="v6-lines__grid" x1="0" x2="600" y1="111.0" y2="111.0"/>
+<line class="v6-lines__grid" x1="0" x2="600" y1="26.0" y2="26.0"/>
+<line class="v6-lines__l" style="--i:0" x1="12.2" x2="12.2" y1="196" y2="108.3"/>
+<line class="v6-lines__l" style="--i:1" x1="24.5" x2="24.5" y1="196" y2="108.8"/>
+<line class="v6-lines__l" style="--i:2" x1="36.7" x2="36.7" y1="196" y2="106.2"/>
+<line class="v6-lines__l" style="--i:3" x1="49.0" x2="49.0" y1="196" y2="107.8"/>
+<line class="v6-lines__l" style="--i:4" x1="61.2" x2="61.2" y1="196" y2="104.9"/>
+<line class="v6-lines__l" style="--i:5" x1="73.5" x2="73.5" y1="196" y2="104.6"/>
+<line class="v6-lines__l" style="--i:6" x1="85.7" x2="85.7" y1="196" y2="105.1"/>
+<line class="v6-lines__l" style="--i:7" x1="98.0" x2="98.0" y1="196" y2="102.7"/>
+<line class="v6-lines__l" style="--i:8" x1="110.2" x2="110.2" y1="196" y2="104.4"/>
+<line class="v6-lines__l" style="--i:9" x1="122.4" x2="122.4" y1="196" y2="102.6"/>
+<line class="v6-lines__l" style="--i:10" x1="134.7" x2="134.7" y1="196" y2="103.8"/>
+<line class="v6-lines__l" style="--i:11" x1="146.9" x2="146.9" y1="196" y2="103.1"/>
+<line class="v6-lines__l" style="--i:12" x1="159.2" x2="159.2" y1="196" y2="101.1"/>
+<line class="v6-lines__l" style="--i:13" x1="171.4" x2="171.4" y1="196" y2="98.8"/>
+<line class="v6-lines__l" style="--i:14" x1="183.7" x2="183.7" y1="196" y2="101.1"/>
+<line class="v6-lines__l" style="--i:15" x1="195.9" x2="195.9" y1="196" y2="100.4"/>
+<line class="v6-lines__l" style="--i:16" x1="208.2" x2="208.2" y1="196" y2="98.6"/>
+<line class="v6-lines__l" style="--i:17" x1="220.4" x2="220.4" y1="196" y2="97.3"/>
+<line class="v6-lines__l" style="--i:18" x1="232.7" x2="232.7" y1="196" y2="99.0"/>
+<line class="v6-lines__l" style="--i:19" x1="244.9" x2="244.9" y1="196" y2="100.0"/>
+<line class="v6-lines__l" style="--i:20" x1="257.1" x2="257.1" y1="196" y2="98.0"/>
+<line class="v6-lines__l" style="--i:21" x1="269.4" x2="269.4" y1="196" y2="102.1"/>
+<line class="v6-lines__l" style="--i:22" x1="281.6" x2="281.6" y1="196" y2="99.1"/>
+<line class="v6-lines__l" style="--i:23" x1="293.9" x2="293.9" y1="196" y2="101.6"/>
+<line class="v6-lines__l" style="--i:24" x1="306.1" x2="306.1" y1="196" y2="102.3"/>
+<line class="v6-lines__l" style="--i:25" x1="318.4" x2="318.4" y1="196" y2="102.2"/>
+<line class="v6-lines__l" style="--i:26" x1="330.6" x2="330.6" y1="196" y2="100.8"/>
+<line class="v6-lines__l" style="--i:27" x1="342.9" x2="342.9" y1="196" y2="97.9"/>
+<line class="v6-lines__l" style="--i:28" x1="355.1" x2="355.1" y1="196" y2="99.6"/>
+<line class="v6-lines__l" style="--i:29" x1="367.3" x2="367.3" y1="196" y2="96.9"/>
+<line class="v6-lines__l" style="--i:30" x1="379.6" x2="379.6" y1="196" y2="95.9"/>
+<line class="v6-lines__l" style="--i:31" x1="391.8" x2="391.8" y1="196" y2="96.4"/>
+<line class="v6-lines__l" style="--i:32" x1="404.1" x2="404.1" y1="196" y2="95.5"/>
+<line class="v6-lines__l" style="--i:33" x1="416.3" x2="416.3" y1="196" y2="96.9"/>
+<line class="v6-lines__l" style="--i:34" x1="428.6" x2="428.6" y1="196" y2="95.3"/>
+<line class="v6-lines__l" style="--i:35" x1="440.8" x2="440.8" y1="196" y2="92.2"/>
+<line class="v6-lines__l" style="--i:36" x1="453.1" x2="453.1" y1="196" y2="87.3"/>
+<line class="v6-lines__l" style="--i:37" x1="465.3" x2="465.3" y1="196" y2="85.4"/>
+<line class="v6-lines__l" style="--i:38" x1="477.6" x2="477.6" y1="196" y2="83.4"/>
+<line class="v6-lines__l" style="--i:39" x1="489.8" x2="489.8" y1="196" y2="80.6"/>
+<line class="v6-lines__l is-now" style="--i:40" x1="502.0" x2="502.0" y1="196" y2="80.6"/>
+<line class="v6-lines__l is-now" style="--i:41" x1="514.3" x2="514.3" y1="196" y2="81.2"/>
+<line class="v6-lines__l is-now" style="--i:42" x1="526.5" x2="526.5" y1="196" y2="79.2"/>
+<line class="v6-lines__l is-now" style="--i:43" x1="538.8" x2="538.8" y1="196" y2="79.6"/>
+<line class="v6-lines__l is-now" style="--i:44" x1="551.0" x2="551.0" y1="196" y2="81.4"/>
+<line class="v6-lines__l is-now" style="--i:45" x1="563.3" x2="563.3" y1="196" y2="80.1"/>
+<line class="v6-lines__l is-now" style="--i:46" x1="575.5" x2="575.5" y1="196" y2="80.3"/>
+<line class="v6-lines__l is-now" style="--i:47" x1="587.8" x2="587.8" y1="196" y2="80.4"/>
+<text class="v6-lines__m" x="55.1" y="222" text-anchor="middle">Mai</text>
+<text class="v6-lines__m" x="153.1" y="222" text-anchor="middle">Juin</text>
+<text class="v6-lines__m" x="251.0" y="222" text-anchor="middle">Juil.</text>
+<text class="v6-lines__m" x="349.0" y="222" text-anchor="middle">Août</text>
+<text class="v6-lines__m" x="446.9" y="222" text-anchor="middle">Sept.</text>
+<text class="v6-lines__m" x="544.9" y="222" text-anchor="middle">Oct.</text>
+<circle class="v6-lines__dot" cx="587.8" cy="80.4" r="5"/>
+</svg>
