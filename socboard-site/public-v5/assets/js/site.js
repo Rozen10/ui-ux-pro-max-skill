@@ -712,9 +712,11 @@
     // état initial avant animation
     if (gauge) gauge.style.strokeDashoffset = gauge.getAttribute("data-length");
     counters.forEach(function (el) { el.textContent = "0"; });
+    // on attend que le rapport soit vraiment sous les yeux : son haut doit avoir
+    // dépassé 40 % de la hauteur de l'écran (pas seulement dépasser en bas)
     var io = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting) { goLive(); io.disconnect(); }
-    }, { threshold: 0, rootMargin: "0px 0px -30% 0px" });
+    }, { threshold: 0, rootMargin: "0px 0px -60% 0px" });
     io.observe(report);
   });
 
