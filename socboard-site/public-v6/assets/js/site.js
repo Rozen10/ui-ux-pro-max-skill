@@ -6,6 +6,9 @@
   doc.classList.add("js");
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  /* Langue de la page (<html lang>) : textes générés en français ou en anglais */
+  var EN = (doc.getAttribute("lang") || "").slice(0, 2) === "en";
+  function t(fr, en) { return EN ? en : fr; }
   var hasIO = "IntersectionObserver" in window;
 
   function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
@@ -24,7 +27,7 @@
   if (menuBtn && mobileNav) {
     var setMenu = function (open) {
       menuBtn.setAttribute("aria-expanded", String(open));
-      menuBtn.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+      menuBtn.setAttribute("aria-label", open ? t("Fermer le menu", "Close menu") : t("Ouvrir le menu", "Open menu"));
       mobileNav.hidden = !open;
       document.body.style.overflow = open ? "hidden" : "";
     };
@@ -752,7 +755,7 @@
         el.innerHTML = el.getAttribute("data-note-" + mode);
       });
       var live = document.querySelector("[data-billing-live]");
-      if (live) live.textContent = mode === "annual" ? "Tarifs affichés : engagement annuel." : "Tarifs affichés : sans engagement, au mois.";
+      if (live) live.textContent = mode === "annual" ? t("Tarifs affichés : engagement annuel.", "Prices shown: annual commitment.") : t("Tarifs affichés : sans engagement, au mois.", "Prices shown: no commitment, monthly.");
     };
     btns.forEach(function (b) {
       b.addEventListener("click", function () { apply(b.dataset.mode, true); });
@@ -769,7 +772,7 @@
     if (query.get("objet") === "rdv") document.getElementById("objet-rdv").checked = true;
     var offer = query.get("offre");
     var messageField = document.getElementById("message");
-    if (offer && messageField) messageField.value = "Offre envisagée : " + (offer === "shield" ? "Shield" : "Radar") + "\n";
+    if (offer && messageField) messageField.value = t("Offre envisagée : ", "Plan considered: ") + (offer === "shield" ? "Shield" : "Radar") + "\n";
   }
   var form = document.querySelector("[data-contact-form]");
   if (form) {
@@ -780,8 +783,8 @@
       if (err) { err.textContent = msg || ""; err.hidden = !msg; }
     };
     var check = function (input) {
-      if (input.validity.valueMissing) return "Ce champ est nécessaire pour vous recontacter.";
-      if (input.validity.typeMismatch) return "Vérifiez l’adresse e-mail (exemple : nom@entreprise.fr).";
+      if (input.validity.valueMissing) return t("Ce champ est nécessaire pour vous recontacter.", "We need this field to get back to you.");
+      if (input.validity.typeMismatch) return t("Vérifiez l’adresse e-mail (exemple : nom@entreprise.fr).", "Please check the email address (for example: name@company.com).");
       return "";
     };
     form.querySelectorAll("input[required], select[required]").forEach(function (input) {
@@ -805,8 +808,9 @@
       var submitBtn = form.querySelector('button[type="submit"]');
       var say = function (message) { status.textContent = message; status.hidden = false; status.focus(); };
       var controller = new AbortController();
+      var submitLabel = submitBtn.textContent;
       submitBtn.disabled = true;
-      submitBtn.textContent = "Envoi en cours…";
+      submitBtn.textContent = t("Envoi en cours…", "Sending…");
       var timeout = window.setTimeout(function () { controller.abort(); }, 9000);
       fetch("/api/contact", {
         method: "POST",
@@ -818,19 +822,23 @@
       })
         .then(function (r) {
           return r.json().catch(function () { return {}; }).then(function (payload) {
-            if (!r.ok) throw new Error(payload.error || "L’envoi n’a pas abouti.");
+            if (!r.ok) {
+              /* l'API répond en français : en anglais, message selon le code HTTP */
+              var enErrors = { 400: "Please check the required fields of the form.", 403: "This request is not allowed.", 413: "Your request is too long.", 415: "Unsupported request format.", 429: "Too many requests. Please try again in a few minutes.", 503: "The sending service is not configured yet." };
+              throw new Error(EN ? (enErrors[r.status] || "Sending failed. Please try again in a moment.") : (payload.error || "L’envoi n’a pas abouti."));
+            }
             form.reset();
-            say("Demande envoyée. Notre équipe vous répond sous un jour ouvré.");
+            say(t("Demande envoyée. Notre équipe vous répond sous un jour ouvré.", "Request sent. Our team will reply within one business day."));
           });
         })
         .catch(function (error) {
-          var message = error.name === "AbortError" ? "L’envoi prend trop de temps. Réessayez ou écrivez à contact@socboard.fr." : (error.message || "L’envoi n’a pas abouti. Réessayez ou écrivez à contact@socboard.fr.");
+          var message = error.name === "AbortError" ? t("L’envoi prend trop de temps. Réessayez ou écrivez à contact@socboard.fr.", "Sending is taking too long. Please try again or email contact@socboard.fr.") : (error.message || t("L’envoi n’a pas abouti. Réessayez ou écrivez à contact@socboard.fr.", "Sending failed. Please try again or email contact@socboard.fr."));
           say(message);
         })
         .finally(function () {
           window.clearTimeout(timeout);
           submitBtn.disabled = false;
-          submitBtn.textContent = "Envoyer ma demande";
+          submitBtn.textContent = submitLabel;
         });
     });
   }
@@ -841,7 +849,7 @@
       var text = btn.getAttribute("data-copy");
       var done = function () {
         var prev = btn.textContent;
-        btn.textContent = "Copié";
+        btn.textContent = t("Copié", "Copied");
         setTimeout(function () { btn.textContent = prev; }, 1600);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {

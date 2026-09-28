@@ -82,16 +82,101 @@ VARIANTS = {
         "base_css": "main",
         "extra": ["css/v6.css", "v5:js/v5.js"],
         "before_header": "partials/v6-announce.html",
+        "en": True,
     },
 }
+
+
+# Version anglaise (V6) : pages-<variante>-en/ -> public-<variante>/en/, adresses en anglais.
+EN_SLUGS = {
+    "index.html": "index.html",
+    "comment-ca-marche.html": "how-it-works.html",
+    "pour-qui.html": "who-its-for.html",
+    "tarifs.html": "pricing.html",
+    "a-propos.html": "about.html",
+    "faq.html": "faq.html",
+    "contact.html": "contact.html",
+    "mentions-legales.html": "legal-notice.html",
+}
+SITE = "https://socboard.fr/"
+
+
+def lang_links(name, lang, bilingual):
+    """Sélecteur FR/EN (en-tête + menu mobile) et balises hreflang pour la page `name` (nom français)."""
+    if not bilingual:
+        return "", "", ""
+    fr_url = "" if name == "index.html" else name
+    en_url = "en/" + ("" if name == "index.html" else EN_SLUGS[name])
+    alternates = (f'<link rel="alternate" hreflang="fr" href="{SITE}{fr_url}">\n'
+                  f'<link rel="alternate" hreflang="en" href="{SITE}{en_url}">\n'
+                  f'<link rel="alternate" hreflang="x-default" href="{SITE}{fr_url}">\n')
+    if lang == "fr":
+        href = "en/" + EN_SLUGS[name]
+        switch = f'<a class="lang-switch" href="{href}" hreflang="en" lang="en" aria-label="English version">EN</a>'
+        mobile = f'<a class="lang-switch--mobile" href="{href}" hreflang="en" lang="en">English</a>'
+    else:
+        href = "../" + name
+        switch = f'<a class="lang-switch" href="{href}" hreflang="fr" lang="fr" aria-label="Version française">FR</a>'
+        mobile = f'<a class="lang-switch--mobile" href="{href}" hreflang="fr" lang="fr">Français</a>'
+    return switch, mobile, alternates
+
+
+def render(out, pages, head, header, footer, variant, lang="fr"):
+    cfg = VARIANTS.get(variant, {}) if variant else {}
+    bilingual = bool(cfg.get("en"))
+    for page, name in pages:
+        meta, body = parse(page.read_text(encoding="utf-8"))
+        out_name = EN_SLUGS[name] if lang == "en" else name
+        if lang == "en":
+            canonical = "en/" + ("" if name == "index.html" else out_name)
+        else:
+            canonical = "" if name == "index.html" else name
+        switch, mobile, alternates = lang_links(name, lang, bilingual)
+
+        h = (head.replace("{{title}}", meta.get("title", "SOCBoard"))
+                 .replace("{{description}}", meta.get("description", ""))
+                 .replace("{{canonical}}", canonical))
+        if alternates:
+            h = h.replace('<link rel="icon"', alternates + '<link rel="icon"', 1)
+        nav = header.replace(f'<a href="{name}">', f'<a href="{name}" aria-current="page">')
+        nav = nav.replace("{{lang}}", switch).replace("{{lang_mobile}}", mobile)
+        before = cfg.get("before_header")
+        if before:
+            if lang == "en":
+                before = before.replace(".html", "-en.html")
+            nav = (ROOT / before).read_text(encoding="utf-8") + nav
+        foot = footer
+        if meta.get("ctabar") == "no":
+            foot = re.sub(r'<div class="cta-bar".*?</div>\n', "", foot, count=1, flags=re.S)
+
+        body = body.replace("{{check}}", CHECK).replace("{{arrow}}", ARROW)
+        for part in re.findall(r"\{\{partial:([\w.-]+)\}\}", body):
+            body = body.replace("{{partial:%s}}" % part, (PARTIALS / part).read_text(encoding="utf-8"))
+        if "{{bars}}" in body:
+            body = body.replace("{{bars}}", (PARTIALS / "report-bars.svg").read_text(encoding="utf-8"))
+        body = split_words(body)
+        if variant:
+            for rel in cfg.get("extra", []):
+                rel = rel.rpartition(":")[2]
+                if rel.endswith(".js"):
+                    foot = foot.replace("</body>", f'<script src="assets/{rel}" defer></script>\n</body>')
+        html = f'{h}{nav}<main id="contenu">\n{body.rstrip()}\n</main>\n{foot}'
+        if lang == "en":
+            # pages anglaises dans en/ : ressources un niveau plus haut, liens internes vers les adresses anglaises
+            html = re.sub(r'(href|src)="assets/', r'\1="../assets/', html)
+            for fr, en in EN_SLUGS.items():
+                html = re.sub(r'href="%s([?#"])' % re.escape(fr), r'href="%s\1' % en, html)
+            html = html.replace('href="../' + EN_SLUGS[name] + '"', 'href="../' + name + '"')
+        (out / out_name).write_text(html, encoding="utf-8")
+        print("  ", (out.parent.name + "/en/" if lang == "en" else out.name + "/") + out_name)
 
 
 def build(variant=None):
     out = OUT if variant is None else ROOT / f"public-{variant}"
     overrides = None if variant is None else ROOT / f"pages-{variant}"
     head = (PARTIALS / "head.html").read_text(encoding="utf-8")
+    cfg = VARIANTS[variant] if variant else {}
     if variant:
-        cfg = VARIANTS[variant]
         head = re.sub(r'<link rel="stylesheet" href="https://fonts.googleapis.com[^"]*">',
                       f'<link rel="stylesheet" href="{cfg["fonts"]}">', head)
         head = re.sub(r'<meta name="theme-color" content="[^"]*">',
@@ -119,37 +204,22 @@ def build(variant=None):
     header = (PARTIALS / "header.html").read_text(encoding="utf-8")
     footer = (PARTIALS / "footer.html").read_text(encoding="utf-8")
 
+    pages = []
     for page in sorted(PAGES.glob("*.html")):
-        if overrides and (overrides / page.name).exists():
-            page = overrides / page.name
-        meta, body = parse(page.read_text(encoding="utf-8"))
         name = page.name
-        canonical = "" if name == "index.html" else name
+        if overrides and (overrides / name).exists():
+            page = overrides / name
+        pages.append((page, name))
+    render(out, pages, head, header, footer, variant)
 
-        h = (head.replace("{{title}}", meta.get("title", "SOCBoard"))
-                 .replace("{{description}}", meta.get("description", ""))
-                 .replace("{{canonical}}", canonical))
-        nav = header.replace(f'<a href="{name}">', f'<a href="{name}" aria-current="page">')
-        if variant and VARIANTS[variant].get("before_header"):
-            nav = (ROOT / VARIANTS[variant]["before_header"]).read_text(encoding="utf-8") + nav
-        foot = footer
-        if meta.get("ctabar") == "no":
-            foot = re.sub(r'<div class="cta-bar".*?</div>\n', "", foot, count=1, flags=re.S)
-
-        body = body.replace("{{check}}", CHECK).replace("{{arrow}}", ARROW)
-        for part in re.findall(r"\{\{partial:([\w.-]+)\}\}", body):
-            body = body.replace("{{partial:%s}}" % part, (PARTIALS / part).read_text(encoding="utf-8"))
-        if "{{bars}}" in body:
-            body = body.replace("{{bars}}", (PARTIALS / "report-bars.svg").read_text(encoding="utf-8"))
-        body = split_words(body)
-        if variant:
-            for rel in VARIANTS[variant].get("extra", []):
-                rel = rel.rpartition(":")[2]
-                if rel.endswith(".js"):
-                    foot = foot.replace("</body>", f'<script src="assets/{rel}" defer></script>\n</body>')
-        html = f'{h}{nav}<main id="contenu">\n{body.rstrip()}\n</main>\n{foot}'
-        (out / name).write_text(html, encoding="utf-8")
-        print("  ", out.name + "/" + name)
+    if cfg.get("en"):
+        en_dir = ROOT / f"pages-{variant}-en"
+        (out / "en").mkdir(exist_ok=True)
+        head_en = (head.replace('<html lang="fr"', '<html lang="en"')
+                       .replace('content="fr_FR"', 'content="en_GB"'))
+        render(out / "en", [(en_dir / n, n) for n in sorted(EN_SLUGS) if (en_dir / n).exists()],
+               head_en, (PARTIALS / "header-en.html").read_text(encoding="utf-8"),
+               (PARTIALS / "footer-en.html").read_text(encoding="utf-8"), variant, lang="en")
 
 
 if __name__ == "__main__":

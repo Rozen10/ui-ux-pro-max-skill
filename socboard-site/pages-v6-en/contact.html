@@ -1,0 +1,97 @@
+<!--
+title: Request a Diagnostic · SOCBoard
+description: Request your cybersecurity Diagnostic (€690, deducted from your first month) or a first 20-minute call with our team. Reply within one business day.
+ctabar: no
+-->
+<section class="page-hero grid-lines" style="padding-bottom:32px">
+  <div class="wrap page-hero__grid">
+    <p class="eyebrow">Contact</p>
+    <h1 class="display">Request <em>a Diagnostic.</em></h1>
+    <p class="lead">A few details are enough. Our team replies within one business day to arrange a first 20-minute call.</p>
+  </div>
+</section>
+
+<section class="section section--tight" style="border-top:0;padding-top:0" aria-label="Request form">
+  <div class="wrap split">
+    <form class="form" data-contact-form novalidate>
+      <div class="form__trap" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <fieldset class="field">
+        <legend>Your request</legend>
+        <div class="choice-group" style="margin-top:8px">
+          <label class="choice"><input type="radio" name="Objet" id="objet-diag" value="Diagnostic" checked><span>Diagnostic<small>€690 excl. VAT, launch price</small></span></label>
+          <label class="choice"><input type="radio" name="Objet" id="objet-rdv" value="Premier échange"><span>First call<small>20 min, no commitment</small></span></label>
+          <label class="choice"><input type="radio" name="Objet" id="objet-question" value="Question"><span>A question<small>Reply by email</small></span></label>
+        </div>
+      </fieldset>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="nom">Full name</label>
+          <input id="nom" name="Nom" type="text" autocomplete="name" required aria-describedby="nom-error">
+          <p class="error" id="nom-error" hidden></p>
+        </div>
+        <div class="field">
+          <label for="entreprise">Company</label>
+          <input id="entreprise" name="Entreprise" type="text" autocomplete="organization" required aria-describedby="entreprise-error">
+          <p class="error" id="entreprise-error" hidden></p>
+        </div>
+      </div>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="email">Work email</label>
+          <input id="email" name="E-mail" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-error">
+          <p class="error" id="email-error" hidden></p>
+        </div>
+        <div class="field">
+          <label for="tel">Phone <span class="hint">(optional)</span></label>
+          <input id="tel" name="Téléphone" type="tel" autocomplete="tel" inputmode="tel">
+        </div>
+      </div>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="secteur">Industry <span class="hint">(optional)</span></label>
+          <input id="secteur" name="Secteur" type="text" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="taille">Number of employees</label>
+          <select id="taille" name="Effectif">
+            <option value="">Choose…</option>
+            <option value="Moins de 10">Fewer than 10</option>
+            <option value="10 à 49">10 to 49</option>
+            <option value="50 à 200">50 to 200</option>
+            <option value="Plus de 200">More than 200</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="message">Context <span class="hint">(optional)</span></label>
+        <textarea id="message" name="Message" rows="4" aria-describedby="message-hint"></textarea>
+        <p class="hint" id="message-hint">A particular concern, a request from a client or an insurer, your IT provider…</p>
+      </div>
+
+      <div class="form__status" role="status" tabindex="-1" hidden></div>
+
+      <button class="btn btn--primary" type="submit" style="justify-self:start">Send my request</button>
+      <p class="form__legal">Your information is used only to answer your request. It is never sold or used for marketing.</p>
+    </form>
+
+    <aside class="contact-aside">
+      <div class="contact-card">
+        <h2>What happens next</h2>
+        <ol class="timeline" style="margin-top:8px">
+          <li><b>Within one business day</b><span>Our team replies and suggests a time slot.</span></li>
+          <li><b>First call, 20 min</b><span>Your situation, your questions, no commitment.</span></li>
+          <li><b>Written proposal</b><span>Diagnostic scope and confidentiality agreement.</span></li>
+        </ol>
+      </div>
+      <div class="contact-card">
+        <h2>By email</h2>
+        <div class="copy-line"><code>contact@socboard.fr</code><button class="copy-btn" type="button" data-copy="contact@socboard.fr">Copy</button></div>
+        <p class="muted" style="font-size:.875rem">France and French-speaking Switzerland · support in French, remotely.</p>
+      </div>
+    </aside>
+  </div>
+</section>

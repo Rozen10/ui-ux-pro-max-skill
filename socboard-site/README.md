@@ -42,3 +42,14 @@ Déploiement : publier le dossier `public/` tel quel (Netlify, Vercel, Cloudflar
   `assets-v6/css/v6.css` ; animations : moteur `assets-v5/js/v5.js` réutilisé ;
   accueil dans `pages-v6/index.html`, bandeau d'annonce dans `partials/v6-announce.html`,
   graphique du rapport dans `partials/v6-lines.svg`.
+
+## Version anglaise (V6)
+
+- Pages sources : `pages-v6-en/` (mêmes noms de fichiers que les pages françaises).
+- Générées dans `public-v6/en/` avec des adresses anglaises (`EN_SLUGS` dans build.py :
+  `pricing.html`, `how-it-works.html`, `who-its-for.html`, `about.html`, `legal-notice.html`…).
+- En-tête, pied de page, bandeau et graphique : `partials/*-en.*`.
+- Sélecteur FR/EN dans l'en-tête et le menu mobile, vers la page équivalente ;
+  balises `hreflang` (fr, en, x-default) sur chaque page.
+- Textes générés par le JavaScript (formulaire, copie, tarifs) : choisis selon `<html lang>`.
+- Le formulaire anglais envoie les mêmes champs et valeurs que le français : l'e-mail reçu est identique.

@@ -594,3 +594,23 @@ main, .site-footer { position: relative; z-index: 1; }
   .final__side .btn { justify-content: space-between; text-align: left; }
   .btn__meta { white-space: nowrap; }
 }
+
+/* ---------- Sélecteur de langue FR / EN ---------- */
+.lang-switch {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  height: 42px;
+  padding: 0 10px;
+  border-radius: 3px;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: #111110;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: border-color .25s, background-color .25s;
+}
+.lang-switch:hover { border-color: #111110; background: #fff; }
+.mobile-nav .lang-switch--mobile { font-family: var(--font-mono); font-size: 1rem; letter-spacing: 0.06em; color: var(--muted); text-decoration: none; padding: 12px 0; }
