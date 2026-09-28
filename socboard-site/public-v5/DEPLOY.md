@@ -1,5 +1,18 @@
 # Mise en production du formulaire SOCBoard
 
+## Déployer le site sur Vercel (V6)
+
+1. Sur vercel.com : **Add New → Project**, importer le dépôt GitHub `rozen10/ui-ux-pro-max-skill`.
+2. **Root Directory** : `socboard-site/public-v6`. **Framework Preset** : `Other`.
+   Laisser vides la commande de build et le dossier de sortie : le dossier est déjà généré.
+3. Ajouter les variables d'environnement ci-dessous, puis **Deploy**.
+4. La branche de travail est `claude/install-ui-ux-pro-max-skill-7nax5f` : Vercel en fait un
+   déploiement de prévisualisation. Pour la production, soit fusionner cette branche dans `main`,
+   soit choisir cette branche dans **Settings → Git → Production Branch**.
+5. Domaine : **Settings → Domains**, ajouter `socboard.fr` et `www.socboard.fr`.
+
+Après toute modification des sources, lancer `python3 build.py` et committer `public-v6/`.
+
 Le formulaire s’envoie à `/api/contact`, fonction Vercel qui transmet la demande à Resend. Aucun secret d’envoi n’est placé dans le navigateur.
 
 ## Configuration Vercel

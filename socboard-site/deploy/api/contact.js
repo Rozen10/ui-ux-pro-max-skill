@@ -46,7 +46,10 @@ export default async function handler(req, res) {
     "https://socboard.fr",
     "https://www.socboard.fr",
     ...(process.env.SITE_ORIGIN ? [process.env.SITE_ORIGIN] : []),
-    ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : [])
+    // adresses fournies par Vercel : déploiement, branche et domaine de production du projet
+    ...["VERCEL_URL", "VERCEL_BRANCH_URL", "VERCEL_PROJECT_PRODUCTION_URL"]
+      .filter((key) => process.env[key])
+      .map((key) => `https://${process.env[key]}`)
   ]);
   if (!origin || !allowedOrigins.has(origin)) {
     return respond(res, 403, { error: "Origine non autorisée." });
